@@ -16,6 +16,7 @@
 		022DDE5D299F2F6800702B87 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE5C299F2F6800702B87 /* Moya */; };
 		022DDE5F299F2F6800702B87 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE5E299F2F6800702B87 /* ReactiveMoya */; };
 		022DDE61299F2F6800702B87 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE60299F2F6800702B87 /* RxMoya */; };
+		022DDE64299F4B8700702B87 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE63299F4B8700702B87 /* Then */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				022DDE64299F4B8700702B87 /* Then in Frameworks */,
 				022DDE61299F2F6800702B87 /* RxMoya in Frameworks */,
 				022DDE56299F2F3000702B87 /* SnapKit in Frameworks */,
 				022DDE5D299F2F6800702B87 /* Moya in Frameworks */,
@@ -93,6 +95,7 @@
 				022DDE5C299F2F6800702B87 /* Moya */,
 				022DDE5E299F2F6800702B87 /* ReactiveMoya */,
 				022DDE60299F2F6800702B87 /* RxMoya */,
+				022DDE63299F4B8700702B87 /* Then */,
 			);
 			productName = Balanssu;
 			productReference = 022DDE3D299F2F0D00702B87 /* Balanssu.app */;
@@ -125,6 +128,7 @@
 			packageReferences = (
 				022DDE54299F2F3000702B87 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				022DDE59299F2F6800702B87 /* XCRemoteSwiftPackageReference "Moya" */,
+				022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 022DDE3E299F2F0D00702B87 /* Products */;
 			projectDirPath = "";
@@ -382,6 +386,14 @@
 				kind = branch;
 			};
 		};
+		022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -404,6 +416,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 022DDE59299F2F6800702B87 /* XCRemoteSwiftPackageReference "Moya" */;
 			productName = RxMoya;
+		};
+		022DDE63299F4B8700702B87 /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
