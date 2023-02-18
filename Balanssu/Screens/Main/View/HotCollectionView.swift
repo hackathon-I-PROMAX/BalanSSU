@@ -13,6 +13,18 @@ import Then
 
 class HotCollectionView: UITableViewCell {
     
+    private enum Size {
+        static let collectionHorizontalSpacing: CGFloat = 12
+        static let collectionVerticalSpacing: CGFloat = 0
+        static let cellWidth: CGFloat = 148
+        static let cellHeight: CGFloat = 200
+        static let collectionInsets = UIEdgeInsets(
+            top: collectionVerticalSpacing,
+            left: collectionHorizontalSpacing,
+            bottom: collectionVerticalSpacing,
+            right: collectionHorizontalSpacing)
+    }
+    
     static let identifier = "HotCollectionView"
     
     let hotImageArray: [UIImage] = [ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton]
@@ -83,17 +95,14 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
 
 extension HotCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let width: CGFloat = (collectionView.bounds.width - 25) / 2.5
-        
-        return CGSize(width: width, height: collectionView.frame.height)
+        return CGSize(width: Size.cellWidth, height: Size.cellHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+        return Size.collectionHorizontalSpacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        UIEdgeInsets(top: .zero, left: 10, bottom: .zero, right: 10)
+        Size.collectionInsets
     }
 }
