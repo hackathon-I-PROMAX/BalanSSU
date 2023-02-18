@@ -57,9 +57,10 @@ class VoteListViewController: BaseViewController {
     override func setupNavigationBar() {
         super.setupNavigationBar()
         
+
         let backButton = makeBarButtonItem(with: backButton)
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.title = "밸런슈 목록"
+        navigationItem.title = "전체보기"
     }
 
 }
@@ -68,12 +69,17 @@ extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 25
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
+    CGFloat {
+               return 55
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: VoteListTableViewCell.identifier, for: indexPath) as! VoteListTableViewCell
-        cell.voteTitle.text = "제목입니다-------------"
-        cell.voteTitle.font = UIFont(name: "AppleSDGothicNeoR", size: 12.0)
+        cell.voteTitle.text = "잠수 이별 vs 환승이별"
+        cell.badge.text = "HOT"
+        cell.participant.text = "100명 참여"
         return cell
     }
     
