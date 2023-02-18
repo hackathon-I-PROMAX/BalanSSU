@@ -39,8 +39,15 @@ class LoginViewController: BaseViewController {
         $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
+    let backButton = BackButton(type: .system)
+    
     @objc func loginButtonTapped() {
-        let loginAlert = UIAlertController(title: "회원가입 완료", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
+        let loginAlert = UIAlertController(title: "🎉로그인 완료🎉", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+//            self.navigationController?.pushViewController(MainViewController(), animated: true)
+        }
+        loginAlert.addAction(okAction)
+        self.present(loginAlert, animated: true)
     }
     
     override func viewDidLoad() {
@@ -86,6 +93,11 @@ class LoginViewController: BaseViewController {
             $0.bottom.equalTo(view).offset(-617)
             $0.leading.trailing.equalTo(view).inset(20)
         }
+        
+        loginButton.snp.makeConstraints {
+            $0.bottom.equalTo(view).offset(-200)
+            $0.leading.trailing.equalTo(view).inset(20)
+        }
     }
     
     override func configUI() {
@@ -107,5 +119,10 @@ class LoginViewController: BaseViewController {
         navigationBar.standardAppearance = appearance
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
+        
+        super.setupNavigationBar()
+        
+        let backButton = makeBarButtonItem(with: backButton)
+        navigationItem.leftBarButtonItem = backButton
     }
 }
