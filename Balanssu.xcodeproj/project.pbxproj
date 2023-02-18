@@ -18,6 +18,9 @@
 		022DDE64299F4B8700702B87 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE63299F4B8700702B87 /* Then */; };
 		0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC2729A0A0D000DBC2B5 /* VoteListViewController.swift */; };
 		0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC2929A0A0EF00DBC2B5 /* VoteListTableViewCell.swift */; };
+		0283DC3529A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */; };
+		0283DC3729A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */; };
+		0283DC3929A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -33,6 +36,9 @@
 		022DDE4E299F2F0E00702B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0283DC2729A0A0D000DBC2B5 /* VoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
 		0283DC2929A0A0EF00DBC2B5 /* VoteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListTableViewCell.swift; sourceTree = "<group>"; };
+		0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
+		0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
+		0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoR.ttf; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -74,12 +80,23 @@
 		022DDE3F299F2F0D00702B87 /* Balanssu */ = {
 			isa = PBXGroup;
 			children = (
+				0283DC3329A0A57B00DBC2B5 /* fonts */,
 				5AACF2D1299F515700D1C06B /* Network */,
 				5AACF2D0299F512B00D1C06B /* Screens */,
 				5AACF2CF299F510F00D1C06B /* Global */,
 				022DDE4E299F2F0E00702B87 /* Info.plist */,
 			);
 			path = Balanssu;
+			sourceTree = "<group>";
+		};
+		0283DC3329A0A57B00DBC2B5 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */,
+				0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */,
+				0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */,
+			);
+			path = fonts;
 			sourceTree = "<group>";
 		};
 		5AACF2CF299F510F00D1C06B /* Global */ = {
@@ -305,6 +322,9 @@
 			files = (
 				022DDE4D299F2F0E00702B87 /* LaunchScreen.storyboard in Resources */,
 				022DDE4A299F2F0E00702B87 /* Assets.xcassets in Resources */,
+				0283DC3529A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf in Resources */,
+				0283DC3729A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf in Resources */,
+				0283DC3929A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
