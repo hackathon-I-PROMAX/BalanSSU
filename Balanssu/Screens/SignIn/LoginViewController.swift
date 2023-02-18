@@ -22,15 +22,17 @@ class LoginViewController: BaseViewController {
     }
     
     let idTextField = UITextField().then {
-        $0.placeholder = "   아이디를 입력해주세요"
+        $0.placeholder = "아이디를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
     }
 
     let passwordTextField = UITextField().then {
-        $0.placeholder = "   비밀번호를 입력해주세요"
+        $0.placeholder = "비밀번호를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
     }
 
     let loginButton = UIButton().then {
@@ -134,4 +136,12 @@ class LoginViewController: BaseViewController {
 //        let backBarButton = makeBarButtonItem(with: backBarButton)
 //        navigationItem.leftBarButtonItem = backBarButton
     }
+}
+
+extension UITextField {
+  func addLeftPadding() {
+    let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: self.frame.height))
+    self.leftView = paddingView
+    self.leftViewMode = ViewMode.always
+  }
 }
