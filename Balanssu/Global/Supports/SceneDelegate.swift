@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-        let mainViewController = MainViewController()
+        let mainViewController = VoteViewController()
         let navigationController = UINavigationController(rootViewController: mainViewController)
         window.rootViewController = navigationController // 시작 VC 작성해주기
         window.makeKeyAndVisible()

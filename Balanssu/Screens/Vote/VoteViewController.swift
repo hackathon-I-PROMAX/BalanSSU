@@ -1,5 +1,5 @@
 //
-//  VoteListViewController.swift
+//  VoteViewController.swift
 //  Balanssu
 //
 //  Created by 이조은 on 2023/02/18.
@@ -8,13 +8,13 @@
 import UIKit
 import SnapKit
 
-class VoteListViewController: BaseViewController {
+class VoteViewController: BaseViewController {
     let backButton = BackButton(type: .system)
     
     private let tableView : UITableView = { // 테이블 뷰 생성
             let tableView = UITableView()
             tableView.translatesAutoresizingMaskIntoConstraints = false
-            tableView.register(VoteListTableViewCell.self, forCellReuseIdentifier: VoteListTableViewCell.identifier)
+            tableView.register(CommentListTableViewCell.self, forCellReuseIdentifier: CommentListTableViewCell.identifier)
             return tableView
     }()
     
@@ -23,26 +23,15 @@ class VoteListViewController: BaseViewController {
     }
     
     override func setConstraints() {
-                
-        // 1. superView에 맞게 적용
         tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-
-        // 2. safeAreaLayoutGuide에 맞게 적용
-        tableView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-                
-        // 3. superView에 맞게 적용 한 뒤 inset 적용
-        tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(20)
+            $0.edges.equalTo(view.safeAreaLayoutGuide).inset(UIEdgeInsets(top: 400, left: 0, bottom: 0, right: 0))
         }
     }
     
     func setLayouts() {
         tableView.dataSource = self
         tableView.delegate = self
+
         setViewHierarchy()
         setConstraints()
     }
@@ -59,32 +48,33 @@ class VoteListViewController: BaseViewController {
         
         let backButton = makeBarButtonItem(with: backButton)
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.title = "밸런슈 목록"
     }
-
 }
 
-extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
+extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 25
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: VoteListTableViewCell.identifier, for: indexPath) as! VoteListTableViewCell
-        cell.voteTitle.text = "제목입니다-------------"
-        cell.voteTitle.font = UIFont(name: "AppleSDGothicNeoR", size: 12.0)
-        return cell
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
+    CGFloat {
+               return 90
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextViewController = VoteViewController()
-        //let index: IndexPath = indexPath
-        //nextViewController.asset = self.fetchResult[index.row]
-        self.navigationController?.pushViewController(nextViewController, animated: true)
-        print("select \(indexPath.row)")
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
+        cell.name.text = "닉네임"
+        cell.name.font = UIFont(name: "AppleSDGothicNeoB", size: 5.0)
+        cell.img.image = UIImage(named: "ppussung")
+        cell.comment.text = "댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다"
+        cell.comment.font = UIFont(name: "AppleSDGothicNeoM", size: 9.0)
+        return cell
     }
 }
 
+extension VoteViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("select \(indexPath.row)")
+    }
+}
