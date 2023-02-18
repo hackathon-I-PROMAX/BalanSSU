@@ -21,6 +21,7 @@
 		0283DC3529A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */; };
 		0283DC3729A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */; };
 		0283DC3929A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */; };
+		0283DC3C29A0A79B00DBC2B5 /* YDS in Frameworks */ = {isa = PBXBuildFile; productRef = 0283DC3B29A0A79B00DBC2B5 /* YDS */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -53,6 +54,7 @@
 				022DDE64299F4B8700702B87 /* Then in Frameworks */,
 				022DDE61299F2F6800702B87 /* RxMoya in Frameworks */,
 				022DDE56299F2F3000702B87 /* SnapKit in Frameworks */,
+				0283DC3C29A0A79B00DBC2B5 /* YDS in Frameworks */,
 				022DDE5D299F2F6800702B87 /* Moya in Frameworks */,
 				022DDE5F299F2F6800702B87 /* ReactiveMoya in Frameworks */,
 			);
@@ -272,6 +274,7 @@
 				022DDE5E299F2F6800702B87 /* ReactiveMoya */,
 				022DDE60299F2F6800702B87 /* RxMoya */,
 				022DDE63299F4B8700702B87 /* Then */,
+				0283DC3B29A0A79B00DBC2B5 /* YDS */,
 			);
 			productName = Balanssu;
 			productReference = 022DDE3D299F2F0D00702B87 /* Balanssu.app */;
@@ -305,6 +308,7 @@
 				022DDE54299F2F3000702B87 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				022DDE59299F2F6800702B87 /* XCRemoteSwiftPackageReference "Moya" */,
 				022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */,
+				0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */,
 			);
 			productRefGroup = 022DDE3E299F2F0D00702B87 /* Products */;
 			projectDirPath = "";
@@ -578,6 +582,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/yourssu/YDS-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -605,6 +617,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		0283DC3B29A0A79B00DBC2B5 /* YDS */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */;
+			productName = YDS;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

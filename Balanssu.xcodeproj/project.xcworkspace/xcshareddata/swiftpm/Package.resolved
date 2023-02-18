@@ -19,6 +19,24 @@
       }
     },
     {
+      "identity" : "panmodal",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/slackhq/PanModal.git",
+      "state" : {
+        "revision" : "b012aecb6b67a8e46369227f893c12544846613f",
+        "version" : "1.2.7"
+      }
+    },
+    {
+      "identity" : "parchment",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yourssu/Parchment",
+      "state" : {
+        "revision" : "42036be5d011c83145e9f8e2705c7d3756e46607",
+        "version" : "3.7.2"
+      }
+    },
+    {
       "identity" : "reactiveswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveCocoa/ReactiveSwift.git",
@@ -52,6 +70,15 @@
       "state" : {
         "revision" : "d41ef523faef0f911369f79c0b96815d9dbb6d7a",
         "version" : "3.0.0"
+      }
+    },
+    {
+      "identity" : "yds-ios",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/yourssu/YDS-iOS",
+      "state" : {
+        "revision" : "4839cfb64e3fac65af33820ac523e69811062d03",
+        "version" : "2.10.1"
       }
     }
   ],
