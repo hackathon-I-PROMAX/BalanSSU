@@ -12,44 +12,78 @@ class SignUpViewController: BaseViewController {
     let idLabel = UILabel().then {
         $0.text = "아이디"
         $0.textColor = .black
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
     let passwordLabel = UILabel().then {
         $0.text = "비밀번호"
         $0.textColor = .black
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
     let checkPasswordLabel = UILabel().then {
         $0.text = "비밀번호 확인"
         $0.textColor = .black
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
     let idTextField = UITextField().then {
-        $0.placeholder = "5자 이상의 아이디를 입력해주세요."
-        $0.backgroundColor = .lightGray
+        $0.placeholder = "   5자 이상의 아이디를 입력해주세요"
+        $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
     }
     
     let passwordTextField = UITextField().then {
-        $0.placeholder = "8자리 이상의 비밀번호를 입력해주세요."
-        $0.backgroundColor = .lightGray
+        $0.placeholder = "   8자리 이상의 비밀번호를 입력해주세요"
+        $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
     }
     
     let checkPasswordTextField = UITextField().then {
-        $0.placeholder = "비밀번호를 확인합니다."
-        $0.backgroundColor = .lightGray
+        $0.placeholder = "   비밀번호를 확인합니다"
+        $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+    }
+    
+    let checkIdLabel = UILabel().then {
+        $0.text = "이미 사용중인 아이디입니다"
+        $0.textColor = UIColor(r: 64, g: 96, b: 160)
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
+    }
+    
+    let checkPasswordcheckLabel = UILabel().then {
+        $0.text = "비밀번호가 일치하지 않습니다"
+        $0.textColor = UIColor(r: 64, g: 96, b: 160)
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
+    }
+    
+    let idImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = UIColor(r: 64, g: 96, b: 160)
+    }
+    
+    let passwordImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = UIColor(r: 64, g: 96, b: 160)
+    }
+    
+    let checkPasswordImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
     let checkButton = UIButton().then {
         $0.setTitle("확인", for: .normal)
         $0.setTitleColor(.black, for: .normal)
-        $0.backgroundColor = UIColor.lightGray
         $0.layer.cornerRadius = 8
+        $0.setTitleColor(.white, for: .normal)
+        $0.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+        $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
         $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
     
+    let backBarButton = BackButton(type: .system)
+
     @objc func checkButtonTapped() {
         self.navigationController?.pushViewController(SignUp2ViewController(), animated: true)
     }
@@ -73,45 +107,88 @@ class SignUpViewController: BaseViewController {
         view.addSubview(passwordLabel)
         view.addSubview(checkPasswordLabel)
         view.addSubview(idTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(checkPasswordTextField)
         view.addSubview(passwordLabel)
-        view.addSubview(checkPasswordLabel)
+        view.addSubview(checkIdLabel)
+        view.addSubview(checkPasswordcheckLabel)
         view.addSubview(checkButton)
+        view.addSubview(idImageView)
+        view.addSubview(passwordImageView)
+        view.addSubview(checkPasswordImageView)
     }
     
     override func setConstraints() {
         idLabel.snp.makeConstraints {
-            $0.bottom.equalTo(view).offset(-669)
+            $0.top.equalTo(view).offset(124)
             $0.leading.equalTo(view).inset(20)
         }
         
         passwordLabel.snp.makeConstraints {
-            $0.bottom.equalTo(view).offset(-554)
+            $0.top.equalTo(view).offset(238)
             $0.leading.equalTo(view).inset(20)
         }
         
         checkPasswordLabel.snp.makeConstraints {
-            $0.bottom.equalTo(view).offset(-459)
+            $0.top.equalTo(view).offset(334)
             $0.leading.equalTo(view).inset(20)
         }
         
         idTextField.snp.makeConstraints {
-            $0.bottom.equalTo(view).offset(-617)
-            $0.leading.trailing.equalTo(view).inset(20)
+            $0.top.equalTo(view).offset(147)
+            $0.leading.equalTo(view).inset(20)
+            $0.trailing.equalTo(view).inset(50)
+            $0.height.equalTo(48)
         }
         
-//        passwordTextField.snp.makeConstraints {
-//            $0.bottom.equalTo(view).offset(-200)
-//            $0.leading.trailing.equalTo(view).inset(20)
-//        }
+        passwordTextField.snp.makeConstraints {
+            $0.top.equalTo(view).offset(262)
+            $0.leading.equalTo(view).inset(20)
+            $0.trailing.equalTo(view).inset(50)
+            $0.height.equalTo(48)
+        }
+
+        checkPasswordTextField.snp.makeConstraints {
+            $0.top.equalTo(view).offset(357)
+            $0.leading.equalTo(view).inset(20)
+            $0.trailing.equalTo(view).inset(50)
+            $0.height.equalTo(48)
+        }
         
-//        checkPasswordTextField.snp.makeConstraints {
-//            $0.bottom.equalTo(view).offset(-100)
-//            $0.leading.trailing.equalTo(view).inset(20)
-//        }
+        checkIdLabel.snp.makeConstraints {
+            $0.top.equalTo(view).offset(199)
+            $0.leading.trailing.equalTo(view).inset(28)
+            $0.height.equalTo(16)
+        }
+        
+        checkPasswordcheckLabel.snp.makeConstraints {
+            $0.top.equalTo(view).offset(409)
+            $0.leading.trailing.equalTo(view).inset(28)
+            $0.height.equalTo(16)
+        }
         
         checkButton.snp.makeConstraints {
-            $0.bottom.equalTo(view).offset(-54)
+            $0.bottom.equalToSuperview().offset(-54)
             $0.leading.trailing.equalTo(view).inset(20)
+            $0.height.equalTo(48)
+        }
+        
+        idImageView.snp.makeConstraints {
+            $0.top.equalTo(view).offset(161)
+            $0.trailing.equalTo(view).offset(-22)
+            $0.height.width.equalTo(20)
+        }
+        
+        passwordImageView.snp.makeConstraints {
+            $0.top.equalTo(view).offset(276)
+            $0.trailing.equalTo(view).offset(-22)
+            $0.height.width.equalTo(20)
+        }
+        
+        checkPasswordImageView.snp.makeConstraints {
+            $0.top.equalTo(view).offset(371)
+            $0.trailing.equalTo(view).offset(-22)
+            $0.height.width.equalTo(20)
         }
     }
     
@@ -134,5 +211,10 @@ class SignUpViewController: BaseViewController {
         navigationBar.standardAppearance = appearance
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
+                
+        super.setupNavigationBar()
+        
+        let backBarButton = makeBarButtonItem(with: backBarButton)
+        navigationItem.leftBarButtonItem = backBarButton
     }
 }
