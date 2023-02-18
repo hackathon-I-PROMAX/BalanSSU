@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SignUp2ViewController: BaseViewController {
+class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     let nickNameLabel = UILabel().then {
         $0.text = "닉네임"
         $0.textColor = .black
@@ -21,10 +21,58 @@ class SignUp2ViewController: BaseViewController {
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
-    let classLabel = UILabel().then {
+    let gender = ["여자", "남자"]
+    
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return gender.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return gender[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+//        genderTextField.text = gender[row]
+//    }
+    
+    func createGenderPickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        genderTextField.inputView = pickerView
+    }
+    
+    let gradeLabel = UILabel().then {
         $0.text = "학번"
         $0.textColor = .black
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+    }
+    
+    let grade = ["23학번", "22학번", "21학번", "20학번", "19학번", "18학번", "17학번", "16학번", "15학번"]
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return grade.count
+    }
+
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return grade[row]
+    }
+
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        gradeTextField.text = grade[row]
+    }
+    
+    func createGradePickerView() {
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        gradeTextField.inputView = pickerView
     }
     
     let majorLabel = UILabel().then {
@@ -34,27 +82,45 @@ class SignUp2ViewController: BaseViewController {
     }
     
     let nickNameTextField = UITextField().then {
-        $0.placeholder = "   사용하실 닉네임을 입력해주세요"
+        $0.placeholder = "사용하실 닉네임을 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
+    }
+    
+    @objc func textFieldDidChanged(_ sender: UITextField) {
+        if self.nickNameTextField.text?.isEmpty == false
+        {
+            nickNameImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+            nickNameImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+            //            checkButton.isEnabled = true
+        }
+        else {
+            nickNameImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+            nickNameImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+            //            checkButton.isEnabled = false
+        }
     }
     
     let genderTextField = UITextField().then {
-        $0.placeholder = "   성별을 선택해주세요"
+        $0.placeholder = "성별을 선택해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
     }
     
-    let classTextField = UITextField().then {
-        $0.placeholder = "   학번을 선택해주세요"
+    let gradeTextField = UITextField().then {
+        $0.placeholder = "학번을 선택해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
     }
     
     let majorTextField = UITextField().then {
-        $0.placeholder = "   학부를 선택해주세요"
+        $0.placeholder = "학부를 선택해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
     }
     
     let checkNickNameLabel = UILabel().then {
@@ -95,7 +161,10 @@ class SignUp2ViewController: BaseViewController {
         setConstraints()
         configUI()
         setupNavigationBar()
-        
+        createGenderPickerView()
+        createGradePickerView()
+        self.nickNameTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
+
         navigationItem.title = "회원가입"
     }
     
@@ -107,11 +176,11 @@ class SignUp2ViewController: BaseViewController {
     override func setViewHierarchy() {
         view.addSubview(nickNameLabel)
         view.addSubview(genderLabel)
-        view.addSubview(classLabel)
+        view.addSubview(gradeLabel)
         view.addSubview(majorLabel)
         view.addSubview(nickNameTextField)
         view.addSubview(genderTextField)
-        view.addSubview(classTextField)
+        view.addSubview(gradeTextField)
         view.addSubview(majorTextField)
         view.addSubview(checkButton)
         view.addSubview(checkNickNameLabel)
@@ -129,7 +198,7 @@ class SignUp2ViewController: BaseViewController {
             $0.leading.trailing.equalTo(view).inset(20)
         }
         
-        classLabel.snp.makeConstraints {
+        gradeLabel.snp.makeConstraints {
             $0.top.equalTo(view).offset(334)
             $0.leading.trailing.equalTo(view).inset(20)
         }
@@ -152,7 +221,7 @@ class SignUp2ViewController: BaseViewController {
             $0.height.equalTo(48)
         }
         
-        classTextField.snp.makeConstraints {
+        gradeTextField.snp.makeConstraints {
             $0.top.equalTo(view).offset(357)
             $0.leading.trailing.equalTo(view).inset(20)
             $0.height.equalTo(48)

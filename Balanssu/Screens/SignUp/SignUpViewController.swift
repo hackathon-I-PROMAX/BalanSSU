@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SignUpViewController: BaseViewController {
+class SignUpViewController: BaseViewController, UITextViewDelegate {
     let idLabel = UILabel().then {
         $0.text = "아이디"
         $0.textColor = .black
@@ -28,21 +28,104 @@ class SignUpViewController: BaseViewController {
     }
     
     let idTextField = UITextField().then {
-        $0.placeholder = "   5자 이상의 아이디를 입력해주세요"
+        $0.placeholder = "5자 이상의 아이디를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.addLeftPadding()
     }
     
+    @objc func textFieldDidChanged(_ sender: UITextField) {
+        if self.idTextField.text?.isEmpty == false
+            && self.idTextField.text!.count > 4
+        {
+            idImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+            idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.isEnabled = true
+        }
+        else {
+            idImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+            idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.isEnabled = false
+        }
+        
+        if self.passwordTextField.text?.isEmpty == false
+            && self.passwordTextField.text!.count > 7
+        {
+            passwordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+            passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.isEnabled = true
+        }
+        else {
+            passwordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+            passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.isEnabled = false
+        }
+        
+        if self.checkPasswordTextField.text?.isEmpty == false
+            && self.checkPasswordTextField.text == self.passwordTextField.text
+        {
+            checkPasswordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+            checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+            checkPasswordcheckLabel.textColor = .white
+
+//            checkButton.isEnabled = true
+        }
+        else {
+            checkPasswordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+            checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+            checkPasswordcheckLabel.textColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.isEnabled = false
+        }
+        
+//        if self.idTextField.text?.isEmpty == false
+//            && self.passwordTextField.text!.count > 7
+//            && self.checkPasswordTextField.text == self.passwordTextField.text
+//        {
+//            checkButton.isEnabled = true
+//            checkButton.setTitleColor(.white, for: .normal)
+//            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.layer.borderWidth = 0
+//            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+//        } else {
+//            checkButton.isEnabled = false
+//            checkButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
+//            checkButton.backgroundColor = .white
+//            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+//            checkButton.layer.borderWidth = 1
+//            checkButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
+//        }
+    }
+    
+//    @objc func imageViewDidChanged(_ sender: UIImageView) {
+//        if idImageView.image == UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+//            && passwordImageView.image == UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+//            && checkPasswordImageView.image == UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+//        {
+//            checkButton.isEnabled = true
+//            checkButton.setTitleColor(.black, for: .normal)
+//            checkButton.layer.cornerRadius = 8
+//            checkButton.setTitleColor(.white, for: .normal)
+//            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+//            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+//        } else {
+//            checkButton.isEnabled = false
+//        }
+//    }
+
     let passwordTextField = UITextField().then {
-        $0.placeholder = "   8자리 이상의 비밀번호를 입력해주세요"
+        $0.placeholder = "8자리 이상의 비밀번호를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.isSecureTextEntry = true
+        $0.addLeftPadding()
     }
-    
+
     let checkPasswordTextField = UITextField().then {
-        $0.placeholder = "   비밀번호를 확인합니다"
+        $0.placeholder = "비밀번호를 확인합니다"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.isSecureTextEntry = true
+        $0.addLeftPadding()
     }
     
     let checkIdLabel = UILabel().then {
@@ -54,6 +137,7 @@ class SignUpViewController: BaseViewController {
     let checkPasswordcheckLabel = UILabel().then {
         $0.text = "비밀번호가 일치하지 않습니다"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
+//        $0.textColor = .white
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
@@ -63,7 +147,7 @@ class SignUpViewController: BaseViewController {
     }
     
     let passwordImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
+        $0.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
@@ -73,12 +157,14 @@ class SignUpViewController: BaseViewController {
     }
     
     let checkButton = UIButton().then {
+        $0.isEnabled = true
+//        $0.isEnabled = false
         $0.setTitle("확인", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.layer.cornerRadius = 8
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+        $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        $0.layer.cornerRadius = 8
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
     
@@ -95,6 +181,9 @@ class SignUpViewController: BaseViewController {
         configUI()
         setupNavigationBar()
         navigationItem.title = "회원가입"
+        self.idTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
+        self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
+        self.checkPasswordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

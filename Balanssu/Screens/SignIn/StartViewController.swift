@@ -13,7 +13,13 @@ import YDS
 
 class StartViewController: BaseViewController {
     
-    var signInButton = UIButton().then {
+    let logoImageView = UIImageView().then {
+        $0.image = UIImage(systemName: "apple.logo")?.withRenderingMode(.alwaysTemplate)
+        $0.tintColor = .black
+        $0.contentMode = .scaleAspectFit
+    }
+    
+    let signInButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = UIColor(r: 64, g: 96, b: 160)
@@ -22,7 +28,7 @@ class StartViewController: BaseViewController {
         $0.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
-    var signUpButton = UIButton().then {
+    let signUpButton = UIButton().then {
         $0.setTitle("회원가입", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
@@ -35,11 +41,6 @@ class StartViewController: BaseViewController {
     let findPasswordButton = YDSLabel(style: .body1).then {
         $0.text = "비밀번호 찾기"
         $0.textColor = UIColor(r: 125, g: 125, b: 125)
-    }
-    
-    let logoImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "pencil")
-        $0.contentMode = .scaleAspectFit
     }
     
     let browsingBarButton = UIButton().then {
@@ -67,6 +68,7 @@ class StartViewController: BaseViewController {
     }
     
     override func setViewHierarchy() {
+        view.addSubview(logoImageView)
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
         view.addSubview(findPasswordButton)
@@ -82,8 +84,8 @@ class StartViewController: BaseViewController {
     
     override func setConstraints() {
         logoImageView.snp.makeConstraints {
-//            $0.bottom.equalTo(view).offset(-422)
-//            $0.leading.trailing.equalTo(view).inset(88)
+            $0.top.equalTo(view).offset(190)
+            $0.centerX.equalToSuperview()
             $0.width.height.equalTo(200)
         }
         
