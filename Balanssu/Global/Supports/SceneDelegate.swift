@@ -20,9 +20,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let window = UIWindow(windowScene: windowScene)
-                window.rootViewController = MainViewController() // 시작 VC 작성해주기
-                window.makeKeyAndVisible()
-                self.window = window
+        let mainViewController = MainViewController()
+        let navigationController = UINavigationController(rootViewController: mainViewController)
+        window.rootViewController = navigationController // 시작 VC 작성해주기
+        window.makeKeyAndVisible()
+        self.window = window
+
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
