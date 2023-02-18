@@ -73,6 +73,7 @@ extension VoteListViewController : UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: VoteListTableViewCell.identifier, for: indexPath) as! VoteListTableViewCell
         cell.voteTitle.text = "제목입니다-------------"
+        cell.voteTitle.font = UIFont(name: "AppleSDGothicNeoR", size: 12.0)
         return cell
     }
 }
