@@ -24,7 +24,10 @@
 		0283DC3C29A0A79B00DBC2B5 /* YDS in Frameworks */ = {isa = PBXBuildFile; productRef = 0283DC3B29A0A79B00DBC2B5 /* YDS */; };
 		0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */; };
 		0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */; };
-		0283DC4E29A0F55800DBC2B5 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4D29A0F55800DBC2B5 /* MypageViewController.swift */; };
+		3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FC229A0A225005CC39F /* StartViewController.swift */; };
+		3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FC429A0A22D005CC39F /* LoginViewController.swift */; };
+		3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */; };
+		3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -45,7 +48,10 @@
 		0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoR.ttf; sourceTree = "<group>"; };
 		0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
 		0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListTableViewCell.swift; sourceTree = "<group>"; };
-		0283DC4D29A0F55800DBC2B5 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		3E691FC229A0A225005CC39F /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
+		3E691FC429A0A22D005CC39F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2ViewController.swift; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -171,6 +177,8 @@
 		5AACF2D5299F527300D1C06B /* SignIn */ = {
 			isa = PBXGroup;
 			children = (
+				3E691FC229A0A225005CC39F /* StartViewController.swift */,
+				3E691FC429A0A22D005CC39F /* LoginViewController.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -178,6 +186,8 @@
 		5AACF2D6299F528100D1C06B /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */,
+				3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */,
 			);
 			path = SignUp;
 			sourceTree = "<group>";
@@ -350,10 +360,14 @@
 			files = (
 				022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */,
 				0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */,
+				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
+				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
+				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
+				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
 				5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */,
 				0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */,
 				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
