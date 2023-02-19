@@ -13,9 +13,9 @@ class VoteListTableViewCell: UITableViewCell {
     static let identifier = "VoteListTableViewCell"
     
     let voteTitle: UILabel = {
-        let lable = UILabel()
-        lable.font = UIFont(name: "AppleSDGothicNeoR00", size: 17.0)
-        return lable
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeoR00", size: 17.0)
+        return label
     }()
     
     let badge: YDSBadge = {
@@ -26,10 +26,10 @@ class VoteListTableViewCell: UITableViewCell {
     }()
     
     let participant: UILabel = {
-        let lable = UILabel()
-        lable.font = UIFont(name: "AppleSDGothicNeoR00", size: 12.0)
-        lable.textColor = UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1)
-        return lable
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeoR00", size: 12.0)
+        label.textColor = UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1)
+        return label
     }()
     
     

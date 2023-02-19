@@ -64,11 +64,9 @@ extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
-        cell.name.text = "닉네임"
-        cell.name.font = UIFont(name: "AppleSDGothicNeoB", size: 5.0)
         cell.img.image = UIImage(named: "ppussung")
-        cell.comment.text = "댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다"
-        cell.comment.font = UIFont(name: "AppleSDGothicNeoM", size: 9.0)
+        cell.name.text="닉네임"
+        cell.comment.text = "댓글입니다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ"
         return cell
     }
 }
