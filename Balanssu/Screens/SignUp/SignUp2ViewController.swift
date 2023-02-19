@@ -39,22 +39,22 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
 //        genderTextField.text = gender[row]
 //    }
     
-    func createGenderPickerView() {
-        let pickerView = UIPickerView()
-        pickerView.delegate = self
-        pickerView.dataSource = self
-        genderTextField.tintColor = .clear
-        genderTextField.inputView = pickerView
-        
-        let toolBar = UIToolbar()
-        toolBar.sizeToFit()
-        
-        let btnDone = UIBarButtonItem(title: "확인", style: .done, target: self, action: #selector(onPickDone))
-        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
-        let btnCancel = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(onPickCancel))
-        toolBar.setItems([btnCancel , space , btnDone], animated: true)
-        toolBar.isUserInteractionEnabled = true
-    }
+//    func createGenderPickerView() {
+//        let pickerView = UIPickerView()
+//        pickerView.delegate = self
+//        pickerView.dataSource = self
+//        genderTextField.tintColor = .clear
+//        genderTextField.inputView = pickerView
+//
+//        let toolBar = UIToolbar()
+//        toolBar.sizeToFit()
+//
+//        let btnDone = UIBarButtonItem(title: "확인", style: .done, target: self, action: #selector(onPickDone))
+//        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+//        let btnCancel = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(onPickCancel))
+//        toolBar.setItems([btnCancel , space , btnDone], animated: true)
+//        toolBar.isUserInteractionEnabled = true
+//    }
     
     @objc func onPickDone() {
 //        gradeTextField.text =
@@ -92,8 +92,20 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     
     func createGradePickerView() {
         let pickerView = UIPickerView()
+        pickerView.dataSource = self
         pickerView.delegate = self
         gradeTextField.inputView = pickerView
+        
+        let toolBar = UIToolbar()
+            toolBar.sizeToFit()
+            
+            let btnDone = UIBarButtonItem(title: "확인", style: .done, target: self, action: #selector(onPickDone))
+            let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+            let btnCancel = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(onPickCancel))
+            toolBar.setItems([btnCancel , space , btnDone], animated: true)
+            toolBar.isUserInteractionEnabled = true
+                
+        gradeTextField.inputAccessoryView = toolBar
     }
     
     let majorLabel = UILabel().then {
@@ -182,9 +194,9 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         setConstraints()
         configUI()
         setupNavigationBar()
-        createGenderPickerView()
+//        createGenderPickerView()
         createGradePickerView()
-//        gradeTextField.delegate = self
+        gradeTextField.delegate = self
 //        gradeTextField.isUserInteractionEnabled = false
         self.nickNameTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
 
