@@ -11,9 +11,24 @@ class CommentListTableViewCell: UITableViewCell {
     
     static let identifier = "CommentListTableViewCell"
     
-    let img = UIImageView()
-    let name = UILabel()
-    let comment = UILabel()
+    let img : UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage()
+        view.layer.cornerRadius = 10
+        view.clipsToBounds = true
+        view.backgroundColor = .gray
+        return view
+    }()
+    let name : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeoB", size: 13.0)
+        return label
+    }()
+    let comment : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeoM", size: 15.0)
+        return label
+    }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,8 +44,6 @@ class CommentListTableViewCell: UITableViewCell {
     }
         
     private func autoLayout() {
-        self.img.layer.cornerRadius = 22
-        
         img.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(10)
             $0.size.width.height.equalTo(40)
