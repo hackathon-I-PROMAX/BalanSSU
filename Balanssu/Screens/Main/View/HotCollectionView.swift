@@ -11,21 +11,27 @@ import SnapKit
 
 import Then
 
+protocol HotCollectionViewCellDelegate: AnyObject {
+    func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView)
+}
+
 class HotCollectionView: UITableViewCell {
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 12
         static let collectionVerticalSpacing: CGFloat = 0
         static let cellWidth: CGFloat = 148
-        static let cellHeight: CGFloat = 200
+        static let cellHeight: CGFloat = 191
         static let collectionInsets = UIEdgeInsets(
             top: collectionVerticalSpacing,
-            left: collectionHorizontalSpacing,
+            left: 20,
             bottom: collectionVerticalSpacing,
-            right: collectionHorizontalSpacing)
+            right: 20)
     }
     
     static let identifier = "HotCollectionView"
+    
+    weak var cellDelegate: HotCollectionViewCellDelegate?
     
     let hotImageArray: [UIImage] = [ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton]
     let hotItitleArray: [String] = ["숭실대 가성비 카페", "숭실대 가성비 카페", "숭실대 가성비 카페"]
@@ -89,7 +95,8 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Hot")
+        let cell = collectionView.cellForItem(at: indexPath) as? HotCollectionViewCell
+            self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
     }
 }
 

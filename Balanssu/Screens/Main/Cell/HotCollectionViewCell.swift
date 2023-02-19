@@ -21,7 +21,7 @@ class HotCollectionViewCell: UICollectionViewCell {
     
     let hotTitleLabel = UILabel().then {
         $0.font = UIFont.boldSystemFont(ofSize: 14)
-        $0.textColor = .systemBrown
+        $0.textColor = .black
     }
     
     let deadLineLabel = UILabel().then {
@@ -61,12 +61,14 @@ class HotCollectionViewCell: UICollectionViewCell {
         hotTitleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(6)
             $0.leading.equalToSuperview().inset(6)
+            $0.height.equalTo(17)
         }
         
         deadLineLabel.snp.makeConstraints {
             $0.top.equalTo(hotTitleLabel.snp.bottom).offset(1)
             $0.leading.equalToSuperview().inset(6)
             $0.bottom.equalToSuperview().inset(5)
+            $0.height.equalTo(14)
         }
         
         

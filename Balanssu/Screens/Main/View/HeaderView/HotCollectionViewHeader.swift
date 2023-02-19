@@ -22,9 +22,10 @@ class HotCollectionViewHeader: UITableViewHeaderFooterView {
         $0.sizeToFit()
     }
     
-    private let allListButton = UIButton().then {
+    let allListButton = UIButton().then {
         $0.setTitle("전체보기", for: .normal)
-        $0.sizeToFit()
+        $0.titleLabel?.font = .systemFont(ofSize: 14)
+        $0.setTitleColor(UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1), for: .normal)
     }
 
     override init(reuseIdentifier: String?) {
