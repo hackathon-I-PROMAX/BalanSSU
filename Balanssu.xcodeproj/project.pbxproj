@@ -29,7 +29,6 @@
 		3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */; };
 		3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */; };
 		3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */; };
-		3E691FD129A14B86005CC39F /* UserInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FD029A14B86005CC39F /* UserInformation.swift */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -55,7 +54,6 @@
 		3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2ViewController.swift; sourceTree = "<group>"; };
 		3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanSSUColor.swift; sourceTree = "<group>"; };
-		3E691FD029A14B86005CC39F /* UserInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInformation.swift; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 			children = (
 				3E691FC229A0A225005CC39F /* StartViewController.swift */,
 				3E691FC429A0A22D005CC39F /* LoginViewController.swift */,
-				3E691FD029A14B86005CC39F /* UserInformation.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -368,7 +365,6 @@
 				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
-				3E691FD129A14B86005CC39F /* UserInformation.swift in Sources */,
 				3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,

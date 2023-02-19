@@ -42,7 +42,28 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     func createGenderPickerView() {
         let pickerView = UIPickerView()
         pickerView.delegate = self
+        pickerView.dataSource = self
+        genderTextField.tintColor = .clear
         genderTextField.inputView = pickerView
+        
+        let toolBar = UIToolbar()
+        toolBar.sizeToFit()
+        
+        let btnDone = UIBarButtonItem(title: "확인", style: .done, target: self, action: #selector(onPickDone))
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let btnCancel = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(onPickCancel))
+        toolBar.setItems([btnCancel , space , btnDone], animated: true)
+        toolBar.isUserInteractionEnabled = true
+    }
+    
+    @objc func onPickDone() {
+//        gradeTextField.text =
+
+        gradeTextField.resignFirstResponder()
+    }
+    
+    @objc func onPickCancel() {
+        gradeTextField.resignFirstResponder()
     }
     
     let gradeLabel = UILabel().then {
@@ -51,7 +72,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
-    let grade = ["23학번", "22학번", "21학번", "20학번", "19학번", "18학번", "17학번", "16학번", "15학번"]
+    let grade = ["23", "22", "21", "20", "19", "18", "17", "16", "15"]
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -149,7 +170,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     @objc func checkButtonTapped() {
         let loginAlert = UIAlertController(title: "🎉회원가입 완료🎉", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-            self.navigationController?.pushViewController(StartViewController(), animated: true)
+            self.navigationController?.popToRootViewController(animated: true)
         }
         loginAlert.addAction(okAction)
         self.present(loginAlert, animated: true)
@@ -163,6 +184,8 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         setupNavigationBar()
         createGenderPickerView()
         createGradePickerView()
+//        gradeTextField.delegate = self
+//        gradeTextField.isUserInteractionEnabled = false
         self.nickNameTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
 
         navigationItem.title = "회원가입"

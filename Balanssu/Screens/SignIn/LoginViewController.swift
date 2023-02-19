@@ -32,22 +32,42 @@ class LoginViewController: BaseViewController {
         $0.placeholder = "비밀번호를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.isSecureTextEntry = true
         $0.addLeftPadding()
     }
 
     let loginButton = UIButton().then {
+        $0.isEnabled = false
         $0.setTitle("로그인", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
-        $0.backgroundColor = UIColor.lightGray
         $0.layer.cornerRadius = 8
-        $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+        $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         $0.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
     }
     
 //    let backBarButton = BackButton(type: .system)
     
+    @objc func textFieldDidChanged(_ sender: UITextField) {
+        if self.idTextField.text?.isEmpty == false
+            && self.passwordTextField.text?.isEmpty == false
+        {
+            loginButton.isEnabled = true
+            loginButton.setTitleColor(.white, for: .normal)
+            loginButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+            loginButton.layer.borderWidth = 0
+            loginButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        } else {
+            loginButton.isEnabled = false
+            loginButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
+            loginButton.backgroundColor = .white
+            loginButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+            loginButton.layer.borderWidth = 1
+            loginButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
+        }
+    }
+        
     @objc func loginButtonTapped() {
         let loginAlert = UIAlertController(title: "🎉로그인 완료🎉", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
@@ -63,7 +83,8 @@ class LoginViewController: BaseViewController {
         setConstraints()
         configUI()
         setupNavigationBar()
-        
+        self.idTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
+        self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         navigationItem.title = "로그인"
     }
     
