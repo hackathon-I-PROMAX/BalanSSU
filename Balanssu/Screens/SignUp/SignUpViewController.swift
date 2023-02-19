@@ -38,6 +38,14 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         if self.idTextField.text?.isEmpty == false
             && self.idTextField.text!.count > 4
         {
+            self.checkIdLabel.textColor = UIColor(r: 64, g: 96, b: 160)
+        } else {
+            self.checkIdLabel.textColor = .white
+        }
+        
+        if self.idTextField.text?.isEmpty == false
+            && self.idTextField.text!.count > 4
+        {
             idImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
         }
@@ -71,41 +79,25 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
             checkPasswordcheckLabel.textColor = UIColor(r: 64, g: 96, b: 160)
         }
         
-//        if self.idTextField.text?.isEmpty == false
-//            && self.passwordTextField.text!.count > 7
-//            && self.checkPasswordTextField.text == self.passwordTextField.text
-//        {
-//            checkButton.isEnabled = true
-//            checkButton.setTitleColor(.white, for: .normal)
-//            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.layer.borderWidth = 0
-//            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-//        } else {
-//            checkButton.isEnabled = false
-//            checkButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
-//            checkButton.backgroundColor = .white
-//            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-//            checkButton.layer.borderWidth = 1
-//            checkButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
-//        }
+        if self.idTextField.text?.isEmpty == false
+            && self.passwordTextField.text!.count > 7
+            && self.checkPasswordTextField.text == self.passwordTextField.text
+        {
+            checkButton.isEnabled = true
+            checkButton.setTitleColor(.white, for: .normal)
+            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+            checkButton.layer.borderWidth = 0
+            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        } else {
+            checkButton.isEnabled = false
+            checkButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
+            checkButton.backgroundColor = .white
+            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+            checkButton.layer.borderWidth = 1
+            checkButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
+        }
     }
     
-//    @objc func imageViewDidChanged(_ sender: UIImageView) {
-//        if idImageView.image == UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
-//            && passwordImageView.image == UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
-//            && checkPasswordImageView.image == UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
-//        {
-//            checkButton.isEnabled = true
-//            checkButton.setTitleColor(.black, for: .normal)
-//            checkButton.layer.cornerRadius = 8
-//            checkButton.setTitleColor(.white, for: .normal)
-//            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-//        } else {
-//            checkButton.isEnabled = false
-//        }
-//    }
-
     let passwordTextField = UITextField().then {
         $0.placeholder = "8자리 이상의 비밀번호를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
@@ -124,7 +116,7 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
     
     let checkIdLabel = UILabel().then {
         $0.text = "이미 사용중인 아이디입니다"
-        $0.textColor = UIColor(r: 64, g: 96, b: 160)
+        $0.textColor = .white
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
@@ -151,8 +143,7 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
     }
     
     let checkButton = UIButton().then {
-        $0.isEnabled = true
-//        $0.isEnabled = false
+        $0.isEnabled = false
         $0.setTitle("확인", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
@@ -161,11 +152,20 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
-    
-    let backBarButton = BackButton(type: .system)
-
+  
     @objc func checkButtonTapped() {
         self.navigationController?.pushViewController(SignUp2ViewController(), animated: true)
+    }
+
+    lazy var backBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
+        button.tintColor = .black
+            return button
+    }()
+    
+    @objc func backBarButtonTapped() {
+        print("tapped")
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
@@ -178,6 +178,7 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         self.idTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.checkPasswordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
+        self.navigationItem.leftBarButtonItem = backBarButton
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -296,8 +297,5 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         navigationBar.scrollEdgeAppearance = appearance
                 
         super.setupNavigationBar()
-
-//        let backBarButton = makeBarButtonItem(with: backBarButton)
-//        navigationItem.leftBarButtonItem = backBarButton
     }
 }

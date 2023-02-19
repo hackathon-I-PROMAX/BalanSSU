@@ -69,12 +69,18 @@ class LoginViewController: BaseViewController {
     }
         
     @objc func loginButtonTapped() {
-        let loginAlert = UIAlertController(title: "🎉로그인 완료🎉", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-//            self.navigationController?.pushViewController(MainViewController(), animated: true)
-        }
-        loginAlert.addAction(okAction)
-        self.present(loginAlert, animated: true)
+        self.navigationController?.pushViewController(MainViewController(), animated: true)
+    }
+    
+    lazy var backBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
+        button.tintColor = .black
+            return button
+    }()
+    
+    @objc func backBarButtonTapped() {
+        print("tapped")
+        self.navigationController?.popViewController(animated: true)
     }
     
     override func viewDidLoad() {
@@ -85,6 +91,7 @@ class LoginViewController: BaseViewController {
         setupNavigationBar()
         self.idTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
+        self.navigationItem.leftBarButtonItem = backBarButton
         navigationItem.title = "로그인"
     }
     
