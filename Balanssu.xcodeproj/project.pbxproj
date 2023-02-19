@@ -16,19 +16,14 @@
 		022DDE5F299F2F6800702B87 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE5E299F2F6800702B87 /* ReactiveMoya */; };
 		022DDE61299F2F6800702B87 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE60299F2F6800702B87 /* RxMoya */; };
 		022DDE64299F4B8700702B87 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE63299F4B8700702B87 /* Then */; };
-		0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC2729A0A0D000DBC2B5 /* VoteListViewController.swift */; };
-		0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC2929A0A0EF00DBC2B5 /* VoteListTableViewCell.swift */; };
-		0283DC3529A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */; };
-		0283DC3729A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */; };
-		0283DC3929A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */; };
-		0283DC3C29A0A79B00DBC2B5 /* YDS in Frameworks */ = {isa = PBXBuildFile; productRef = 0283DC3B29A0A79B00DBC2B5 /* YDS */; };
-		0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */; };
-		0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */; };
-		3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FC229A0A225005CC39F /* StartViewController.swift */; };
-		3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FC429A0A22D005CC39F /* LoginViewController.swift */; };
-		3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */; };
-		3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */; };
-		3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */; };
+		5A99A25929A0AE88006FE9B2 /* TopicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A25829A0AE88006FE9B2 /* TopicCollectionView.swift */; };
+		5A99A25C29A0B23A006FE9B2 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A25B29A0B23A006FE9B2 /* TopicCollectionViewCell.swift */; };
+		5A99A25E29A0C82E006FE9B2 /* HotCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A25D29A0C82E006FE9B2 /* HotCollectionView.swift */; };
+		5A99A26029A0D899006FE9B2 /* HotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A25F29A0D899006FE9B2 /* HotCollectionViewCell.swift */; };
+		5A99A26329A0DBD9006FE9B2 /* HotCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A26229A0DBD9006FE9B2 /* HotCollectionViewHeader.swift */; };
+		5A99A26529A0EBF1006FE9B2 /* DeadLineCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A26429A0EBF1006FE9B2 /* DeadLineCollectionViewHeader.swift */; };
+		5A99A26929A13611006FE9B2 /* DeadLineCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A26829A13611006FE9B2 /* DeadLineCollectionView.swift */; };
+		5A99A26B29A13B5B006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A26A29A13B5B006FE9B2 /* DeadLineCollectionViewCell.swift */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -42,18 +37,14 @@
 		022DDE49299F2F0E00702B87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		022DDE4C299F2F0E00702B87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		022DDE4E299F2F0E00702B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0283DC2729A0A0D000DBC2B5 /* VoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
-		0283DC2929A0A0EF00DBC2B5 /* VoteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListTableViewCell.swift; sourceTree = "<group>"; };
-		0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
-		0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoM.ttf; sourceTree = "<group>"; };
-		0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoR.ttf; sourceTree = "<group>"; };
-		0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
-		0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListTableViewCell.swift; sourceTree = "<group>"; };
-		3E691FC229A0A225005CC39F /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
-		3E691FC429A0A22D005CC39F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
-		3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2ViewController.swift; sourceTree = "<group>"; };
-		3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanSSUColor.swift; sourceTree = "<group>"; };
+		5A99A25829A0AE88006FE9B2 /* TopicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionView.swift; sourceTree = "<group>"; };
+		5A99A25B29A0B23A006FE9B2 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
+		5A99A25D29A0C82E006FE9B2 /* HotCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionView.swift; sourceTree = "<group>"; };
+		5A99A25F29A0D899006FE9B2 /* HotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewCell.swift; sourceTree = "<group>"; };
+		5A99A26229A0DBD9006FE9B2 /* HotCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewHeader.swift; sourceTree = "<group>"; };
+		5A99A26429A0EBF1006FE9B2 /* DeadLineCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionViewHeader.swift; sourceTree = "<group>"; };
+		5A99A26829A13611006FE9B2 /* DeadLineCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionView.swift; sourceTree = "<group>"; };
+		5A99A26A29A13B5B006FE9B2 /* DeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -105,14 +96,34 @@
 			path = Balanssu;
 			sourceTree = "<group>";
 		};
-		0283DC3329A0A57B00DBC2B5 /* fonts */ = {
+		5A99A25729A0AE66006FE9B2 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */,
-				0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */,
-				0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */,
+				5A99A25829A0AE88006FE9B2 /* TopicCollectionView.swift */,
+				5A99A26129A0DB4C006FE9B2 /* HeaderView */,
+				5A99A25D29A0C82E006FE9B2 /* HotCollectionView.swift */,
+				5A99A26829A13611006FE9B2 /* DeadLineCollectionView.swift */,
 			);
-			path = fonts;
+			sourceTree = "<group>";
+			path = View;
+		};
+		5A99A25A29A0B1A3006FE9B2 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5A99A25B29A0B23A006FE9B2 /* TopicCollectionViewCell.swift */,
+				5A99A25F29A0D899006FE9B2 /* HotCollectionViewCell.swift */,
+				5A99A26A29A13B5B006FE9B2 /* DeadLineCollectionViewCell.swift */,
+			path = Cell;
+			);
+			sourceTree = "<group>";
+		};
+		5A99A26129A0DB4C006FE9B2 /* HeaderView */ = {
+			isa = PBXGroup;
+			children = (
+				5A99A26229A0DBD9006FE9B2 /* HotCollectionViewHeader.swift */,
+				5A99A26429A0EBF1006FE9B2 /* DeadLineCollectionViewHeader.swift */,
+			);
+			path = HeaderView;
 			sourceTree = "<group>";
 		};
 		5AACF2CF299F510F00D1C06B /* Global */ = {
@@ -197,6 +208,8 @@
 		5AACF2D7299F528D00D1C06B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				5A99A25A29A0B1A3006FE9B2 /* Cell */,
+				5A99A25729A0AE66006FE9B2 /* View */,
 				5AACF2DE299F534F00D1C06B /* MainViewController.swift */,
 			);
 			path = Main;
@@ -361,20 +374,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A99A26B29A13B5B006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */,
 				022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */,
 				0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */,
 				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
-				3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */,
+				5A99A26929A13611006FE9B2 /* DeadLineCollectionView.swift in Sources */,
+				5A99A25E29A0C82E006FE9B2 /* HotCollectionView.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
 				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
 				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
 				5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */,
-				0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */,
-				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
+				5A99A26029A0D899006FE9B2 /* HotCollectionViewCell.swift in Sources */,
+				5A99A26529A0EBF1006FE9B2 /* DeadLineCollectionViewHeader.swift in Sources */,
+				5A99A25929A0AE88006FE9B2 /* TopicCollectionView.swift in Sources */,
+				5A99A25C29A0B23A006FE9B2 /* TopicCollectionViewCell.swift in Sources */,
+				5A99A26329A0DBD9006FE9B2 /* HotCollectionViewHeader.swift in Sources */,
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,
 				0283DC4E29A0F55800DBC2B5 /* MypageViewController.swift in Sources */,
 			);
