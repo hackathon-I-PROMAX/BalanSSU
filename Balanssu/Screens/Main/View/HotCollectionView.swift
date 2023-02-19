@@ -21,11 +21,11 @@ class HotCollectionView: UITableViewCell {
         static let collectionHorizontalSpacing: CGFloat = 12
         static let collectionVerticalSpacing: CGFloat = 0
         static let cellWidth: CGFloat = 148
-        static let cellHeight: CGFloat = 191
+        static let cellHeight: CGFloat = 170
         static let collectionInsets = UIEdgeInsets(
-            top: collectionVerticalSpacing,
+            top: 0,
             left: 20,
-            bottom: collectionVerticalSpacing,
+            bottom: 0,
             right: 20)
     }
     
@@ -33,7 +33,7 @@ class HotCollectionView: UITableViewCell {
     
     weak var cellDelegate: HotCollectionViewCellDelegate?
     
-    let hotImageArray: [UIImage] = [ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton]
+    let hotImageArray: [UIImage] = [ImageLiterals.hotCell, ImageLiterals.hotCell, ImageLiterals.hotCell]
     let hotItitleArray: [String] = ["숭실대 가성비 카페", "숭실대 가성비 카페", "숭실대 가성비 카페"]
     let hotdeadLineArray: [String] = ["10", "5", "90"]
     
@@ -42,7 +42,7 @@ class HotCollectionView: UITableViewCell {
         flowLayout.scrollDirection = .horizontal
 
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionview.backgroundColor = .systemCyan
+        collectionview.backgroundColor = .white
         collectionview.showsHorizontalScrollIndicator = false
         return collectionview
     }()
@@ -89,7 +89,7 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
         
         cell.imageView.image = hotImageArray[indexPath.row]
         cell.hotTitleLabel.text = hotItitleArray[indexPath.item]
-        cell.deadLineLabel.text = "D+" + hotdeadLineArray[indexPath.item]
+//        cell.deadLineLabel.text = "D+" + hotdeadLineArray[indexPath.item]
     
         return cell
     }

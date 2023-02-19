@@ -21,7 +21,7 @@ class DeadLineCollectionView: UITableViewCell {
         static let collectionHorizontalSpacing: CGFloat = 12
         static let collectionVerticalSpacing: CGFloat = 0
         static let cellWidth: CGFloat = 148
-        static let cellHeight: CGFloat = 148
+        static let cellHeight: CGFloat = 170
         static let collectionInsets = UIEdgeInsets(
             top: collectionVerticalSpacing,
             left: 20,
@@ -33,14 +33,16 @@ class DeadLineCollectionView: UITableViewCell {
     
     weak var cellDelegate: DeadLineCollectionViewCellDelegate?
     
-    let deadLineImageArray: [UIImage] = [ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton]
+    let deadLineImageArray: [UIImage] = [ImageLiterals.deadLineCell, ImageLiterals.deadLineCell, ImageLiterals.deadLineCell]
+    
+    let deadLinetitleArray: [String] = ["숭실대 가성비 카페", "숭실대 가성비 카페", "숭실대 가성비 카페"]
     
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
         
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionview.backgroundColor = .systemCyan
+        collectionview.backgroundColor = .white
         collectionview.showsHorizontalScrollIndicator = false
         return collectionview
     }()
@@ -86,6 +88,7 @@ extension DeadLineCollectionView: UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeadLineCollectionViewCell.identifier, for: indexPath) as! DeadLineCollectionViewCell
         
         cell.imageView.image = deadLineImageArray[indexPath.row]
+        cell.deadLineTitleLabel.text = deadLinetitleArray[indexPath.item]
         
         return cell
     }

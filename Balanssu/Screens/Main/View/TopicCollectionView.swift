@@ -19,7 +19,7 @@ class TopicCollectionView: UITableViewCell {
     
     static let identifier = "TopicCollectionView"
 
-    let topicImageArray: [UIImage] = [ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton]
+    let topicImageArray: [UIImage] = [ImageLiterals.topicCell, ImageLiterals.topicCell, ImageLiterals.topicCell]
     
     weak var cellDelegate: TopCollectionViewCellDelegate?
     

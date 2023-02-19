@@ -45,8 +45,7 @@ class TopicCollectionViewCell: UICollectionViewCell {
     }
     
     func configUI() {
-        contentView.layer.cornerRadius = 12
-        contentView.layer.backgroundColor = UIColor.systemRed.cgColor
+        contentView.layer.backgroundColor = UIColor.customColor(.defaultBlue).cgColor
     }
     
 }

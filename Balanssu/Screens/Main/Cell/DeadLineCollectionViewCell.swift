@@ -19,6 +19,11 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
         $0.contentMode = .scaleToFill
     }
     
+    let deadLineTitleLabel = UILabel().then {
+        $0.font = UIFont.boldSystemFont(ofSize: 14)
+        $0.textColor = .black
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setViewHierarchy()
@@ -36,6 +41,7 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
     
     func setViewHierarchy() {
         contentView.addSubview(imageView)
+        contentView.addSubview(deadLineTitleLabel)
     }
     
     func setConstraints() {
@@ -45,10 +51,16 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
             $0.trailing.equalToSuperview()
             $0.height.equalTo(148)
         }
+        
+        deadLineTitleLabel.snp.makeConstraints {
+            $0.top.equalTo(imageView.snp.bottom).offset(6)
+            $0.leading.equalToSuperview().inset(6)
+            $0.height.equalTo(17)
+        }
     }
     
     func configUI() {
-        contentView.backgroundColor = .systemRed
+        contentView.backgroundColor = .white
     }
     
 }
