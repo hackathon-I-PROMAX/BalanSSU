@@ -11,6 +11,8 @@ import SnapKit
 
 import Then
 
+import YDS
+
 class HotCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "TopicCollectionViewCell"
@@ -24,9 +26,9 @@ class HotCollectionViewCell: UICollectionViewCell {
         $0.textColor = .black
     }
     
-    let deadLineLabel = UILabel().then {
-        $0.font = UIFont.boldSystemFont(ofSize: 14)
-        $0.textColor = .black
+    let badge = YDSBadge().then {
+        $0.color = .blue
+        $0.layer.cornerRadius = 12
     }
     
     override init(frame: CGRect) {
@@ -47,7 +49,7 @@ class HotCollectionViewCell: UICollectionViewCell {
     func setViewHierarchy() {
         contentView.addSubview(imageView)
         contentView.addSubview(hotTitleLabel)
-        contentView.addSubview(deadLineLabel)
+        contentView.addSubview(badge)
     }
     
     func setConstraints() {
@@ -64,18 +66,17 @@ class HotCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(17)
         }
         
-        deadLineLabel.snp.makeConstraints {
-            $0.top.equalTo(hotTitleLabel.snp.bottom).offset(1)
-            $0.leading.equalToSuperview().inset(6)
-            $0.bottom.equalToSuperview().inset(5)
-            $0.height.equalTo(14)
-        }
-        
-        
+//        badge.snp.makeConstraints {
+//            $0.top.equalTo(hotTitleLabel.snp.bottom).offset(1)
+//            $0.leading.equalToSuperview().inset(6)
+//            $0.bottom.equalToSuperview().inset(5)
+//            $0.height.equalTo(14)
+//        }
     }
     
     func configUI() {
-        contentView.backgroundColor = .systemRed
+        contentView.backgroundColor = .white
+        imageView.layer.cornerRadius = 12
     }
     
 }

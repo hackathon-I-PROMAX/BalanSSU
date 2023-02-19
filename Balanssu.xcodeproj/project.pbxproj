@@ -39,6 +39,10 @@
 		5A99A27D29A1CECA006FE9B2 /* HotCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27C29A1CECA006FE9B2 /* HotCollectionViewHeader.swift */; };
 		5A99A27F29A1CEF8006FE9B2 /* DeadLineCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27E29A1CEF8006FE9B2 /* DeadLineCollectionViewHeader.swift */; };
 		5A99A28129A1D17E006FE9B2 /* MypageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */; };
+		5A99A28329A1EDC5006FE9B2 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A28229A1EDC5006FE9B2 /* BaseTargetType.swift */; };
+		5A99A28529A1F1BB006FE9B2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A28429A1F1BB006FE9B2 /* NetworkService.swift */; };
+		5A99A28729A1F257006FE9B2 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A28629A1F257006FE9B2 /* NetworkResult.swift */; };
+		5A99A28929A1F284006FE9B2 /* URLConst.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A28829A1F284006FE9B2 /* URLConst.swift */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -74,6 +78,10 @@
 		5A99A27C29A1CECA006FE9B2 /* HotCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewHeader.swift; sourceTree = "<group>"; };
 		5A99A27E29A1CEF8006FE9B2 /* DeadLineCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionViewHeader.swift; sourceTree = "<group>"; };
 		5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewController.swift; sourceTree = "<group>"; };
+		5A99A28229A1EDC5006FE9B2 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
+		5A99A28429A1F1BB006FE9B2 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		5A99A28629A1F257006FE9B2 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
+		5A99A28829A1F284006FE9B2 /* URLConst.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLConst.swift; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -204,6 +212,10 @@
 				5AACF2DD299F531500D1C06B /* DTO */,
 				5AACF2DC299F530D00D1C06B /* Service */,
 				5AACF2DB299F530800D1C06B /* API */,
+				5A99A28229A1EDC5006FE9B2 /* BaseTargetType.swift */,
+				5A99A28429A1F1BB006FE9B2 /* NetworkService.swift */,
+				5A99A28629A1F257006FE9B2 /* NetworkResult.swift */,
+				5A99A28829A1F284006FE9B2 /* URLConst.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -422,8 +434,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A99A28329A1EDC5006FE9B2 /* BaseTargetType.swift in Sources */,
 				5A99A27F29A1CEF8006FE9B2 /* DeadLineCollectionViewHeader.swift in Sources */,
 				5A99A27929A1CE99006FE9B2 /* HotCollectionView.swift in Sources */,
+				5A99A28929A1F284006FE9B2 /* URLConst.swift in Sources */,
+				5A99A28729A1F257006FE9B2 /* NetworkResult.swift in Sources */,
 				5A99A27529A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */,
 				022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */,
 				5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */,
@@ -446,6 +461,7 @@
 				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
 				5A99A27729A1CE7E006FE9B2 /* TopicCollectionView.swift in Sources */,
 				5A99A27129A1CE24006FE9B2 /* TopicCollectionViewCell.swift in Sources */,
+				5A99A28529A1F1BB006FE9B2 /* NetworkService.swift in Sources */,
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

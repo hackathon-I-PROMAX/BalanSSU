@@ -11,8 +11,6 @@ import Then
 
 class MainViewController: BaseViewController {
     
-    private let myPageButton = UIBarButtonItem(image: UIImage(systemName: "bell"), style: .plain, target: MainViewController.self, action: nil)
-    
     //    private let topicCollectionView = TopicCollectionView()
     
     let tableView = UITableView(frame: .zero, style: .plain).then {
@@ -43,6 +41,8 @@ class MainViewController: BaseViewController {
     func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.backgroundColor = .white
+        tableView.layer.borderWidth = 0
         
         tableView.register(HotCollectionViewHeader.self, forHeaderFooterViewReuseIdentifier: HotCollectionViewHeader.identifier)
         tableView.register(DeadLineCollectionViewHeader.self, forHeaderFooterViewReuseIdentifier: DeadLineCollectionViewHeader.identifier)
@@ -57,12 +57,19 @@ class MainViewController: BaseViewController {
     
     override func setupNavigationBar() {
         super.setupNavigationBar()
-        navigationItem.rightBarButtonItem = myPageButton
-        navigationItem.title = "밸런슈"
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "myPageButton.svg"), style: .plain, target: self, action: #selector(myPageBtn))
+        
+        let logo = UIImage(named: "mainTitle.svg")
+        let imageView = UIImageView(image:logo)
+        self.navigationItem.titleView = imageView
     }
     
     @objc func voteListBtn(sender: UIButton) {
         print("voteList")
+    }
+    
+    @objc func myPageBtn(sender: UIBarButtonItem) {
+        print("myPageBtn")
     }
 }
     
@@ -77,12 +84,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: HotCollectionViewHeader.identifier) as! HotCollectionViewHeader
                 
+                headerCell.tintColor = .white
                 headerCell.allListButton.addTarget(self, action: #selector(voteListBtn), for: .touchUpInside)
                 
                 return headerCell
             case 2:
                 let headerCell = tableView.dequeueReusableHeaderFooterView(withIdentifier: DeadLineCollectionViewHeader.identifier) as! DeadLineCollectionViewHeader
                 
+                headerCell.tintColor = .white
                 headerCell.deadLineListButton.addTarget(self, action: #selector(voteListBtn), for: .touchUpInside)
                 
                 return headerCell
@@ -123,9 +132,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 return 0
             case 1:
-                return 60
+                return 55
             case 2:
-                return 60
+                return 55
             default:
                 return CGFloat.leastNormalMagnitude
             }
@@ -136,9 +145,9 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             case 0:
                 return 200
             case 1:
-                return 190
+                return 160
             case 2:
-                return 148
+                return 160
             default:
                 return 1000
             }
