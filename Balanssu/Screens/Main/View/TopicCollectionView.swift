@@ -11,17 +11,9 @@ import SnapKit
 
 import Then
 
-//private enum Size {
-//    static let collectionHorizontalSpacing: CGFloat = 20
-//    static let collectionVerticalSpacing: CGFloat = 0
-//    static let cellWidth: CGFloat = 335
-//    static let cellHeight: CGFloat = 186
-//    static let collectionInsets = UIEdgeInsets(
-//        top: collectionVerticalSpacing,
-//        left: collectionHorizontalSpacing,
-//        bottom: collectionVerticalSpacing,
-//        right: collectionHorizontalSpacing)
-//}
+protocol TopCollectionViewCellDelegate: AnyObject {
+    func collectionView(collectionviewcell: TopicCollectionViewCell?, index: Int, didTappedInTableViewCell: TopicCollectionView)
+}
 
 class TopicCollectionView: UITableViewCell {
     
@@ -29,12 +21,11 @@ class TopicCollectionView: UITableViewCell {
 
     let topicImageArray: [UIImage] = [ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton, ImageLiterals.navigationBarBackButton]
     
+    weak var cellDelegate: TopCollectionViewCellDelegate?
     
     var topicCollectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-//        flowLayout.itemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
-//        flowLayout.minimumLineSpacing = 8
 
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionview.backgroundColor = .systemCyan
@@ -42,24 +33,7 @@ class TopicCollectionView: UITableViewCell {
         collectionview.showsHorizontalScrollIndicator = false
         return collectionview
     }()
-    
-//    private let collectionViewFlowLayout: UICollectionViewFlowLayout = {
-//        let flowLayout = UICollectionViewFlowLayout()
-//        flowLayout.scrollDirection = .horizontal
-//        flowLayout.sectionInset = Size.collectionInsets
-//        flowLayout.itemSize = CGSize(width: Size.cellWidth, height: Size.cellHeight)
-////        flowLayout.minimumLineSpacing = 8
-//        return flowLayout
-//    }()
-//    private lazy var topicCollectionView: UICollectionView = {
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-//        collectionView.backgroundColor = .systemCyan
-//        collectionView.isPagingEnabled = true
-//        collectionView.showsVerticalScrollIndicator = false
-//
-//        return collectionView
-//    }()
-    
+        
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setViewHierarchy()
@@ -103,7 +77,8 @@ extension TopicCollectionView: UICollectionViewDataSource, UICollectionViewDeleg
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("Top")
+        let cell = collectionView.cellForItem(at: indexPath) as? TopicCollectionViewCell
+            self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
     }
 }
 
@@ -111,7 +86,7 @@ extension TopicCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
             return 0
         }

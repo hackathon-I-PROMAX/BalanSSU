@@ -23,6 +23,7 @@ class TopicCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         setViewHierarchy()
         setConstraints()
+        configUI()
     }
     
     required init?(coder: NSCoder) {
@@ -41,6 +42,11 @@ class TopicCollectionViewCell: UICollectionViewCell {
         bannerImageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+    }
+    
+    func configUI() {
+        contentView.layer.cornerRadius = 12
+        contentView.layer.backgroundColor = UIColor.systemRed.cgColor
     }
     
 }
