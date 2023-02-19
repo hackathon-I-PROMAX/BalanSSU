@@ -22,8 +22,8 @@ class CommentListTableViewCell: UITableViewCell {
     let name : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 13.0)
-    }()
         return label
+    }()
     let badge = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)).then {
             $0.backgroundColor = UIColor(red: 0.992, green: 0.969, blue: 0.898, alpha: 1)
             $0.font = UIFont(name: "AppleSDGothicNeoR00", size: 11.0)

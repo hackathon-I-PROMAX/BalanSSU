@@ -14,8 +14,7 @@ import YDS
 class StartViewController: BaseViewController {
     
     let logoImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "apple.logo")?.withRenderingMode(.alwaysTemplate)
-        $0.tintColor = .black
+        $0.image = UIImage(named: "logo")
         $0.contentMode = .scaleAspectFit
     }
     

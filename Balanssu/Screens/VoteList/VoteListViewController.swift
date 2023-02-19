@@ -18,6 +18,17 @@ class VoteListViewController: BaseViewController {
             return tableView
     }()
     
+    lazy var backBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
+        button.tintColor = .black
+            return button
+    }()
+    
+    @objc func backBarButtonTapped() {
+        print("tapped")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func setViewHierarchy() {
         self.view.addSubview(tableView)
     }
@@ -50,7 +61,8 @@ class VoteListViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
-        
+        self.navigationItem.leftBarButtonItem = backBarButton
+
         setLayouts()
     }
     

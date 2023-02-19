@@ -77,6 +77,17 @@ class MypageViewController: BaseViewController {
          UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     
+    lazy var backBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
+        button.tintColor = .black
+            return button
+    }()
+    
+    @objc func backBarButtonTapped() {
+        print("tapped")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     override func setViewHierarchy() {
         contentView.addSubview(profileView)
         contentView.addSubview(idLabel)
@@ -138,7 +149,8 @@ class MypageViewController: BaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         profileView.layer.cornerRadius = 20
-        
+        self.navigationItem.leftBarButtonItem = backBarButton
+
         setLayouts()
     }
     
