@@ -145,9 +145,8 @@ class MypageViewController: BaseViewController {
     override func setupNavigationBar() {
         super.setupNavigationBar()
         
-        
-        let backButton = makeBarButtonItem(with: backButton)
-        navigationItem.leftBarButtonItem = backButton
+        //let backButton = makeBarButtonItem(with: backButton)
+        //navigationItem.leftBarButtonItem = backButton
         navigationItem.title = "마이페이지"
     }
     

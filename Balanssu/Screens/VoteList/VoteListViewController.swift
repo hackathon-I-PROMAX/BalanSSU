@@ -58,8 +58,8 @@ class VoteListViewController: BaseViewController {
         super.setupNavigationBar()
         
 
-        let backButton = makeBarButtonItem(with: backButton)
-        navigationItem.leftBarButtonItem = backButton
+        //let backButton = makeBarButtonItem(with: backButton)
+        //navigationItem.leftBarButtonItem = backButton
         navigationItem.title = "전체보기"
     }
 
