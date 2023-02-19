@@ -32,9 +32,8 @@ class StartViewController: BaseViewController {
         $0.setTitle("회원가입", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        $0.backgroundColor = UIColor(r: 232, g: 236, b: 244)
         $0.layer.cornerRadius = 8
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         $0.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
 
@@ -58,8 +57,6 @@ class StartViewController: BaseViewController {
         setConstraints()
         configUI()
         setupNavigationBar()
-        
-        navigationItem.title = "밸런슈"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
