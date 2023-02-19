@@ -296,7 +296,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         
         super.setupNavigationBar()
         
-        let backBarButton = makeBarButtonItem(with: backBarButton)
-        navigationItem.leftBarButtonItem = backBarButton
+//        let backBarButton = makeBarButtonItem(with: backBarButton)
+//        navigationItem.leftBarButtonItem = backBarButton
     }
 }

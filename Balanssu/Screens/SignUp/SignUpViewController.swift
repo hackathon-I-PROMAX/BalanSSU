@@ -296,8 +296,8 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         navigationBar.scrollEdgeAppearance = appearance
                 
         super.setupNavigationBar()
-        
-        let backBarButton = makeBarButtonItem(with: backBarButton)
-        navigationItem.leftBarButtonItem = backBarButton
+
+//        let backBarButton = makeBarButtonItem(with: backBarButton)
+//        navigationItem.leftBarButtonItem = backBarButton
     }
 }
