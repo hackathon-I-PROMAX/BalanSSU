@@ -62,13 +62,18 @@ class MainViewController: BaseViewController {
         let logo = UIImage(named: "mainTitle.svg")
         let imageView = UIImageView(image:logo)
         self.navigationItem.titleView = imageView
+        self.navigationItem.hidesBackButton = true
     }
     
     @objc func voteListBtn(sender: UIButton) {
+        let nextViewController = VoteListViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
         print("voteList")
     }
     
     @objc func myPageBtn(sender: UIBarButtonItem) {
+        let nextViewController = MypageViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
         print("myPageBtn")
     }
 }
@@ -156,6 +161,8 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCellDelegate, DeadLineCollectionViewCellDelegate {
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView) {
+        let nextViewController = VoteViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
         print("Hot")
     }
     
@@ -164,6 +171,8 @@ extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCe
         }
     
     func collectionView(collectionviewcell: DeadLineCollectionViewCell?, index: Int, didTappedInTableViewCell: DeadLineCollectionView) {
+        let nextViewController = VoteViewController()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
         print("deadLine")
     }
 }
