@@ -97,39 +97,35 @@
 			sourceTree = "<group>";
 		};
 		5A99A25729A0AE66006FE9B2 /* View */ = {
-		};
-			sourceTree = "<group>";
-			path = HeaderView;
-			);
-				5A99A26229A0DBD9006FE9B2 /* HotCollectionViewHeader.swift */,
 			isa = PBXGroup;
 			children = (
-				5A99A26129A0DB4C006FE9B2 /* HeaderView */,
 				5A99A25829A0AE88006FE9B2 /* TopicCollectionView.swift */,
+				5A99A26129A0DB4C006FE9B2 /* HeaderView */,
 				5A99A25D29A0C82E006FE9B2 /* HotCollectionView.swift */,
 				5A99A26829A13611006FE9B2 /* DeadLineCollectionView.swift */,
 			);
-				5A99A25F29A0D899006FE9B2 /* HotCollectionViewCell.swift */,
-				5A99A25B29A0B23A006FE9B2 /* TopicCollectionViewCell.swift */,
-			children = (
-			isa = PBXGroup;
-		5A99A25A29A0B1A3006FE9B2 /* Cell */ = {
+			sourceTree = "<group>";
+			path = View;
 		};
 		5A99A25A29A0B1A3006FE9B2 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
 				5A99A25B29A0B23A006FE9B2 /* TopicCollectionViewCell.swift */,
 				5A99A25F29A0D899006FE9B2 /* HotCollectionViewCell.swift */,
-			);
 				5A99A26A29A13B5B006FE9B2 /* DeadLineCollectionViewCell.swift */,
 			path = Cell;
+			);
 			sourceTree = "<group>";
+		};
+		5A99A26129A0DB4C006FE9B2 /* HeaderView */ = {
 			isa = PBXGroup;
 			children = (
 				5A99A26229A0DBD9006FE9B2 /* HotCollectionViewHeader.swift */,
 				5A99A26429A0EBF1006FE9B2 /* DeadLineCollectionViewHeader.swift */,
 			);
-			path = View;
+			path = HeaderView;
+			sourceTree = "<group>";
+		};
 		5AACF2CF299F510F00D1C06B /* Global */ = {
 			isa = PBXGroup;
 			children = (
