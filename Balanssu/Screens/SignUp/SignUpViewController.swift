@@ -40,12 +40,10 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         {
             idImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.isEnabled = true
         }
         else {
             idImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
             idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.isEnabled = false
         }
         
         if self.passwordTextField.text?.isEmpty == false
@@ -53,12 +51,10 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         {
             passwordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.isEnabled = true
         }
         else {
             passwordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
             passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.isEnabled = false
         }
         
         if self.checkPasswordTextField.text?.isEmpty == false
@@ -68,13 +64,11 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
             checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
             checkPasswordcheckLabel.textColor = .white
 
-//            checkButton.isEnabled = true
         }
         else {
             checkPasswordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
             checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
             checkPasswordcheckLabel.textColor = UIColor(r: 64, g: 96, b: 160)
-//            checkButton.isEnabled = false
         }
         
 //        if self.idTextField.text?.isEmpty == false
