@@ -154,7 +154,8 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
     }
   
     @objc func checkButtonTapped() {
-        self.navigationController?.pushViewController(SignUp2ViewController(), animated: true)
+        let nextVC = SignUp2ViewController(username: idTextField.text, password: passwordTextField.text)
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 
     lazy var backBarButton: UIBarButtonItem = {
