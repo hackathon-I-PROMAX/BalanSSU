@@ -10,6 +10,19 @@ import UIKit
 import SnapKit
 
 class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    var username: String?
+    var password: String?
+ 
+    init(username: String?, password: String?) {
+        super.init(nibName: nil, bundle: nil)
+        self.username = username
+        self.password = password
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     let nickNameLabel = UILabel().then {
         $0.text = "닉네임"
         $0.textColor = .black
@@ -290,6 +303,8 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         self.majorTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .valueChanged)
         self.navigationItem.leftBarButtonItem = backBarButton
         navigationItem.title = "회원가입"
+        
+        print("username: \(username!), password: \(password!)")
     }
     
     override func viewWillDisappear(_ animated: Bool) {
