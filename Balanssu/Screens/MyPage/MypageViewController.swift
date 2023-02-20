@@ -82,18 +82,13 @@ class MypageViewController: BaseViewController {
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 20.0)
         return label
     }()
-    private let stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        stackView.backgroundColor = nil
-        stackView.spacing = 8
-        return stackView
+    private let tableView : UITableView = { // 테이블 뷰 생성
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(MypageCardCell.self, forCellReuseIdentifier: MypageCardCell.identifier)
+        return tableView
     }()
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        scrollView.backgroundColor = nil
-        return scrollView
-    }()
+    let card: [String] = ["card1", "card2","card3"]
     
     @objc
     func moreButtonTap() {
@@ -125,8 +120,7 @@ class MypageViewController: BaseViewController {
         
         self.view.addSubview(grayLine)
         self.view.addSubview(cardLabel)
-        self.view.addSubview(scrollView)
-        scrollView.addSubview(stackView)
+        self.view.addSubview(tableView)
     }
     override func setConstraints() {
         
@@ -177,19 +171,17 @@ class MypageViewController: BaseViewController {
             $0.leading.equalToSuperview().inset(21)
             $0.top.equalTo(grayLine.snp.bottom).offset(20)
         }
-        scrollView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+        tableView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().offset(20)
             $0.top.equalTo(cardLabel.snp.bottom).offset(12)
+            $0.bottom.equalToSuperview()
         }
-        stackView.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview()
-            $0.centerX.equalToSuperview()
-            //$0.leading.trailing.equalToSuperview().inset(20)
-            $0.width.equalTo(335)
-            //$0.width.equalTo(335)
-        }
+            
     }
     func setLayouts() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        
         setViewHierarchy()
         setConstraints()
     }
@@ -199,30 +191,35 @@ class MypageViewController: BaseViewController {
         view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
         
-        addCards()
         setLayouts()
     }
     
     override func setupNavigationBar() {
         super.setupNavigationBar()
-        
-        //let backButton = makeBarButtonItem(with: backButton)
-        //navigationItem.leftBarButtonItem = backButton
         navigationItem.title = "마이페이지"
     }
+}
+
+extension MypageViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
     
-    func addCards() {
-        (0..<3).map { idx in
-            let cardImage: UIImageView = {
-                let img = UIImageView()
-                img.translatesAutoresizingMaskIntoConstraints = false
-                img.image = UIImage(named: "card\(idx+1)")
-                img.contentMode = .scaleAspectFit
-                return img
-            }()
-            return cardImage
-        }
-        .forEach(stackView.addArrangedSubview)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: MypageCardCell.identifier, for: indexPath) as! MypageCardCell
+        let cardImage = UIImage(named: "\(card[indexPath.row]).png")
+        cell.cardImage.image = cardImage
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 200
+    }
+}
+
+extension MypageViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("select \(indexPath.row)")
     }
 }
 
