@@ -17,7 +17,7 @@ class MypageViewController: BaseViewController {
     private let profileView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "ppussung")
-        view.layer.cornerRadius = 40
+        view.layer.cornerRadius = 25
         view.clipsToBounds = true
         view.backgroundColor = .gray
         
@@ -86,6 +86,8 @@ class MypageViewController: BaseViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(MypageCardCell.self, forCellReuseIdentifier: MypageCardCell.identifier)
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 190
         return tableView
     }()
     let card: [String] = ["card1", "card2","card3"]
@@ -172,7 +174,7 @@ class MypageViewController: BaseViewController {
             $0.top.equalTo(grayLine.snp.bottom).offset(20)
         }
         tableView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().offset(20)
+            $0.leading.trailing.equalToSuperview()
             $0.top.equalTo(cardLabel.snp.bottom).offset(12)
             $0.bottom.equalToSuperview()
         }
@@ -209,6 +211,7 @@ extension MypageViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: MypageCardCell.identifier, for: indexPath) as! MypageCardCell
         let cardImage = UIImage(named: "\(card[indexPath.row]).png")
         cell.cardImage.image = cardImage
+        cell.selectionStyle = .none
         return cell
     }
     
