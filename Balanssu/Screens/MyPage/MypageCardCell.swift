@@ -33,9 +33,10 @@ class MypageCardCell: UITableViewCell {
         
     private func autoLayout() {
         cardImage.snp.makeConstraints {
-            $0.center.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.width.equalTo(335)
             $0.height.equalTo(186)
+            $0.top.bottom.equalToSuperview().inset(3)
         }
     }
         
