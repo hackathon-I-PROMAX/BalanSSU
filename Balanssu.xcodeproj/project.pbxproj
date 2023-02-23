@@ -16,6 +16,7 @@
 		022DDE5F299F2F6800702B87 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE5E299F2F6800702B87 /* ReactiveMoya */; };
 		022DDE61299F2F6800702B87 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE60299F2F6800702B87 /* RxMoya */; };
 		022DDE64299F4B8700702B87 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE63299F4B8700702B87 /* Then */; };
+		024E388E29A3471D00E08150 /* MypageCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 024E388D29A3471D00E08150 /* MypageCardCell.swift */; };
 		0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC2729A0A0D000DBC2B5 /* VoteListViewController.swift */; };
 		0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC2929A0A0EF00DBC2B5 /* VoteListTableViewCell.swift */; };
 		0283DC3529A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */; };
@@ -62,6 +63,7 @@
 		022DDE49299F2F0E00702B87 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		022DDE4C299F2F0E00702B87 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		022DDE4E299F2F0E00702B87 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		024E388D29A3471D00E08150 /* MypageCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageCardCell.swift; sourceTree = "<group>"; };
 		0283DC2729A0A0D000DBC2B5 /* VoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
 		0283DC2929A0A0EF00DBC2B5 /* VoteListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListTableViewCell.swift; sourceTree = "<group>"; };
 		0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AppleSDGothicNeoB.ttf; sourceTree = "<group>"; };
@@ -299,6 +301,7 @@
 			isa = PBXGroup;
 			children = (
 				5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */,
+				024E388D29A3471D00E08150 /* MypageCardCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -466,6 +469,7 @@
 				5A99A28F29A4B7AE006FE9B2 /* BlankDataResponse.swift in Sources */,
 				5A99A27929A1CE99006FE9B2 /* HotCollectionView.swift in Sources */,
 				5A99A28929A1F284006FE9B2 /* URLConst.swift in Sources */,
+				024E388E29A3471D00E08150 /* MypageCardCell.swift in Sources */,
 				5A99A28729A1F257006FE9B2 /* NetworkResult.swift in Sources */,
 				5A99A27529A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */,
 				022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */,
