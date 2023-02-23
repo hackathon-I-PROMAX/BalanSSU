@@ -1,3 +1,5 @@
+
+
 //
 //  SceneDelegate.swift
 //  Balanssu
@@ -19,10 +21,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
+        var rootViewController: UIViewController
         
-        let mainViewController = MypageViewController()
-        let navigationController = UINavigationController(rootViewController: mainViewController)
-        window.rootViewController = navigationController // 시작 VC 작성해주기
+        if UserDefaults.standard.bool(forKey: UserDefaultKey.loginStatus) {
+            rootViewController = UINavigationController(rootViewController: MainViewController())
+        } else {
+            rootViewController = UINavigationController(rootViewController: StartViewController())
+        }
+        window.rootViewController = rootViewController // 시작 VC 작성해주기
         window.makeKeyAndVisible()
         self.window = window
     }
@@ -69,4 +75,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 
 }
+
 
