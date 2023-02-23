@@ -8,8 +8,10 @@
 import Foundation
 
 struct ErrorResponse: Codable {
+    
     let timeStamp: String
     let status: Int
-    let message: String
     let error: String?
+    let message: String
+    
 }

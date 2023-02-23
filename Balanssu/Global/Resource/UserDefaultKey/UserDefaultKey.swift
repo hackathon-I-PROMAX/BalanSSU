@@ -7,7 +7,8 @@
 
 enum UserDefaultKey {
     /// auth token
-    static let token = "token"
+    static let accessToken = "accessToken"
+    static let refreshToken = "refreshToken"
 
     static let loginStatus = "loginStatus"
 

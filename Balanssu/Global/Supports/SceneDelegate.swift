@@ -18,15 +18,30 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         let window = UIWindow(windowScene: windowScene)
-        let mainViewController = StartViewController()
-        let navigationController = UINavigationController(rootViewController: mainViewController)
-        window.rootViewController = navigationController // 시작 VC 작성해주기
+        var rootViewController: UIViewController
+        
+        if UserDefaults.standard.bool(forKey: UserDefaultKey.loginStatus) {
+            rootViewController = UINavigationController(rootViewController: MainViewController())
+        } else {
+            rootViewController = UINavigationController(rootViewController: StartViewController())
+        }
+        window.rootViewController = rootViewController // 시작 VC 작성해주기
         window.makeKeyAndVisible()
         self.window = window
-
     }
+    
+    func changeRootView() {
+         guard let window = window else { return }
+         window.rootViewController = UINavigationController(rootViewController: MainViewController())
+         UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil)
+     }
+    
+    func changeStartView() {
+         guard let window = window else { return }
+         window.rootViewController = UINavigationController(rootViewController: StartViewController())
+         UIView.transition(with: window, duration: 0.2, options: [.transitionCrossDissolve], animations: nil)
+     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
