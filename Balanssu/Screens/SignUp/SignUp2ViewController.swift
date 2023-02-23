@@ -259,7 +259,11 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     func makeSignUpAlert() {
         let loginAlert = UIAlertController(title: "🎉회원가입 완료🎉", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-//            self.navigationController?.popToRootViewController(animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                sceneDelegate?.changeStartView()
+            }
         }
         loginAlert.addAction(okAction)
         self.present(loginAlert, animated: true)

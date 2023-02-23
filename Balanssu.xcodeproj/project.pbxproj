@@ -48,6 +48,7 @@
 		5A99A28F29A4B7AE006FE9B2 /* BlankDataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A28E29A4B7AE006FE9B2 /* BlankDataResponse.swift */; };
 		5A99A29129A4BB40006FE9B2 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */; };
 		5A99A2B129A64038006FE9B2 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2B029A64038006FE9B2 /* UserDefaultKey.swift */; };
+		5A99A2B329A75B2C006FE9B2 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -92,6 +93,7 @@
 		5A99A28E29A4B7AE006FE9B2 /* BlankDataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlankDataResponse.swift; sourceTree = "<group>"; };
 		5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		5A99A2B029A64038006FE9B2 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
+		5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -340,6 +342,7 @@
 			children = (
 				5A99A28E29A4B7AE006FE9B2 /* BlankDataResponse.swift */,
 				5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */,
+				5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -491,6 +494,7 @@
 				5A99A29129A4BB40006FE9B2 /* ErrorResponse.swift in Sources */,
 				5A99A28529A1F1BB006FE9B2 /* NetworkService.swift in Sources */,
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,
+				5A99A2B329A75B2C006FE9B2 /* LoginResponse.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

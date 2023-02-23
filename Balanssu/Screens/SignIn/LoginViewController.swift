@@ -67,10 +67,6 @@ class LoginViewController: BaseViewController {
             loginButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         }
     }
-        
-    @objc func loginButtonTapped() {
-        self.navigationController?.pushViewController(MainViewController(), animated: true)
-    }
     
     lazy var backBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
@@ -146,6 +142,39 @@ class LoginViewController: BaseViewController {
     override func makeBarButtonItem<T: UIView>(with view: T) -> UIBarButtonItem {
         return UIBarButtonItem(customView: view)
     }
+    
+    func showToastMessageAlert(message: String) {
+        let alert = UIAlertController(title: message,
+                                      message: "",
+                                      preferredStyle: .alert)
+
+        present(alert, animated: true, completion: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+            alert.dismiss(animated: true)
+        }
+    }
+    
+    @objc func loginButtonTapped() {
+        signIn()
+    }
+    
+    func signIn() {
+        guard let userName = self.idTextField.text else { return }
+        guard let password = self.passwordTextField.text else { return }
+        print(userName)
+        print(password)
+        
+        postSignIn(password: password, username: userName) { data in
+            print(data.refreshToken)
+            UserDefaults.standard.setValue(true, forKey: UserDefaultKey.loginStatus)
+            UserDefaults.standard.setValue(data.accessToken, forKey: UserDefaultKey.accessToken)
+            UserDefaults.standard.setValue(data.refreshToken, forKey: UserDefaultKey.refreshToken)
+            
+            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+            sceneDelegate?.changeRootView()
+        }
+    }
         
     override func setupNavigationBar() {
         guard let navigationBar = navigationController?.navigationBar else { return }
@@ -172,4 +201,26 @@ extension UITextField {
     self.leftView = paddingView
     self.leftViewMode = ViewMode.always
   }
+}
+
+extension LoginViewController {
+    func postSignIn(password: String, username: String, completion: @escaping (LoginResponse) -> Void) {
+        NetworkService.shared.auth.postSignIn(password: password, username: username) { result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? LoginResponse else { return }
+                completion(data)
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                self.showToastMessageAlert(message: data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 }
