@@ -10,7 +10,7 @@ import Moya
 
 enum AuthAPI {
 //    case postSignIn(password: String, userName: String)
-    case postSignUp(userName: String, password: String, nickName: String, schoolAge: String, departure: String, gender: String)
+    case postSignUp(username: String, password: String, nickname: String, schoolAge: String, departure: String, gender: String)
 }
 
 extension AuthAPI: BaseTargetType {
@@ -30,11 +30,11 @@ extension AuthAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .postSignUp(let userName, let password, let nickName, let schoolAge, let departure, let gender):
+        case .postSignUp(let username, let password, let nickname, let schoolAge, let departure, let gender):
             return .requestParameters(parameters: [
-                "userName": userName,
+                "username": username,
                 "password": password,
-                "nickName": nickName,
+                "nickname": nickname,
                 "schoolAge": schoolAge,
                 "departure": departure,
                 "gender": gender
