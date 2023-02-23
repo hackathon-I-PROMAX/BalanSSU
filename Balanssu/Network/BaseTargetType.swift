@@ -13,26 +13,32 @@ protocol BaseTargetType:TargetType { }
 
 extension BaseTargetType {
     var baseURL: URL {
-            return URL(string: URLConst.base)!
-        }
+        return URL(string: URLConst.base)!
+    }
+    
+    var sampleData: Data {
+        return Data()
+    }
+    
+    var headers: [String : String]? {
+        return [
+            "content-type": "application/json"
+        ]
         
-        var sampleData: Data {
-            return Data()
-        }
-        
-//    var headers: [String: String]? {
-//        if let token = UserDefaults.standard.value(forKey: UserDefaultKey.token) {
-//            let header = [
-//                "Content-Type": "application/json",
-//                "Authorization": "Bearer \(String(describing: token))"
-//            ]
-//            return header
-//        } else {
-//            let header = [
-//                "Content-Type": "application/json"
-//            ]
-//            return header
-//        }
-//    }
+        //    var headers: [String: String]? {
+        //        if let token = UserDefaults.standard.value(forKey: UserDefaultKey.token) {
+        //            let header = [
+        //                "Content-Type": "application/json",
+        //                "Authorization": "Bearer \(String(describing: token))"
+        //            ]
+        //            return header
+        //        } else {
+        //            let header = [
+        //                "Content-Type": "application/json"
+        //            ]
+        //            return header
+        //        }
+        //    }
+    }
 }
 

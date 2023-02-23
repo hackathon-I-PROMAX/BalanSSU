@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SnapKit
+import Moya
 
 class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     var username: String?
@@ -35,7 +36,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
-    let gender = ["여자", "남자"]
+    let gender = ["M", "F"]
     let grade = ["23", "22", "21", "20", "19", "18", "17", "16", "15"]
     let major = ["인문대학", "자연과학대학", "법과대학", "공과대학", "경제통상대학", "사회과학대학", "경영대학","IT대학", "융합특성화 자율전공학부", "차세대반도체학과"]
     
@@ -232,10 +233,37 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
     
-    @objc func checkButtonTapped() {
+        @objc func checkButtonTapped() {
+        
+            if self.checkButton.isEnabled {
+                signUp()
+                makeSignUpAlert()
+            }
+            
+    }
+    
+    func signUp() {
+        
+        guard let username = self.username else { return }
+        guard let password = self.password else { return }
+        guard let nickname = self.nickNameTextField.text else { return }
+        guard let schoolAge = self.gradeTextField.text else { return }
+        guard let departure = self.majorTextField.text else { return }
+        guard let gender = self.genderTextField.text else { return }
+        
+        postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, departure: departure, gender: gender) { _ in
+            print("회원가입 성공")
+        }
+    }
+    
+    func makeSignUpAlert() {
         let loginAlert = UIAlertController(title: "🎉회원가입 완료🎉", message: "이제 즐겁게 밸런슈를 즐기세요!", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-            self.navigationController?.popToRootViewController(animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                sceneDelegate?.changeStartView()
+            }
         }
         loginAlert.addAction(okAction)
         self.present(loginAlert, animated: true)
@@ -414,3 +442,34 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         super.setupNavigationBar()
     }
 }
+
+
+extension SignUp2ViewController {
+     func postSignUp(username: String,
+                    password: String,
+                               nickname: String,
+                               schoolAge: String,
+                               departure: String,
+                               gender: String,
+                               completion: @escaping (BlankDataResponse) -> Void) {
+        NetworkService.shared.auth.postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, departure: departure, gender: gender) { result in
+            
+            switch result {
+            case .success(let response):
+                guard let data = response as? BlankDataResponse else { return }
+                completion(data)
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data)
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .pathErr:
+                print("pathErr")
+            }
+        }
+    }
+}
+    

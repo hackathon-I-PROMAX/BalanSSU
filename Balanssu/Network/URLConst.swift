@@ -7,7 +7,7 @@
 
 enum URLConst {
     // MARK: - baseURL
-    static let base = "https://balanssu-api.yourssu.com/"
+    static let base = "https://balanssu-api.yourssu.com:443"
 
     // MARK: - Auth
     // 로그인
