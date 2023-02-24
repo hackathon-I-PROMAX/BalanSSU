@@ -98,8 +98,8 @@ class VoteViewController: BaseViewController {
         container.snp.makeConstraints {
             //$0.top.equalTo(view.safeAreaLayoutGuide).inset(450)
             $0.bottom.equalTo(tableView.snp.top).offset(0)
-            $0.leading.trailing.equalToSuperview().inset(15)
-            $0.height.equalTo(45)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(50)
             //$0.bottom.equalTo(tableView.snp.top).offset(-10)
         }
         commentField.snp.makeConstraints {
@@ -111,6 +111,7 @@ class VoteViewController: BaseViewController {
             $0.height.equalTo(198)
 //            $0.top.equalTo(container.snp.bottom).offset(3)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            //$0.bottom.equalToSuperview()
         }
     }
     
