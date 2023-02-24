@@ -11,6 +11,26 @@ import SnapKit
 class VoteViewController: BaseViewController {
     let backButton = BackButton(type: .system)
     
+    let commentIcon : UIImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "coolicon")
+        view.backgroundColor = nil
+        return view
+    }()
+    let commentLabel : UILabel = {
+        let label = UILabel()
+        label.text = "댓글"
+        label.font = UIFont(name: "AppleSDGothicNeoB00", size: 18.0)
+        label.textColor = UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1)
+        return label
+    }()
+    let commentCount : UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeoR00", size: 18.0)
+        label.textColor = .black
+        return label
+    }()
+    
     private let tableView : UITableView = { // 테이블 뷰 생성
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +106,9 @@ class VoteViewController: BaseViewController {
     }
     
     override func setViewHierarchy() {
+        self.view.addSubview(commentIcon)
+        self.view.addSubview(commentLabel)
+        self.view.addSubview(commentCount)
         self.view.addSubview(container)
         container.addSubview(commentField)
         self.commentField.rightView = commentButton
@@ -95,12 +118,24 @@ class VoteViewController: BaseViewController {
     }
     
     override func setConstraints() {
+        commentIcon.snp.makeConstraints {
+            $0.bottom.equalTo(container.snp.top).offset(-23)
+            $0.leading.equalToSuperview().inset(28)
+            $0.width.height.equalTo(18)
+        }
+        commentLabel.snp.makeConstraints {
+            $0.bottom.equalTo(container.snp.top).offset(-22)
+            $0.leading.equalTo(commentIcon.snp.leading).inset(25)
+        }
+        commentCount.snp.makeConstraints {
+            $0.bottom.equalTo(container.snp.top).offset(-22)
+            $0.leading.equalTo(commentLabel.snp.trailing).offset(4)
+        }
+        
         container.snp.makeConstraints {
-            //$0.top.equalTo(view.safeAreaLayoutGuide).inset(450)
             $0.bottom.equalTo(tableView.snp.top).offset(0)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(50)
-            //$0.bottom.equalTo(tableView.snp.top).offset(-10)
         }
         commentField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(10)
@@ -113,6 +148,8 @@ class VoteViewController: BaseViewController {
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             //$0.bottom.equalToSuperview()
         }
+        
+        
     }
     
     func setLayouts() {
@@ -130,6 +167,7 @@ class VoteViewController: BaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
+        self.commentCount.text = "\(comment.count)개"
 
         setLayouts()
     }
