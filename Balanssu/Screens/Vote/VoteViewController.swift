@@ -20,15 +20,11 @@ class VoteViewController: BaseViewController {
         return tableView
     }()
     
-    private lazy var container = UIView()
-    
-    private lazy var stackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.alignment = .bottom
-        stackView.backgroundColor = UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1)
-        stackView.layer.cornerRadius = 8
-        return stackView
+    private lazy var container: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1)
+        view.layer.cornerRadius = 8
+        return view
     }()
     
     private let commentField : UITextField = {
@@ -39,10 +35,14 @@ class VoteViewController: BaseViewController {
     
     private let commentButton : UIButton = {
         let button = UIButton()
-        //button.setImage(UIImage(systemName: "pareplane"), for: .normal)
-        button.titleLabel?.text = "done"
+        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        button.frame = CGRectMake(0, 0, 40, 40)
+        button.contentMode = .scaleAspectFit
+        button.addTarget(self, action: #selector(commentEroll), for: .touchUpInside)
+        button.tintColor = .gray
         return button
     }()
+    var comment: [String] = ["안녕하세요. 밸런슈입니다 :)", "댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.","엘레벌레 해커톤 아주 재밌네요호호호호호호호호호호호호호호호호호호호", "다들 곧 개강 파이팅 해봅시다!!! 아자아자!!! 으랏차차!!!", "밸런슈 최고", "저는 지금 성수동 레이더 카페입니다."]
     
     lazy var backBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
@@ -55,13 +55,22 @@ class VoteViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     
+    @objc func commentEroll() {
+        print("댓글 등록")
+        var commentText: String = ""
+        commentText = commentField.text ?? "error"
+        commentField.resignFirstResponder() //텍스트필드 비활성화
+        commentField.text = ""
+        comment.append(commentText)
+        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+    }
+    
     override func setViewHierarchy() {
         self.view.addSubview(tableView)
-        //commentField.leftView = commentButton
         self.view.addSubview(container)
-        stackView.addArrangedSubview(commentButton)
-        stackView.addArrangedSubview(commentField)
-        container.addSubview(stackView)
+        container.addSubview(commentField)
+        self.commentField.rightView = commentButton
+        self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
 
     }
     
@@ -71,34 +80,22 @@ class VoteViewController: BaseViewController {
         }
         
         container.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(8)
-            $0.height.equalTo(60)
-            $0.bottom.equalTo(tableView.snp.top).offset(15)
-        }
-        
-        stackView.snp.makeConstraints {
-            $0.top.equalToSuperview()
-            $0.leading.trailing.equalToSuperview().inset(8)
+            $0.leading.trailing.equalToSuperview().inset(15)
+            $0.height.equalTo(45)
+            $0.bottom.equalTo(tableView.snp.top).offset(-10)
         }
         
         commentField.snp.makeConstraints {
-            //$0.height.lessThanOrEqualTo(maxHeight)
-            $0.leading.equalToSuperview().inset(10)
-            $0.height.greaterThanOrEqualTo(48)
+            $0.leading.trailing.equalToSuperview().inset(10)
+            $0.height.greaterThanOrEqualTo(45)
             $0.top.equalToSuperview().inset(1)
         }
-
-        commentButton.snp.makeConstraints {
-            $0.trailing.equalToSuperview().inset(10)
-            $0.width.equalTo(44)
-            $0.height.equalTo(48)
-        }
-
     }
     
     func setLayouts() {
         tableView.dataSource = self
         tableView.delegate = self
+        commentField.delegate = self
         
         setViewHierarchy()
         setConstraints()
@@ -114,34 +111,34 @@ class VoteViewController: BaseViewController {
     
     override func setupNavigationBar() {
         super.setupNavigationBar()
-        
-        //let backButton = makeBarButtonItem(with: backButton)
-        //navigationItem.leftBarButtonItem = backButton
     }
 }
 
 extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 25
+        return comment.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
+        // let cardImage = UIImage(named: "\(card[indexPath.row]).png")
+        // cell.cardImage.image = cardImage
         cell.img.image = UIImage(named: "ppussung")
         cell.name.text = "뿌슝이"
         cell.badge.text = "글로벌미디어학부"
-        cell.comment.text = "댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다댓글입니다"
+        cell.comment.text = comment[((comment.count)-1)-indexPath.row]
         return cell
     }
-    
-    //    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return UITableViewAutomaticDimension
-    //    }
+
 }
 
 extension VoteViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("select \(indexPath.row)")
     }
+}
+
+extension VoteViewController : UITextFieldDelegate {
+
 }
