@@ -65,30 +65,52 @@ class VoteViewController: BaseViewController {
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
     
+    @objc private func keyboardWillShow(_ notification: Notification) {
+         // 키보드가 생성될 때
+        if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
+            let keyboardHeight = keyboardFrame.cgRectValue.height
+            print("keyboardWillShow" )
+            if self.view.frame.origin.y == 0.0 {
+                self.view.frame.origin.y -= keyboardHeight-190
+            }
+       }
+    }
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        // 키보드가 사라질 때
+        self.view.frame.origin.y = 0
+    }
+    
+    // 화면 터치하면 keyboard 내려가도록
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
+          self.view.endEditing(true)
+    }
+    
     override func setViewHierarchy() {
-        self.view.addSubview(tableView)
         self.view.addSubview(container)
         container.addSubview(commentField)
         self.commentField.rightView = commentButton
         self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
+        self.view.addSubview(tableView)
 
     }
     
     override func setConstraints() {
-        tableView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide).inset(UIEdgeInsets(top: 500, left: 0, bottom: 0, right: 0))
-        }
-        
         container.snp.makeConstraints {
+            //$0.top.equalTo(view.safeAreaLayoutGuide).inset(450)
+            $0.bottom.equalTo(tableView.snp.top).offset(0)
             $0.leading.trailing.equalToSuperview().inset(15)
             $0.height.equalTo(45)
-            $0.bottom.equalTo(tableView.snp.top).offset(-10)
+            //$0.bottom.equalTo(tableView.snp.top).offset(-10)
         }
-        
         commentField.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(10)
-            $0.height.greaterThanOrEqualTo(45)
-            $0.top.equalToSuperview().inset(1)
+            $0.top.bottom.equalToSuperview().inset(3)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.height.equalTo(198)
+//            $0.top.equalTo(container.snp.bottom).offset(3)
+            $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
     
@@ -96,6 +118,8 @@ class VoteViewController: BaseViewController {
         tableView.dataSource = self
         tableView.delegate = self
         commentField.delegate = self
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setViewHierarchy()
         setConstraints()
