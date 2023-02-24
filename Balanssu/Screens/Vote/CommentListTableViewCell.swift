@@ -14,14 +14,14 @@ class CommentListTableViewCell: UITableViewCell {
     let img : UIImageView = {
         let view = UIImageView()
         view.image = UIImage()
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.backgroundColor = .gray
         return view
     }()
     let name : UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "AppleSDGothicNeoB00", size: 13.0)
+        label.font = UIFont(name: "AppleSDGothicNeoM00", size: 13.0)
         return label
     }()
     let badge = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)).then {
@@ -57,22 +57,25 @@ class CommentListTableViewCell: UITableViewCell {
     private func autoLayout() {
         
         img.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(15)
-            $0.size.width.height.equalTo(32)
+            $0.top.equalToSuperview().inset(12)
+            $0.leading.equalToSuperview().inset(20)
+            $0.size.width.height.equalTo(24)
         }
         
         name.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(20)
+            $0.top.equalToSuperview().inset(16)
             $0.leading.equalTo(img.snp.trailing).offset(7)
         }
         
         badge.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(17)
+            $0.top.equalToSuperview().inset(14)
             $0.leading.equalTo(name.snp.trailing).offset(5)
         }
         
         comment.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(UIEdgeInsets(top:50, left: 15, bottom: 10, right: 15))
+            $0.top.equalTo(img.snp.bottom).offset(8)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(12)
         }
     }
         
