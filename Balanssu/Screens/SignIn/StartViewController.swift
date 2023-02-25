@@ -45,7 +45,6 @@ class StartViewController: BaseViewController {
         $0.setTitle("둘러보기", for: .normal)
         $0.setTitleColor(UIColor(r: 125, g: 125, b: 125), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 14)
-//        $0.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
     let backButton = BackButton(type: .system)

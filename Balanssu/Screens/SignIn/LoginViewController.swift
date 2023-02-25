@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class LoginViewController: BaseViewController {
+class LoginViewController: BaseViewController, UITextFieldDelegate {
     let idLabel = UILabel().then {
         $0.text = "아이디"
         $0.textColor = .black
@@ -89,6 +89,8 @@ class LoginViewController: BaseViewController {
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.navigationItem.leftBarButtonItem = backBarButton
         navigationItem.title = "로그인"
+        idTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -133,6 +135,16 @@ class LoginViewController: BaseViewController {
             $0.leading.trailing.equalTo(view).inset(20)
             $0.height.equalTo(48)
         }
+    }
+    
+override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        idTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        return true
     }
     
     override func configUI() {
