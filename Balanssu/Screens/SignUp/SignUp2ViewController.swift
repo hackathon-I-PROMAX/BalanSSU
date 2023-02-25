@@ -38,7 +38,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     
     let gender = ["M", "F"]
     let grade = ["23", "22", "21", "20", "19", "18", "17", "16", "15"]
-    let major = ["인문대학", "자연과학대학", "법과대학", "공과대학", "경제통상대학", "사회과학대학", "경영대학","IT대학", "융합특성화 자율전공학부", "차세대반도체학과"]
+    let major = ["건축학부", "경영학부", "경제학과", "글로벌미디어학부", "기계공학부", "미디어경영학과", "법학과", "사회복지학부", "소프트웨어학부", "스포츠학부", "언론홍보학과", "영어영문학과", "융합특성화 자유전공학부", "전기공학부", "전자정보공학부 전자공학전공", "전자정보공학부 IT융합전공", "정보사회학과", "정보통계보험수리학과", "정치외교학과", "컴퓨터학부", "행정학부", "회계학과", "AI 융합학부"]
     
     func createGenderPickerView() {
         let genderPickerView = UIPickerView()
@@ -176,7 +176,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     }
     
     let nickNameTextField = UITextField().then {
-        $0.placeholder = "사용하실 닉네임을 입력해주세요"
+        $0.placeholder = "3자 이상의 닉네임을 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
         $0.addLeftPadding()
@@ -277,7 +277,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
             self.checkNickNameLabel.textColor = .white
         }
         
-        if self.nickNameTextField.text?.isEmpty == false
+        if self.nickNameTextField.text!.count > 2
         {
             nickNameImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             nickNameImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
