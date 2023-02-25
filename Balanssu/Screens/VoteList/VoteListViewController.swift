@@ -66,6 +66,7 @@ class VoteListViewController: BaseViewController {
     }
     
     override func viewDidLoad() {
+        //tableView.reloadData()
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
@@ -106,6 +107,9 @@ extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
         } else if cell.badge.text == "CLOSED" {
             cell.badge.backgroundColor = UIColor(red: 0.879, green: 0.879, blue: 0.879, alpha: 1)
             cell.badge.textColor = UIColor(red: 0.437, green: 0.448, blue: 0.504, alpha: 1)
+        } else if cell.badge.text == "OPEN" {
+            cell.badge.backgroundColor = UIColor(red: 0.992, green: 0.969, blue: 0.898, alpha: 1)
+            cell.badge.textColor = UIColor(red: 0.746, green: 0.605, blue: 0.183, alpha: 1)
         }
         cell.participant.text = "\(voteListArr[indexPath.row].participantCount)명 참여"
         return cell
