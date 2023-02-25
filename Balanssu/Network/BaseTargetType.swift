@@ -20,8 +20,12 @@ extension BaseTargetType {
         return Data()
     }
     
+//    var headers: [String : String]? {
+//        return [
+//            "content-type": "application/json"
+//        ]
+//    }
     var headers: [String: String]? {
-        
         if let token = UserDefaults.standard.value(forKey: UserDefaultKey.accessToken) {
             let header = [
                 "Content-Type": "application/json",

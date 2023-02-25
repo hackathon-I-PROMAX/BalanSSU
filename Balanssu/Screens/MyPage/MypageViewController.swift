@@ -28,7 +28,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 20.0)
         label.textColor = .black
-        label.text = "뿌슝이"
+        label.text = "Joni"
         label.textAlignment = .center
         return label
     }()
@@ -46,7 +46,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "@ppussung"
+        label.text = "@Joeun1005"
         label.textAlignment = .center
         return label
     }()
