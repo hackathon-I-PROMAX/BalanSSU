@@ -155,6 +155,8 @@ class VoteViewController: BaseViewController {
     func setLayouts() {
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorInset.left = 20
+        tableView.separatorInset.right = 20
         commentField.delegate = self
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
