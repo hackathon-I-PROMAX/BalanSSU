@@ -21,14 +21,16 @@ class HotCollectionViewCell: UICollectionViewCell {
         $0.contentMode = .scaleToFill
     }
     
-    let hotTitleLabel = UILabel().then {
+    var hotTitleLabel = UILabel().then {
         $0.font = UIFont.boldSystemFont(ofSize: 14)
         $0.textColor = .black
     }
     
     let badge = YDSBadge().then {
         $0.color = .blue
+        $0.text = "D-3"
         $0.layer.cornerRadius = 12
+        $0.clipsToBounds = true // 요소가 삐져나가지 않도록 하는 속성
     }
     
     override init(frame: CGRect) {
@@ -60,18 +62,19 @@ class HotCollectionViewCell: UICollectionViewCell {
             $0.height.equalTo(148)
         }
         
+        badge.snp.makeConstraints {
+//            $0.top.equalTo(hotTitleLabel.snp.bottom).offset(1)
+            $0.leading.equalToSuperview().inset(8)
+            $0.bottom.equalTo(hotTitleLabel.snp.top).offset(-14)
+            $0.height.equalTo(24)
+        }
+        
         hotTitleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.bottom).offset(6)
             $0.leading.equalToSuperview().inset(6)
             $0.height.equalTo(17)
         }
         
-//        badge.snp.makeConstraints {
-//            $0.top.equalTo(hotTitleLabel.snp.bottom).offset(1)
-//            $0.leading.equalToSuperview().inset(6)
-//            $0.bottom.equalToSuperview().inset(5)
-//            $0.height.equalTo(14)
-//        }
     }
     
     func configUI() {

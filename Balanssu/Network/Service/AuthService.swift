@@ -61,12 +61,10 @@ final class AuthService {
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
-            print(statusCode)
             guard let decodedData = try? decoder.decode(ErrorResponse.self, from: data) else {
                 return .pathErr
             }
-            print(decodedData)
-            return .requestErr(data)
+            return .requestErr(decodedData)
         case 500:
             return .serverErr
         default:

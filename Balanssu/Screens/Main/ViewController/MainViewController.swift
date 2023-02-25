@@ -11,8 +11,6 @@ import Then
 
 class MainViewController: BaseViewController {
     
-    //    private let topicCollectionView = TopicCollectionView()
-    
     let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.showsVerticalScrollIndicator = false
         $0.backgroundColor = UIColor.tertiarySystemGroupedBackground
@@ -23,6 +21,11 @@ class MainViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getMainCategories()
     }
     
     override func setViewHierarchy() {
@@ -121,11 +124,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: HotCollectionView.identifier, for: indexPath) as! HotCollectionView
                 
                 cell.cellDelegate = self
+                
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DeadLineCollectionView.identifier, for: indexPath) as! DeadLineCollectionView
                 
                 cell.cellDelegate = self
+                
                 return cell
             default:
                 return UITableViewCell()
@@ -163,7 +168,6 @@ extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCe
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView) {
         let nextViewController = VoteListViewController()
         self.navigationController?.pushViewController(nextViewController, animated: true)
-        print("Hot")
     }
     
     func collectionView(collectionviewcell: TopicCollectionViewCell?, index: Int, didTappedInTableViewCell: TopicCollectionView) {
@@ -177,4 +181,25 @@ extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCe
     }
 }
 
-
+extension MainViewController {
+    func getMainCategories() {
+        NetworkService.shared.main.getMainCategories {[weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? MainCategoriesResponse else { return }
+//                hotCollectionView.closedCategories = data.closedCategories
+                self?.hotCollectionView.hottestCategories = data.hotCategories
+                print(self?.hotCollectionView.hottestCategories)
+                self?.tableView.reloadData()
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
+}

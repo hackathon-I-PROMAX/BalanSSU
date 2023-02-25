@@ -57,6 +57,9 @@
 		5A99A29129A4BB40006FE9B2 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */; };
 		5A99A2B129A64038006FE9B2 /* UserDefaultKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2B029A64038006FE9B2 /* UserDefaultKey.swift */; };
 		5A99A2B329A75B2C006FE9B2 /* LoginResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */; };
+		5A99A2E229A9EF8D006FE9B2 /* MainCategoriesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2E129A9EF8D006FE9B2 /* MainCategoriesResponse.swift */; };
+		5A99A2E429A9F1A8006FE9B2 /* MainCategoriesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2E329A9F1A8006FE9B2 /* MainCategoriesAPI.swift */; };
+		5A99A2E629A9F393006FE9B2 /* MainCategoriesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A2E529A9F393006FE9B2 /* MainCategoriesService.swift */; };
 		5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2DE299F534F00D1C06B /* MainViewController.swift */; };
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
@@ -110,6 +113,9 @@
 		5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		5A99A2B029A64038006FE9B2 /* UserDefaultKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultKey.swift; sourceTree = "<group>"; };
 		5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
+		5A99A2E129A9EF8D006FE9B2 /* MainCategoriesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoriesResponse.swift; sourceTree = "<group>"; };
+		5A99A2E329A9F1A8006FE9B2 /* MainCategoriesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoriesAPI.swift; sourceTree = "<group>"; };
+		5A99A2E529A9F393006FE9B2 /* MainCategoriesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCategoriesService.swift; sourceTree = "<group>"; };
 		5AACF2DE299F534F00D1C06B /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
@@ -343,6 +349,7 @@
 			isa = PBXGroup;
 			children = (
 				5A99A28A29A34C9D006FE9B2 /* AuthAPI.swift */,
+				5A99A2E329A9F1A8006FE9B2 /* MainCategoriesAPI.swift */,
 				02F893FF29A9A55300681A4D /* VoteListAPI.swift */,
 				02F8940729AA05CE00681A4D /* VoteViewAPI.swift */,
 			);
@@ -353,6 +360,7 @@
 			isa = PBXGroup;
 			children = (
 				5A99A28C29A35EAC006FE9B2 /* AuthService.swift */,
+				5A99A2E529A9F393006FE9B2 /* MainCategoriesService.swift */,
 				02F8940129A9A6A900681A4D /* VoteListService.swift */,
 				02F8940929AA063D00681A4D /* VoteViewService.swift */,
 			);
@@ -365,6 +373,7 @@
 				5A99A28E29A4B7AE006FE9B2 /* BlankDataResponse.swift */,
 				5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */,
 				5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */,
+				5A99A2E129A9EF8D006FE9B2 /* MainCategoriesResponse.swift */,
 				02F893FD29A9A37100681A4D /* VoteListResponse.swift */,
 				02F8940529AA007300681A4D /* VoteViewResponse.swift */,
 			);
@@ -503,6 +512,7 @@
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
 				02F8940629AA007300681A4D /* VoteViewResponse.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
+				5A99A2E429A9F1A8006FE9B2 /* MainCategoriesAPI.swift in Sources */,
 				02F8940029A9A55300681A4D /* VoteListAPI.swift in Sources */,
 				5A99A2B129A64038006FE9B2 /* UserDefaultKey.swift in Sources */,
 				3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */,
@@ -515,6 +525,7 @@
 				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,
 				02F8940829AA05CE00681A4D /* VoteViewAPI.swift in Sources */,
 				5A99A28129A1D17E006FE9B2 /* MypageViewController.swift in Sources */,
+				5A99A2E229A9EF8D006FE9B2 /* MainCategoriesResponse.swift in Sources */,
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
 				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
 				5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */,
@@ -523,6 +534,7 @@
 				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
 				5A99A27729A1CE7E006FE9B2 /* TopicCollectionView.swift in Sources */,
 				5A99A27129A1CE24006FE9B2 /* TopicCollectionViewCell.swift in Sources */,
+				5A99A2E629A9F393006FE9B2 /* MainCategoriesService.swift in Sources */,
 				5A99A29129A4BB40006FE9B2 /* ErrorResponse.swift in Sources */,
 				5A99A28529A1F1BB006FE9B2 /* NetworkService.swift in Sources */,
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,

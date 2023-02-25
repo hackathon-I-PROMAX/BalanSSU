@@ -13,6 +13,8 @@ final class NetworkService {
     private init() { }
     
     let auth = AuthService()
+    
+    let main = MainCategoriesService()
     let voteList = VoteListService()
     let voteView = VoteViewService()
 }
