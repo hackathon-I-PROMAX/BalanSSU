@@ -10,6 +10,19 @@ import SnapKit
 import Then
 
 class VoteViewController: BaseViewController {
+   var categoryId: String?
+
+   init(categoryId: String?) {
+       super.init(nibName: nil, bundle: nil)
+       self.categoryId = categoryId
+   }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var voteViewTitle: String = "123"
+    var voteChoice: [choicesData] = []
     //MARK: - Bibi
     let testView = UIView().then {
         $0.backgroundColor = .white
@@ -88,14 +101,14 @@ class VoteViewController: BaseViewController {
     }
     
     let optionALabel = UILabel().then {
-        $0.text = "36%"
+        $0.text = "64%"
         $0.textColor = UIColor(r: 209, g: 209, b: 209)
         $0.font = UIFont(name: "AppleSDGothicNeoB00", size: 24)
         $0.textAlignment = .right
     }
     
     let optionBLabel = UILabel().then {
-        $0.text = "64%"
+        $0.text = "36%"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
         $0.font = UIFont(name: "AppleSDGothicNeoB00", size: 24)
         $0.textAlignment = .right
@@ -178,7 +191,9 @@ class VoteViewController: BaseViewController {
         button.tintColor = .gray
         return button
     }()
-    var comment: [String] = ["안녕하세요. 밸런슈입니다 :)", "댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.댓글입니다.","엘레벌레 해커톤 아주 재밌네요호호호호호호호호호호호호호호호호호호호", "다들 곧 개강 파이팅 해봅시다!!! 아자아자!!! 으랏차차!!!", "밸런슈 최고", "저는 지금 성수동 레이더 카페입니다."]
+    var comment: [String] = ["차라리 총장님과 포토그레이 찍겠습니다.", "ㄹㅇ 황벨","NPC~", "NPC가 뭐예요?", "정문 앞에서 맨날 시위하시는 분"]
+    var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
+    var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
     
     lazy var backBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
@@ -289,6 +304,9 @@ class VoteViewController: BaseViewController {
         commentField.resignFirstResponder() //텍스트필드 비활성화
         commentField.text = ""
         comment.append(commentText)
+        userName.append("Joni")
+        departure.append("글로벌미디어학부")
+        //commentCount.text = comment.count()
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
     
@@ -482,9 +500,12 @@ class VoteViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getVoteView(categoryId ?? "")
+        print(voteViewTitle)
+        //self.optionAButton.setTitle(voteChoice[0].name, for: .normal)
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
-        self.commentCount.text = "\(comment.count)개"
+    
         self.navigationItem.rightBarButtonItem = scrapBarButton
         optionALabel.isHidden = true
         optionBLabel.isHidden = true
@@ -508,8 +529,8 @@ extension VoteViewController : UITableViewDataSource {
         // let cardImage = UIImage(named: "\(card[indexPath.row]).png")
         // cell.cardImage.image = cardImage
         cell.img.image = UIImage(named: "ppussung")
-        cell.name.text = "뿌슝이"
-        cell.badge.text = "글로벌미디어학부"
+        cell.name.text = userName[((comment.count)-1)-indexPath.row]
+        cell.badge.text = departure[((comment.count)-1)-indexPath.row]
         cell.comment.text = comment[((comment.count)-1)-indexPath.row]
         return cell
     }
@@ -524,4 +545,34 @@ extension VoteViewController : UITableViewDelegate {
 
 extension VoteViewController : UITextFieldDelegate {
 
+}
+
+extension VoteViewController {
+    func getVoteView(_ categoryId: String) {
+        NetworkService.shared.voteView.getVoteView(categoryId: categoryId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? VoteViewResponse else { return }
+                self?.voteViewTitle = data.category.title
+                self?.voteChoice = data.choices
+                print("==== VoteListArr Test: \(String(describing: self?.voteViewTitle))")
+                print("==== VoteListArr Test: \(String(describing: self?.voteChoice[0]))")
+                self?.topicLabel.text = data.category.title
+                self?.joinNumberLabel.text = "현재 \(data.category.participantCount)명 참여중"
+                self?.deadlineLabel.text = "D-\(data.category.dday)"
+                self?.optionAButton.setTitle(data.choices[0].name, for: .normal)
+                self?.optionBButton.setTitle(data.choices[1].name, for: .normal)
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 }

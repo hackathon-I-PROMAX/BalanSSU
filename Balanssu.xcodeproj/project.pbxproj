@@ -29,6 +29,9 @@
 		02F893FE29A9A37100681A4D /* VoteListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F893FD29A9A37100681A4D /* VoteListResponse.swift */; };
 		02F8940029A9A55300681A4D /* VoteListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F893FF29A9A55300681A4D /* VoteListAPI.swift */; };
 		02F8940229A9A6A900681A4D /* VoteListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8940129A9A6A900681A4D /* VoteListService.swift */; };
+		02F8940629AA007300681A4D /* VoteViewResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8940529AA007300681A4D /* VoteViewResponse.swift */; };
+		02F8940829AA05CE00681A4D /* VoteViewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8940729AA05CE00681A4D /* VoteViewAPI.swift */; };
+		02F8940A29AA063D00681A4D /* VoteViewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8940929AA063D00681A4D /* VoteViewService.swift */; };
 		3E392B2129A8678D0004C40E /* VoteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E392B2029A8678D0004C40E /* VoteView.swift */; };
 		3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FC229A0A225005CC39F /* StartViewController.swift */; };
 		3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FC429A0A22D005CC39F /* LoginViewController.swift */; };
@@ -79,6 +82,9 @@
 		02F893FD29A9A37100681A4D /* VoteListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListResponse.swift; sourceTree = "<group>"; };
 		02F893FF29A9A55300681A4D /* VoteListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListAPI.swift; sourceTree = "<group>"; };
 		02F8940129A9A6A900681A4D /* VoteListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListService.swift; sourceTree = "<group>"; };
+		02F8940529AA007300681A4D /* VoteViewResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewResponse.swift; sourceTree = "<group>"; };
+		02F8940729AA05CE00681A4D /* VoteViewAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewAPI.swift; sourceTree = "<group>"; };
+		02F8940929AA063D00681A4D /* VoteViewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewService.swift; sourceTree = "<group>"; };
 		3E392B2029A8678D0004C40E /* VoteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteView.swift; sourceTree = "<group>"; };
 		3E691FC229A0A225005CC39F /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		3E691FC429A0A22D005CC39F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -338,6 +344,7 @@
 			children = (
 				5A99A28A29A34C9D006FE9B2 /* AuthAPI.swift */,
 				02F893FF29A9A55300681A4D /* VoteListAPI.swift */,
+				02F8940729AA05CE00681A4D /* VoteViewAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -347,6 +354,7 @@
 			children = (
 				5A99A28C29A35EAC006FE9B2 /* AuthService.swift */,
 				02F8940129A9A6A900681A4D /* VoteListService.swift */,
+				02F8940929AA063D00681A4D /* VoteViewService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -358,6 +366,7 @@
 				5A99A29029A4BB40006FE9B2 /* ErrorResponse.swift */,
 				5A99A2B229A75B2C006FE9B2 /* LoginResponse.swift */,
 				02F893FD29A9A37100681A4D /* VoteListResponse.swift */,
+				02F8940529AA007300681A4D /* VoteViewResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -492,6 +501,7 @@
 				0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */,
 				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
+				02F8940629AA007300681A4D /* VoteViewResponse.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
 				02F8940029A9A55300681A4D /* VoteListAPI.swift in Sources */,
 				5A99A2B129A64038006FE9B2 /* UserDefaultKey.swift in Sources */,
@@ -503,10 +513,12 @@
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
 				5A99A27B29A1CEAA006FE9B2 /* DeadLineCollectionView.swift in Sources */,
 				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,
+				02F8940829AA05CE00681A4D /* VoteViewAPI.swift in Sources */,
 				5A99A28129A1D17E006FE9B2 /* MypageViewController.swift in Sources */,
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
 				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
 				5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */,
+				02F8940A29AA063D00681A4D /* VoteViewService.swift in Sources */,
 				0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */,
 				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
 				5A99A27729A1CE7E006FE9B2 /* TopicCollectionView.swift in Sources */,

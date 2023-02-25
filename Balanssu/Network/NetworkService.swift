@@ -14,4 +14,5 @@ final class NetworkService {
     
     let auth = AuthService()
     let voteList = VoteListService()
+    let voteView = VoteViewService()
 }
