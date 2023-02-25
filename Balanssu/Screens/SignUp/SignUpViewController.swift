@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SignUpViewController: BaseViewController, UITextViewDelegate {
+class SignUpViewController: BaseViewController, UITextFieldDelegate {
     let idLabel = UILabel().then {
         $0.text = "아이디"
         $0.textColor = .black
@@ -143,7 +143,7 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
     }
     
     let checkButton = UIButton().then {
-        $0.isEnabled = false
+        $0.isEnabled = true
         $0.setTitle("확인", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
@@ -168,6 +168,17 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         self.navigationController?.popViewController(animated: true)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        idTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        checkPasswordTextField.resignFirstResponder()
+        return true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewHierarchy()
@@ -179,6 +190,9 @@ class SignUpViewController: BaseViewController, UITextViewDelegate {
         self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.checkPasswordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.navigationItem.leftBarButtonItem = backBarButton
+        idTextField.delegate = self
+        passwordTextField.delegate = self
+        checkPasswordTextField.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
