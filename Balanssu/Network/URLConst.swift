@@ -15,4 +15,7 @@ enum URLConst {
     
     // 회원가입
     static let signUp = "/auth/sign-up"
+    
+    // 메인
+    static let main = "/categories/main"
 }

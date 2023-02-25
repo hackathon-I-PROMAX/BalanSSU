@@ -213,7 +213,7 @@ extension LoginViewController {
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
-                self.showToastMessageAlert(message: data.message)
+                self.showToastMessageAlert(message: data.message!)
             case .pathErr:
                 print("pathErr")
             case .serverErr:

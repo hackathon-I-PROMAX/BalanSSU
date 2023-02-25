@@ -13,9 +13,16 @@ import Then
 
 protocol HotCollectionViewCellDelegate: AnyObject {
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView)
+    
 }
 
 class HotCollectionView: UITableViewCell {
+    
+    var hottestCategories: [hotCategoriesData] = [] {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 12
@@ -33,8 +40,8 @@ class HotCollectionView: UITableViewCell {
     
     weak var cellDelegate: HotCollectionViewCellDelegate?
     
-    let hotImageArray: [UIImage] = [ImageLiterals.hotCell, ImageLiterals.hotCell, ImageLiterals.hotCell]
-    let hotItitleArray: [String] = ["숭실대 가성비 카페", "숭실대 가성비 카페", "숭실대 가성비 카페"]
+    let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
+    let hotItitleArray: [String] = ["포토그레이 누구랑?", "공개고백 더 최악은?", "프론트 짱은?"]
     let hotdeadLineArray: [String] = ["10", "5", "90"]
     
     var collectionView : UICollectionView = {
@@ -81,22 +88,23 @@ class HotCollectionView: UITableViewCell {
 extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return hotImageArray.count
+        print("num", self.hottestCategories.count)
+        return self.hotImageArray.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
         
         cell.imageView.image = hotImageArray[indexPath.row]
-        cell.hotTitleLabel.text = hotItitleArray[indexPath.item]
-//        cell.deadLineLabel.text = "D+" + hotdeadLineArray[indexPath.item]
+        cell.hotTitleLabel.text = self.hotItitleArray[indexPath.row]
+        cell.badge.text = "D+" + self.hotdeadLineArray[indexPath.row]
     
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? HotCollectionViewCell
-            self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
+        self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
     }
 }
 
@@ -113,4 +121,5 @@ extension HotCollectionView: UICollectionViewDelegateFlowLayout {
         Size.collectionInsets
     }
 }
+
 

@@ -20,22 +20,20 @@ extension BaseTargetType {
         return Data()
     }
     
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         
-            var headers: [String: String]? {
-                if let token = UserDefaults.standard.value(forKey: UserDefaultKey.accessToken) {
-                    let header = [
-                        "Content-Type": "application/json",
-                        "Authorization": "Bearer \(String(describing: token))"
-                    ]
-                    return header
-                } else {
-                    let header = [
-                        "Content-Type": "application/json"
-                    ]
-                    return header
-                }
-            }
+        if let token = UserDefaults.standard.value(forKey: UserDefaultKey.accessToken) {
+            let header = [
+                "Content-Type": "application/json",
+                "Authorization": "Bearer \(String(describing: token))"
+            ]
+            return header
+        } else {
+            let header = [
+                "Content-Type": "application/json"
+            ]
+            return header
+        }
     }
 }
 

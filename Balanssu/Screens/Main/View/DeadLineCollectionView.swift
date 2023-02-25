@@ -35,7 +35,7 @@ class DeadLineCollectionView: UITableViewCell {
     
     let deadLineImageArray: [UIImage] = [ImageLiterals.deadLineCell, ImageLiterals.deadLineCell, ImageLiterals.deadLineCell]
     
-    let deadLinetitleArray: [String] = ["숭실대 가성비 카페", "숭실대 가성비 카페", "숭실대 가성비 카페"]
+    let deadLinetitleArray: [String] = ["채플 한가지?", "더 멋진 건물은?", "치킨은 어디서?"]
     
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()

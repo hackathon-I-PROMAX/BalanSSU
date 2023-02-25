@@ -11,6 +11,8 @@ import SnapKit
 
 import Then
 
+import YDS
+
 class DeadLineCollectionViewCell: UICollectionViewCell {
     
     static let identifier = "DeadLineCollectionViewCell"
@@ -20,8 +22,15 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
     }
     
     let deadLineTitleLabel = UILabel().then {
-        $0.font = UIFont.boldSystemFont(ofSize: 14)
-        $0.textColor = .black
+        $0.font = UIFont.boldSystemFont(ofSize: 12)
+        $0.textColor = .white
+    }
+    
+    let badge = YDSBadge().then {
+        $0.color = .blue
+        $0.text = "결과"
+        $0.layer.cornerRadius = 12
+        $0.clipsToBounds = true // 요소가 삐져나가지 않도록 하는 속성
     }
     
     override init(frame: CGRect) {
@@ -42,6 +51,7 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
     func setViewHierarchy() {
         contentView.addSubview(imageView)
         contentView.addSubview(deadLineTitleLabel)
+        contentView.addSubview(badge)
     }
     
     func setConstraints() {
@@ -53,9 +63,16 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
         }
         
         deadLineTitleLabel.snp.makeConstraints {
-            $0.top.equalTo(imageView.snp.bottom).offset(6)
-            $0.leading.equalToSuperview().inset(6)
+            $0.top.equalTo(imageView.snp.top).offset(12)
+            $0.leading.equalToSuperview().inset(12)
             $0.height.equalTo(17)
+        }
+        
+        badge.snp.makeConstraints {
+//            $0.top.equalTo(hotTitleLabel.snp.bottom).offset(1)
+            $0.leading.equalToSuperview().inset(8)
+            $0.bottom.equalTo(imageView.snp.bottom).offset(-8)
+            $0.height.equalTo(24)
         }
     }
     
