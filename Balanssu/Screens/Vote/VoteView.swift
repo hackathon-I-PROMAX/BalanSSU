@@ -46,7 +46,7 @@ class VoteView: BaseViewController {
         $0.axis = .horizontal
         $0.alignment = .top
         $0.distribution = .fill
-        $0.spacing = 50
+        $0.spacing = 2
     }
     
     let stackBView = UIStackView().then {
@@ -54,7 +54,7 @@ class VoteView: BaseViewController {
         $0.axis = .horizontal
         $0.alignment = .top
         $0.distribution = .fill
-        $0.spacing = 50
+        $0.spacing = 2
     }
     
     let optionAButton = UIButton().then {
@@ -91,14 +91,14 @@ class VoteView: BaseViewController {
         $0.text = "36%"
         $0.textColor = UIColor(r: 209, g: 209, b: 209)
         $0.font = UIFont(name: "AppleSDGothicNeoB00", size: 24)
-        $0.textAlignment = .center
+        $0.textAlignment = .right
     }
     
     let optionBLabel = UILabel().then {
         $0.text = "64%"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
         $0.font = UIFont(name: "AppleSDGothicNeoB00", size: 24)
-        $0.textAlignment = .center
+        $0.textAlignment = .right
     }
     
     let optionAImageView = UIImageView().then {
@@ -323,8 +323,7 @@ class VoteView: BaseViewController {
         optionALabel.snp.makeConstraints {
             $0.height.equalToSuperview()
             $0.trailing.equalTo(stackAView).inset(0)
-            $0.width.equalTo(50)
-//            $0.leading.equalTo(optionBButton).inset(-50)
+            $0.width.equalTo(70)
         }
         
         stackBView.snp.makeConstraints {
@@ -346,8 +345,7 @@ class VoteView: BaseViewController {
         optionBLabel.snp.makeConstraints {
             $0.height.equalToSuperview()
             $0.trailing.equalTo(stackBView).inset(0)
-            $0.width.equalTo(50)
-//            $0.leading.equalTo(optionBButton).inset(0)
+            $0.width.equalTo(70)
         }
     }
     
