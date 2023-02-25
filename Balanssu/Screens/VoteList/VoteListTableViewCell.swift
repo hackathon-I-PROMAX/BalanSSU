@@ -18,12 +18,14 @@ class VoteListTableViewCell: UITableViewCell {
         return label
     }()
     
-    let badge: YDSBadge = {
-        let badge = YDSBadge()
-        badge.color = .blue
-        badge.layer.cornerRadius = 12
-        return badge
-    }()
+    let badge = BasePaddingLabel(padding: UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)).then {
+        $0.backgroundColor = UIColor(red: 0.992, green: 0.969, blue: 0.898, alpha: 1)
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12.0)
+        $0.textColor = UIColor(red: 0.746, green: 0.605, blue: 0.183, alpha: 1)
+        $0.clipsToBounds = true // 요소가 삐져나가지 않도록 하는 속성
+        $0.layer.cornerRadius = 8 // 둥글게 만드는 정도
+        $0.textAlignment = .center
+}
     
     let participant: UILabel = {
         let label = UILabel()

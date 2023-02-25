@@ -10,7 +10,7 @@ import SnapKit
 
 class VoteListViewController: BaseViewController {
     
-    var voteList: [[String]] = [["HOT","환승연애 vs 잠수이별","123"],["HOT","아이폰 vs 갤럭시","333"],["","대학원생 되기 vs 대학교 10년 다니기","48"], ["마감","평생 떡만 먹기 vs 평생 빵만 먹기","123"]]
+    var voteListArr: [voteListData] = []
     
     let backButton = BackButton(type: .system)
     
@@ -60,6 +60,10 @@ class VoteListViewController: BaseViewController {
         setViewHierarchy()
         setConstraints()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getVoteList()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +86,9 @@ class VoteListViewController: BaseViewController {
 
 extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 25
+        //print("==== 11111: \(String(describing: self.voteListArr))")
+        return voteListArr.count
+        
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) ->
     CGFloat {
@@ -90,11 +96,18 @@ extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: VoteListTableViewCell.identifier, for: indexPath) as! VoteListTableViewCell
-        cell.voteTitle.text = "잠수 이별 vs 환승이별"
-        cell.badge.text = "HOT"
-        cell.participant.text = "100명 참여"
+        //let title: String = voteListArr[indexPath.row].title ?? ""
+        cell.voteTitle.text =  voteListArr[indexPath.row].title
+        cell.badge.text = voteListArr[indexPath.row].type
+        if cell.badge.text == "HOT" {
+            cell.badge.backgroundColor = UIColor(red: 0.878, green: 0.91, blue: 0.969, alpha: 1)
+            cell.badge.textColor = UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1)
+        } else if cell.badge.text == "CLOSED" {
+            cell.badge.backgroundColor = UIColor(red: 0.879, green: 0.879, blue: 0.879, alpha: 1)
+            cell.badge.textColor = UIColor(red: 0.437, green: 0.448, blue: 0.504, alpha: 1)
+        }
+        cell.participant.text = "\(voteListArr[indexPath.row].participantCount)명 참여"
         return cell
     }
     
@@ -109,3 +122,26 @@ extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
     }
 }
 
+extension VoteListViewController {
+    func getVoteList() {
+        NetworkService.shared.voteList.getVoteList() { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? VoteListResponse else { return }
+                self?.voteListArr = data.categories
+                print("==== VoteListArr Test: \(String(describing: self?.voteListArr[0]))")
+                self?.tableView.reloadData()
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
+}

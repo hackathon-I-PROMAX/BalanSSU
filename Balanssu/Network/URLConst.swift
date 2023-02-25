@@ -15,4 +15,7 @@ enum URLConst {
     
     // 회원가입
     static let signUp = "/auth/sign-up"
+    
+    // MARK: - Category
+    static let voteList = "/categories"
 }
