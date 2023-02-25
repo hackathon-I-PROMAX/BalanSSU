@@ -70,16 +70,19 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         {
             checkPasswordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-            checkPasswordcheckLabel.textColor = .white
-
         }
         else {
             checkPasswordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
             checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
+        }
+        
+        if self.checkPasswordTextField.text == self.passwordTextField.text {
+            checkPasswordcheckLabel.textColor = .white
+        } else {
             checkPasswordcheckLabel.textColor = UIColor(r: 64, g: 96, b: 160)
         }
         
-        if self.idTextField.text?.isEmpty == false
+        if self.idTextField.text!.count > 4
             && self.passwordTextField.text!.count > 7
             && self.checkPasswordTextField.text == self.passwordTextField.text
         {
@@ -120,10 +123,21 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
+    let checkIDButton = UIButton().then {
+        $0.isEnabled = true
+        $0.setTitle("확인", for: .normal)
+        $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
+        $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        $0.layer.cornerRadius = 8
+        $0.layer.borderWidth = 1
+        $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
+        $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+    }
+    
     let checkPasswordcheckLabel = UILabel().then {
         $0.text = "비밀번호가 일치하지 않습니다"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
-//        $0.textColor = .white
+        $0.textColor = .white
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
