@@ -21,24 +21,21 @@ extension BaseTargetType {
     }
     
     var headers: [String : String]? {
-        return [
-            "content-type": "application/json"
-        ]
         
-        //    var headers: [String: String]? {
-        //        if let token = UserDefaults.standard.value(forKey: UserDefaultKey.token) {
-        //            let header = [
-        //                "Content-Type": "application/json",
-        //                "Authorization": "Bearer \(String(describing: token))"
-        //            ]
-        //            return header
-        //        } else {
-        //            let header = [
-        //                "Content-Type": "application/json"
-        //            ]
-        //            return header
-        //        }
-        //    }
+            var headers: [String: String]? {
+                if let token = UserDefaults.standard.value(forKey: UserDefaultKey.accessToken) {
+                    let header = [
+                        "Content-Type": "application/json",
+                        "Authorization": "Bearer \(String(describing: token))"
+                    ]
+                    return header
+                } else {
+                    let header = [
+                        "Content-Type": "application/json"
+                    ]
+                    return header
+                }
+            }
     }
 }
 
