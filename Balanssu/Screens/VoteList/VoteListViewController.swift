@@ -9,6 +9,9 @@ import UIKit
 import SnapKit
 
 class VoteListViewController: BaseViewController {
+    
+    var voteList: [[String]] = [["HOT","환승연애 vs 잠수이별","123"],["HOT","아이폰 vs 갤럭시","333"],["","대학원생 되기 vs 대학교 10년 다니기","48"], ["마감","평생 떡만 먹기 vs 평생 빵만 먹기","123"]]
+    
     let backButton = BackButton(type: .system)
     
     private let tableView : UITableView = { // 테이블 뷰 생성
