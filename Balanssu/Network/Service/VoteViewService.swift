@@ -1,5 +1,5 @@
 //
-//  VoteListService.swift
+//  VoteViewService.swift
 //  Balanssu
 //
 //  Created by 이조은 on 2023/02/25.
@@ -8,22 +8,22 @@
 import Foundation
 import Moya
 
-final class VoteListService {
+final class VoteViewService {
     
-    private var voteListProvider = MoyaProvider<VoteListAPI>()
+    private var voteViewProvider = MoyaProvider<VoteViewAPI>()
     
     private enum ResponseData {
-        case voteList
+        case voteView
     }
     
-    public func getVoteList(completion: @escaping (NetworkResult<Any>) -> Void) {
-        voteListProvider.request(.getVoteListAPI) { result in
+    public func getVoteView(categoryId: String,completion: @escaping (NetworkResult<Any>) -> Void) {
+        voteViewProvider.request(.getVoteViewAPI(categoryId: categoryId)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
                 let data = response.data
                 
-                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .voteList)
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .voteView)
                 completion(networkResult)
                 
             case .failure(let error):
@@ -40,7 +40,7 @@ final class VoteListService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .voteList:
+            case .voteView:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
@@ -59,10 +59,11 @@ final class VoteListService {
     
     private func isValidData(data: Data, responseData: ResponseData) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
+        print("=====data: \(data)")
         
         switch responseData {
-        case .voteList:
-            guard let decodedData = try? decoder.decode(VoteListResponse.self, from: data) else {
+        case .voteView:
+            guard let decodedData = try? decoder.decode(VoteViewResponse.self, from: data) else {
                 return .pathErr
             }
             return .success(decodedData)

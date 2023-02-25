@@ -112,11 +112,12 @@ extension VoteListViewController : UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let nextViewController = VoteViewController()
+        let nextViewController = VoteViewController(categoryId: voteListArr[indexPath.row].categoryId)
         //let index: IndexPath = indexPath
         //nextViewController.asset = self.fetchResult[index.row]
         self.navigationController?.pushViewController(nextViewController, animated: true)
-        print("select \(indexPath.row)")
+        print("select= \(indexPath.row)")
+        print("categoryId=: \(voteListArr[indexPath.row].categoryId)")
         
         tableView.deselectRow(at: indexPath, animated: true)
     }

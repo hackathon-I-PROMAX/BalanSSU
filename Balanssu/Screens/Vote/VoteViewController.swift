@@ -10,6 +10,19 @@ import SnapKit
 import Then
 
 class VoteViewController: BaseViewController {
+   var categoryId: String?
+
+   init(categoryId: String?) {
+       super.init(nibName: nil, bundle: nil)
+       self.categoryId = categoryId
+   }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    var voteViewTitle: String = "123"
+    var voteChoice: [choicesData] = []
     //MARK: - Bibi
     let testView = UIView().then {
         $0.backgroundColor = .white
@@ -482,6 +495,9 @@ class VoteViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getVoteView(categoryId ?? "")
+        print(voteViewTitle)
+        //self.optionAButton.setTitle(voteChoice[0].name, for: .normal)
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
         self.commentCount.text = "\(comment.count)개"
@@ -524,4 +540,34 @@ extension VoteViewController : UITableViewDelegate {
 
 extension VoteViewController : UITextFieldDelegate {
 
+}
+
+extension VoteViewController {
+    func getVoteView(_ categoryId: String) {
+        NetworkService.shared.voteView.getVoteView(categoryId: categoryId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? VoteViewResponse else { return }
+                self?.voteViewTitle = data.category.title
+                self?.voteChoice = data.choices
+                print("==== VoteListArr Test: \(String(describing: self?.voteViewTitle))")
+                print("==== VoteListArr Test: \(String(describing: self?.voteChoice[0]))")
+                self?.topicLabel.text = data.category.title
+                self?.joinNumberLabel.text = "현재 \(data.category.participantCount)명 참여중"
+                self?.deadlineLabel.text = "D-\(data.category.dday)"
+                self?.optionAButton.setTitle(data.choices[0].name, for: .normal)
+                self?.optionBButton.setTitle(data.choices[1].name, for: .normal)
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
 }
