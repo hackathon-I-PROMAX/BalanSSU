@@ -11,12 +11,17 @@ import Then
 
 class MainViewController: BaseViewController {
     
+    var hottestCategories: [hotCategoriesData] = []
+    var deadLineCategories: [closedCategoriesData] = []
+    
     let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.showsVerticalScrollIndicator = false
         $0.backgroundColor = UIColor.tertiarySystemGroupedBackground
     }
     
     let hotCollectionView = HotCollectionView()
+    
+    let deadLineCollectionView = DeadLineCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,13 +128,21 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HotCollectionView.identifier, for: indexPath) as! HotCollectionView
                 
+//                cell.collectionView.delegate = self
+//                cell.collectionView.dataSource = self
+//                cell.collectionView.tag = indexPath.row
                 cell.cellDelegate = self
+                cell.data = self.hottestCategories
+                cell.collectionView.reloadData()
+
                 
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DeadLineCollectionView.identifier, for: indexPath) as! DeadLineCollectionView
                 
                 cell.cellDelegate = self
+                cell.data = self.deadLineCategories
+                cell.collectionView.reloadData()
                 
                 return cell
             default:
@@ -165,6 +178,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCellDelegate, DeadLineCollectionViewCellDelegate {
+        
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView) {
         let nextViewController = VoteListViewController()
         self.navigationController?.pushViewController(nextViewController, animated: true)
@@ -187,9 +201,8 @@ extension MainViewController {
             switch result {
             case .success(let response):
                 guard let data = response as? MainCategoriesResponse else { return }
-//                hotCollectionView.closedCategories = data.closedCategories
-                self?.hotCollectionView.hottestCategories = data.hotCategories
-                print(self?.hotCollectionView.hottestCategories)
+                self?.hottestCategories = data.hotCategories
+                self?.deadLineCategories = data.closedCategories
                 self?.tableView.reloadData()
             case .requestErr(let errorResponse):
                 dump(errorResponse)

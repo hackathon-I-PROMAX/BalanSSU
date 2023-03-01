@@ -13,16 +13,9 @@ import Then
 
 protocol HotCollectionViewCellDelegate: AnyObject {
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView)
-    
 }
 
 class HotCollectionView: UITableViewCell {
-    
-    var hottestCategories: [hotCategoriesData] = [] {
-        didSet {
-            self.collectionView.reloadData()
-        }
-    }
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 12
@@ -36,13 +29,13 @@ class HotCollectionView: UITableViewCell {
             right: 20)
     }
     
+    var data: [hotCategoriesData] = []
+    
     static let identifier = "HotCollectionView"
     
     weak var cellDelegate: HotCollectionViewCellDelegate?
     
     let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
-    let hotItitleArray: [String] = ["포토그레이 누구랑?", "공개고백 더 최악은?", "프론트 짱은?"]
-    let hotdeadLineArray: [String] = ["10", "5", "90"]
     
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -67,10 +60,10 @@ class HotCollectionView: UITableViewCell {
     }
     
     func setUpcollectionView() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
         collectionView.register(HotCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: HotCollectionViewCell.identifier)
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
     }
     
     func setViewHierarchy() {
@@ -88,16 +81,15 @@ class HotCollectionView: UITableViewCell {
 extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("num", self.hottestCategories.count)
-        return self.hotImageArray.count
+        return data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
         
         cell.imageView.image = hotImageArray[indexPath.row]
-        cell.hotTitleLabel.text = self.hotItitleArray[indexPath.row]
-        cell.badge.text = "D+" + self.hotdeadLineArray[indexPath.row]
+        cell.hotTitleLabel.text = data[indexPath.row].title
+        cell.badge.text = "D+" + String(data[indexPath.row].dday)
     
         return cell
     }
