@@ -23,6 +23,7 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
     
     let deadLineTitleLabel = UILabel().then {
         $0.font = UIFont.boldSystemFont(ofSize: 12)
+        $0.numberOfLines = 0
         $0.textColor = .white
     }
     
@@ -65,6 +66,7 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
         deadLineTitleLabel.snp.makeConstraints {
             $0.top.equalTo(imageView.snp.top).offset(12)
             $0.leading.equalToSuperview().inset(12)
+            $0.trailing.equalToSuperview().inset(10)
             $0.height.equalTo(17)
         }
         
