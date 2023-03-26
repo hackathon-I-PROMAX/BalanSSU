@@ -6,16 +6,20 @@
 //
 
 import UIKit
+import SwiftUI
 import SnapKit
 import Then
 
 class VoteViewController: BaseViewController {
-   var categoryId: String?
-
-   init(categoryId: String?) {
-       super.init(nibName: nil, bundle: nil)
-       self.categoryId = categoryId
-   }
+    var comment: [String] = ["차라리 총장님과 포토그레이 찍겠습니다.", "ㄹㅇ 황벨","NPC~", "NPC가 뭐예요?", "정문 앞에서 맨날 시위하시는 분"]
+    var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
+    var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
+    var categoryId: String?
+    
+    init(categoryId: String?) {
+        super.init(nibName: nil, bundle: nil)
+        self.categoryId = categoryId
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -153,8 +157,10 @@ class VoteViewController: BaseViewController {
         label.textColor = UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1)
         return label
     }()
+    @State private var numOfComment : Int = 0
     let commentCount : UILabel = {
         let label = UILabel()
+        label.text = "0 개"
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 18.0)
         label.textColor = .black
         return label
@@ -191,21 +197,18 @@ class VoteViewController: BaseViewController {
         button.tintColor = .gray
         return button
     }()
-    var comment: [String] = ["차라리 총장님과 포토그레이 찍겠습니다.", "ㄹㅇ 황벨","NPC~", "NPC가 뭐예요?", "정문 앞에서 맨날 시위하시는 분"]
-    var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
-    var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
     
     lazy var backBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
         button.tintColor = .black
-            return button
+        return button
     }()
     
     //MARK: - Bibi
     lazy var scrapBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
         button.tintColor = .black
-            return button
+        return button
     }()
     
     @objc func backBarButtonTapped() {
@@ -276,13 +279,13 @@ class VoteViewController: BaseViewController {
         optionAButton.backgroundColor = UIColor(r: 226, g: 231, b: 240)
         optionAButton.layer.borderWidth = 0
         optionAImageView.image = UIImage(named: "SelectedOption")
-
+        
         
         optionBButton.setTitleColor(.black, for: .normal)
         optionBButton.backgroundColor = .white
         optionBButton.layer.borderWidth = 1
         optionBImageView.image = UIImage(named: "UnselectedOption")
-
+        
     }
     
     @objc func optionBButtonTapped() {
@@ -290,7 +293,7 @@ class VoteViewController: BaseViewController {
         optionAButton.backgroundColor = .white
         optionAButton.layer.borderWidth = 1
         optionAImageView.image = UIImage(named: "UnselectedOption")
-
+        
         optionBButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         optionBButton.backgroundColor = UIColor(r: 226, g: 231, b: 240)
         optionBButton.layer.borderWidth = 0
@@ -306,19 +309,20 @@ class VoteViewController: BaseViewController {
         comment.append(commentText)
         userName.append("Joni")
         departure.append("글로벌미디어학부")
-        //commentCount.text = comment.count()
+        numOfComment = comment.count
+        commentCount.text = "\(comment.count)개"
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
-         // 키보드가 생성될 때
+        // 키보드가 생성될 때
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
             print("keyboardWillShow" )
             if self.view.frame.origin.y == 0.0 {
                 self.view.frame.origin.y -= keyboardHeight-190
             }
-       }
+        }
     }
     @objc private func keyboardWillHide(_ notification: Notification) {
         // 키보드가 사라질 때
@@ -327,7 +331,7 @@ class VoteViewController: BaseViewController {
     
     // 화면 터치하면 keyboard 내려가도록
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-          self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     
     override func setViewHierarchy() {
@@ -349,13 +353,14 @@ class VoteViewController: BaseViewController {
         // ====
         self.view.addSubview(commentIcon)
         self.view.addSubview(commentLabel)
+        commentCount.text = "\(comment.count)개"
         self.view.addSubview(commentCount)
         self.view.addSubview(container)
         container.addSubview(commentField)
         self.commentField.rightView = commentButton
         self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
         self.view.addSubview(tableView)
-
+        
     }
     
     override func setConstraints() {
@@ -371,7 +376,7 @@ class VoteViewController: BaseViewController {
             $0.top.equalTo(testView).offset(24)
             $0.leading.equalTo(testView).inset(16)
         }
-
+        
         joinNumberLabel.snp.makeConstraints {
             $0.top.equalTo(testView).offset(56)
             $0.leading.equalTo(testView).inset(16)
@@ -387,7 +392,7 @@ class VoteViewController: BaseViewController {
             $0.top.equalTo(testView).offset(28)
             $0.trailing.equalTo(testView).inset(22.5)
         }
-
+        
         voteButton.snp.makeConstraints {
             $0.top.equalTo(testView).offset(279)
             $0.leading.equalTo(testView).inset(16)
@@ -505,11 +510,11 @@ class VoteViewController: BaseViewController {
         //self.optionAButton.setTitle(voteChoice[0].name, for: .normal)
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
-    
+        
         self.navigationItem.rightBarButtonItem = scrapBarButton
         optionALabel.isHidden = true
         optionBLabel.isHidden = true
-
+        
         setLayouts()
     }
     
@@ -534,7 +539,7 @@ extension VoteViewController : UITableViewDataSource {
         cell.comment.text = comment[((comment.count)-1)-indexPath.row]
         return cell
     }
-
+    
 }
 
 extension VoteViewController : UITableViewDelegate {
@@ -544,7 +549,7 @@ extension VoteViewController : UITableViewDelegate {
 }
 
 extension VoteViewController : UITextFieldDelegate {
-
+    
 }
 
 extension VoteViewController {
@@ -555,7 +560,7 @@ extension VoteViewController {
                 guard let data = response as? VoteViewResponse else { return }
                 self?.voteViewTitle = data.category.title
                 self?.voteChoice = data.choices
-                print("==== VoteListArr Test: \(String(describing: self?.voteViewTitle))")
+                print("==== VoteListArr Test: \(String(describing: self?.voteViewTitle)), \(data.category.dday)")
                 print("==== VoteListArr Test: \(String(describing: self?.voteChoice[0]))")
                 self?.topicLabel.text = data.category.title
                 self?.joinNumberLabel.text = "현재 \(data.category.participantCount)명 참여중"

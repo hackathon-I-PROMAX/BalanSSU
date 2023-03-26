@@ -42,7 +42,7 @@ class HotCollectionView: UITableViewCell {
     
     let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
     let hotItitleArray: [String] = ["포토그레이 누구랑?", "공개고백 더 최악은?", "프론트 짱은?"]
-    let hotdeadLineArray: [String] = ["10", "5", "90"]
+    let hotdeadLineArray: [String] = ["3", "2", "5"]
     
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -97,7 +97,7 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
         
         cell.imageView.image = hotImageArray[indexPath.row]
         cell.hotTitleLabel.text = self.hotItitleArray[indexPath.row]
-        cell.badge.text = "D+" + self.hotdeadLineArray[indexPath.row]
+        cell.badge.text = "D-" + self.hotdeadLineArray[indexPath.row]
     
         return cell
     }
