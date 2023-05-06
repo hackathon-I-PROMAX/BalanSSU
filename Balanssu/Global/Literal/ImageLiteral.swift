@@ -9,9 +9,9 @@ import UIKit
 
 enum ImageLiterals {
     static var navigationBarBackButton: UIImage { .load(name: "backButton") }
-    static var hotCellOne: UIImage { .load(name: "HotCell1") }
-    static var hotCellTwo: UIImage { .load(name: "HotCell2") }
-    static var hotCellThree: UIImage { .load(name: "HotCell3") }
+    static var hotCellOne: UIImage { .load(name: "hotCell1") }
+    static var hotCellTwo: UIImage { .load(name: "hotCell2") }
+    static var hotCellThree: UIImage { .load(name: "hotCell3") }
     static var topicCell: UIImage { .load(name: "TopicCell") }
     static var deadLineCell: UIImage { .load(name: "DeadLineCell") }
 }

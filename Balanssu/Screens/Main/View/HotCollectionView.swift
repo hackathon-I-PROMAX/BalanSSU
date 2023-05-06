@@ -36,6 +36,8 @@ class HotCollectionView: UITableViewCell {
     weak var cellDelegate: HotCollectionViewCellDelegate?
     
     let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
+    let hotItitleArray: [String] = ["포토그레이 누구랑?", "공개고백 더 최악은?", "프론트 짱은?"]
+    let hotdeadLineArray: [String] = ["3", "2", "5"]
     
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -88,6 +90,8 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
         
         cell.imageView.image = hotImageArray[indexPath.row]
+        cell.hotTitleLabel.text = self.hotItitleArray[indexPath.row]
+        cell.badge.text = "D-" + self.hotdeadLineArray[indexPath.row]
         cell.hotTitleLabel.text = data[indexPath.row].title
         cell.badge.text = "D+" + String(data[indexPath.row].dday)
     
