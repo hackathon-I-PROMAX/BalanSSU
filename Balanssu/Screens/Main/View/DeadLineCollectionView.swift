@@ -29,6 +29,8 @@ class DeadLineCollectionView: UITableViewCell {
             right: 20)
     }
     
+    var data: [closedCategoriesData] = []
+    
     static let identifier = "DeadLineCollectionView"
     
     weak var cellDelegate: DeadLineCollectionViewCellDelegate?
@@ -79,20 +81,20 @@ class DeadLineCollectionView: UITableViewCell {
 }
 
 extension DeadLineCollectionView: UICollectionViewDataSource, UICollectionViewDelegate {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return deadLineImageArray.count
+        return data.count
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeadLineCollectionViewCell.identifier, for: indexPath) as! DeadLineCollectionViewCell
-        
+
         cell.imageView.image = deadLineImageArray[indexPath.row]
-        cell.deadLineTitleLabel.text = deadLinetitleArray[indexPath.item]
-        
+        cell.deadLineTitleLabel.text = data[indexPath.item].title
+
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? DeadLineCollectionViewCell
         self.cellDelegate?.collectionView(collectionviewcell: cell, index: indexPath.item, didTappedInTableViewCell: self)
@@ -103,11 +105,11 @@ extension DeadLineCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: Size.cellWidth, height: Size.cellHeight)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return Size.collectionHorizontalSpacing
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         Size.collectionInsets
     }
