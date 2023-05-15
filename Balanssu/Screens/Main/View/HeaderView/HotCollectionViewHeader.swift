@@ -11,7 +11,7 @@ import SnapKit
 
 import Then
 
-class HotCollectionViewHeader: UITableViewHeaderFooterView {
+final class HotCollectionViewHeader: UITableViewHeaderFooterView {
 
     static let identifier = "HotCollectionViewHeader"
     
@@ -39,25 +39,22 @@ class HotCollectionViewHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func setViewHierarchy() {
+    private func setViewHierarchy() {
         addSubview(hotTitleLabel)
         addSubview(allListButton)
          
     }
-     func setConstraints() {
-        
+     private func setConstraints() {
          hotTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
              $0.bottom.equalToSuperview()
         }
-         
          allListButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
              $0.bottom.equalToSuperview()
         }
-         
     }
 }
 
