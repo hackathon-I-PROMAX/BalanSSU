@@ -38,6 +38,9 @@
 		3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */; };
 		3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */; };
 		3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */; };
+		5A73AD672A12154800F395F0 /* ChoicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD662A12154800F395F0 /* ChoicesAPI.swift */; };
+		5A73AD692A12158800F395F0 /* ChoicesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD682A12158800F395F0 /* ChoicesService.swift */; };
+		5A73AD6B2A1216F700F395F0 /* ChoicesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD6A2A1216F700F395F0 /* ChoicesResponse.swift */; };
 		5A99A27129A1CE24006FE9B2 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27029A1CE24006FE9B2 /* TopicCollectionViewCell.swift */; };
 		5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27229A1CE39006FE9B2 /* HotCollectionViewCell.swift */; };
 		5A99A27529A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27429A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift */; };
@@ -94,6 +97,9 @@
 		3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp2ViewController.swift; sourceTree = "<group>"; };
 		3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanSSUColor.swift; sourceTree = "<group>"; };
+		5A73AD662A12154800F395F0 /* ChoicesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesAPI.swift; sourceTree = "<group>"; };
+		5A73AD682A12158800F395F0 /* ChoicesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesService.swift; sourceTree = "<group>"; };
+		5A73AD6A2A1216F700F395F0 /* ChoicesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesResponse.swift; sourceTree = "<group>"; };
 		5A99A27029A1CE24006FE9B2 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
 		5A99A27229A1CE39006FE9B2 /* HotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewCell.swift; sourceTree = "<group>"; };
 		5A99A27429A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -344,6 +350,7 @@
 				5A99A2E329A9F1A8006FE9B2 /* MainCategoriesAPI.swift */,
 				02F893FF29A9A55300681A4D /* VoteListAPI.swift */,
 				02F8940729AA05CE00681A4D /* VoteViewAPI.swift */,
+				5A73AD662A12154800F395F0 /* ChoicesAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -355,6 +362,7 @@
 				5A99A2E529A9F393006FE9B2 /* MainCategoriesService.swift */,
 				02F8940129A9A6A900681A4D /* VoteListService.swift */,
 				02F8940929AA063D00681A4D /* VoteViewService.swift */,
+				5A73AD682A12158800F395F0 /* ChoicesService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -368,6 +376,7 @@
 				5A99A2E129A9EF8D006FE9B2 /* MainCategoriesResponse.swift */,
 				02F893FD29A9A37100681A4D /* VoteListResponse.swift */,
 				02F8940529AA007300681A4D /* VoteViewResponse.swift */,
+				5A73AD6A2A1216F700F395F0 /* ChoicesResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -499,10 +508,12 @@
 				02F893FE29A9A37100681A4D /* VoteListResponse.swift in Sources */,
 				5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */,
 				3E392B2129A8678D0004C40E /* VoteView.swift in Sources */,
+				5A73AD692A12158800F395F0 /* ChoicesService.swift in Sources */,
 				0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */,
 				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
 				02F8940629AA007300681A4D /* VoteViewResponse.swift in Sources */,
+				5A73AD6B2A1216F700F395F0 /* ChoicesResponse.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
 				5A99A2E429A9F1A8006FE9B2 /* MainCategoriesAPI.swift in Sources */,
 				02F8940029A9A55300681A4D /* VoteListAPI.swift in Sources */,
@@ -515,6 +526,7 @@
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
 				5A99A27B29A1CEAA006FE9B2 /* DeadLineCollectionView.swift in Sources */,
 				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,
+				5A73AD672A12154800F395F0 /* ChoicesAPI.swift in Sources */,
 				02F8940829AA05CE00681A4D /* VoteViewAPI.swift in Sources */,
 				5A99A28129A1D17E006FE9B2 /* MypageViewController.swift in Sources */,
 				5A99A2E229A9EF8D006FE9B2 /* MainCategoriesResponse.swift in Sources */,
