@@ -11,7 +11,7 @@ import SnapKit
 
 import Then
 
-class DeadLineCollectionViewHeader: UITableViewHeaderFooterView {
+final class DeadLineCollectionViewHeader: UITableViewHeaderFooterView {
 
     static let identifier = "DeadLineCollectionViewHeader"
     
@@ -39,24 +39,21 @@ class DeadLineCollectionViewHeader: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
-     func setViewHierarchy() {
+    private func setViewHierarchy() {
         addSubview(hotTitleLabel)
         addSubview(deadLineListButton)
-         
     }
-     func setConstraints() {
-        
+    
+    private func setConstraints() {
          hotTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(20)
              $0.bottom.equalToSuperview()
         }
-         
          deadLineListButton.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
             $0.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview()
         }
-         
     }
 }
