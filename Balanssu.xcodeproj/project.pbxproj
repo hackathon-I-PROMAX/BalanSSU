@@ -158,23 +158,12 @@
 		022DDE3F299F2F0D00702B87 /* Balanssu */ = {
 			isa = PBXGroup;
 			children = (
-				0283DC3329A0A57B00DBC2B5 /* fonts */,
 				5AACF2D1299F515700D1C06B /* Network */,
 				5AACF2D0299F512B00D1C06B /* Screens */,
 				5AACF2CF299F510F00D1C06B /* Global */,
 				022DDE4E299F2F0E00702B87 /* Info.plist */,
 			);
 			path = Balanssu;
-			sourceTree = "<group>";
-		};
-		0283DC3329A0A57B00DBC2B5 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */,
-				0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */,
-				0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */,
-			);
-			path = fonts;
 			sourceTree = "<group>";
 		};
 		5A99A26C29A1CDB6006FE9B2 /* Cell */ = {
@@ -276,6 +265,9 @@
 		5AACF2D3299F51A200D1C06B /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				0283DC3829A0A5EF00DBC2B5 /* AppleSDGothicNeoR.ttf */,
+				0283DC3629A0A5DA00DBC2B5 /* AppleSDGothicNeoM.ttf */,
+				0283DC3429A0A5D000DBC2B5 /* AppleSDGothicNeoB.ttf */,
 			);
 			path = Font;
 			sourceTree = "<group>";
