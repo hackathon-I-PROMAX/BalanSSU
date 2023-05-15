@@ -9,7 +9,7 @@ import UIKit
 import Then
 import YDS
 
-class VoteView: BaseViewController {
+final class VoteView: UIView {
 
     let testView = UIView().then {
         $0.backgroundColor = .white
@@ -124,23 +124,6 @@ class VoteView: BaseViewController {
         $0.addTarget(self, action: #selector(voteButtonTapped), for: .touchUpInside)
     }
     
-    lazy var backBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
-        button.tintColor = .black
-            return button
-    }()
-    
-    lazy var scrapBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
-        button.tintColor = .black
-            return button
-    }()
-    
-    @objc func backBarButtonTapped() {
-        print("tapped")
-        self.navigationController?.popViewController(animated: true)
-    }
-    
     @objc func voteButtonTapped() {
         if optionAButton.backgroundColor != .white ||
             optionBButton.backgroundColor != .white {
@@ -225,27 +208,23 @@ class VoteView: BaseViewController {
         optionBImageView.image = UIImage(named: "SelectedOption")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override init(frame: CGRect) {
+        super.init(frame: .zero)
         setViewHierarchy()
         setConstraints()
         configUI()
-        setupNavigationBar()
-        self.navigationItem.leftBarButtonItem = backBarButton
-        self.navigationItem.rightBarButtonItem = scrapBarButton
         optionALabel.isHidden = true
         optionBLabel.isHidden = true
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    override func setViewHierarchy() {
-        view.addSubview(testView)
-        view.addSubview(stackAView)
-        view.addSubview(stackBView)
+    private func setViewHierarchy() {
+        addSubview(testView)
+        addSubview(stackAView)
+        addSubview(stackBView)
         testView.addSubview(topicLabel)
         testView.addSubview(joinNumberLabel)
         testView.addSubview(deadlineImageView)
@@ -260,13 +239,9 @@ class VoteView: BaseViewController {
         optionBButton.addSubview(optionBImageView)
     }
     
-    override func setConstraints() {
+    private func setConstraints() {
         testView.snp.makeConstraints {
-            $0.top.equalTo(view).offset(104)
-            $0.leading.equalTo(view).inset(20)
-            $0.centerX.equalToSuperview()
-            $0.width.equalTo(335)
-            $0.height.equalTo(344)
+            $0.edges.equalToSuperview()
         }
         
         topicLabel.snp.makeConstraints {
@@ -349,28 +324,11 @@ class VoteView: BaseViewController {
         }
     }
     
-    override func configUI() {
-        view.backgroundColor = .white
+    private func configUI() {
+        self.backgroundColor = .white
     }
     
-    override func makeBarButtonItem<T: UIView>(with view: T) -> UIBarButtonItem {
-        return UIBarButtonItem(customView: view)
-    }
-        
-    override func setupNavigationBar() {
-        guard let navigationBar = navigationController?.navigationBar else { return }
-        let appearance = UINavigationBarAppearance()
-        
-        appearance.shadowColor = .clear
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        
-        navigationBar.standardAppearance = appearance
-        navigationBar.compactAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-                
-        super.setupNavigationBar()
-    }
+
 }
 
 extension UIButton {
@@ -383,3 +341,5 @@ extension UIButton {
 //        contentEdgeInsets = UIEdgeInsets(top: 0, left: spacing / 2, bottom: 0, right: -spacing / 2)
     }
 }
+
+
