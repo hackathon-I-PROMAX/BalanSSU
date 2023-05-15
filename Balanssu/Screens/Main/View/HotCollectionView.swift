@@ -36,7 +36,7 @@ final class HotCollectionView: UITableViewCell {
     weak var cellDelegate: HotCollectionViewCellDelegate?
     
     private let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
-    
+
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -88,6 +88,8 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HotCollectionViewCell.identifier, for: indexPath) as! HotCollectionViewCell
         
         cell.imageView.image = hotImageArray[indexPath.row]
+        cell.hotTitleLabel.text = self.hotItitleArray[indexPath.row]
+        cell.badge.text = "D-" + self.hotdeadLineArray[indexPath.row]
         cell.hotTitleLabel.text = data[indexPath.row].title
         cell.badge.text = "D+" + String(data[indexPath.row].dday)
     
