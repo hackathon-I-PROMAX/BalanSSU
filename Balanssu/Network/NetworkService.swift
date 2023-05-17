@@ -17,4 +17,5 @@ final class NetworkService {
     let main = MainCategoriesService()
     let voteList = VoteListService()
     let voteView = VoteViewService()
+    let choices = ChoicesService()
 }
