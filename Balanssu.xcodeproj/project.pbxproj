@@ -41,6 +41,8 @@
 		5A73AD672A12154800F395F0 /* ChoicesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD662A12154800F395F0 /* ChoicesAPI.swift */; };
 		5A73AD692A12158800F395F0 /* ChoicesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD682A12158800F395F0 /* ChoicesService.swift */; };
 		5A73AD6B2A1216F700F395F0 /* ChoicesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD6A2A1216F700F395F0 /* ChoicesResponse.swift */; };
+		5A73AD6E2A135FFE00F395F0 /* OptionChoiceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD6D2A135FFE00F395F0 /* OptionChoiceButton.swift */; };
+		5A73AD702A13673400F395F0 /* VoteStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD6F2A13673400F395F0 /* VoteStackView.swift */; };
 		5A99A27129A1CE24006FE9B2 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27029A1CE24006FE9B2 /* TopicCollectionViewCell.swift */; };
 		5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27229A1CE39006FE9B2 /* HotCollectionViewCell.swift */; };
 		5A99A27529A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27429A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift */; };
@@ -100,6 +102,8 @@
 		5A73AD662A12154800F395F0 /* ChoicesAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesAPI.swift; sourceTree = "<group>"; };
 		5A73AD682A12158800F395F0 /* ChoicesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesService.swift; sourceTree = "<group>"; };
 		5A73AD6A2A1216F700F395F0 /* ChoicesResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChoicesResponse.swift; sourceTree = "<group>"; };
+		5A73AD6D2A135FFE00F395F0 /* OptionChoiceButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionChoiceButton.swift; sourceTree = "<group>"; };
+		5A73AD6F2A13673400F395F0 /* VoteStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteStackView.swift; sourceTree = "<group>"; };
 		5A99A27029A1CE24006FE9B2 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
 		5A99A27229A1CE39006FE9B2 /* HotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewCell.swift; sourceTree = "<group>"; };
 		5A99A27429A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -403,6 +407,8 @@
 				5AACF2ED29A094F900D1C06B /* BackButton.swift */,
 				3E691FCE29A133FC005CC39F /* BalanSSUColor.swift */,
 				0283DC4F29A1F74900DBC2B5 /* BasePaddingLabel.swift */,
+				5A73AD6D2A135FFE00F395F0 /* OptionChoiceButton.swift */,
+				5A73AD6F2A13673400F395F0 /* VoteStackView.swift */,
 			);
 			name = DesignSystem;
 			sourceTree = "<group>";
@@ -496,6 +502,7 @@
 			files = (
 				5A99A28329A1EDC5006FE9B2 /* BaseTargetType.swift in Sources */,
 				5A99A28D29A35EAC006FE9B2 /* AuthService.swift in Sources */,
+				5A73AD702A13673400F395F0 /* VoteStackView.swift in Sources */,
 				5A99A27F29A1CEF8006FE9B2 /* DeadLineCollectionViewHeader.swift in Sources */,
 				5A99A28F29A4B7AE006FE9B2 /* BlankDataResponse.swift in Sources */,
 				5A99A27929A1CE99006FE9B2 /* HotCollectionView.swift in Sources */,
@@ -529,6 +536,7 @@
 				5A73AD672A12154800F395F0 /* ChoicesAPI.swift in Sources */,
 				02F8940829AA05CE00681A4D /* VoteViewAPI.swift in Sources */,
 				5A99A28129A1D17E006FE9B2 /* MypageViewController.swift in Sources */,
+				5A73AD6E2A135FFE00F395F0 /* OptionChoiceButton.swift in Sources */,
 				5A99A2E229A9EF8D006FE9B2 /* MainCategoriesResponse.swift in Sources */,
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
 				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
