@@ -15,28 +15,39 @@ final class OptionChoiceButton: UIView {
     enum ButtonActive {
         case active
         case nonActive
+        case voteActive
+        case nonVoteActive
         
-        var titleColor: UIColor {
+        
+        var titleColor: UIColor? {
             switch self {
             case .active:
                 return UIColor.customColor(.choiceButtonText)
             case .nonActive:
                 return .black
+            case .voteActive:
+                return .white
+            case .nonVoteActive:
+                return UIColor(r: 150, g: 150, b: 150)
             }
         }
         
-        var backgroundColor: UIColor {
+        var backgroundColor: UIColor? {
             switch self {
             case .active:
                 return UIColor(r: 226, g: 231, b: 240)
             case .nonActive:
                 return .white
+            case .voteActive:
+                return UIColor(r: 64, g: 96, b: 160)
+            case .nonVoteActive:
+                return UIColor(r: 240, g: 240, b: 240)
             }
         }
         
         var borderWidth: CGFloat {
             switch self {
-            case .active:
+            case .active, .voteActive, .nonVoteActive:
                 return 0
             case .nonActive:
                 return 1
@@ -49,6 +60,10 @@ final class OptionChoiceButton: UIView {
                 return UIImage(named: "SelectedOption")
             case .nonActive:
                 return UIImage(named: "UnselectedOption")
+            case .voteActive:
+                return UIImage(named: "SelectedOptionResult")
+            case .nonVoteActive:
+                return nil
             }
         }
     }
@@ -80,6 +95,8 @@ final class OptionChoiceButton: UIView {
     }
     
     private func setConstraints() {
+        
+        
         optionTitleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(10)
             $0.leading.equalToSuperview().inset(20)
@@ -102,10 +119,19 @@ final class OptionChoiceButton: UIView {
 }
 
 extension OptionChoiceButton {
-      func configureButton(status: ButtonActive) {
+    func makeActiveTypeButton(status: ButtonActive) {
         optionTitleLabel.textColor = status.titleColor
         optionAImageView.image = status.optionImage
         self.backgroundColor = status.backgroundColor
         self.layer.borderWidth = status.borderWidth
+        setButtonHeight(status: status)
+    }
+    
+    private func setButtonHeight(status: ButtonActive) {
+        if status == .nonVoteActive {
+            self.snp.remakeConstraints {
+                $0.height.equalTo(85)
+            }
+        }
     }
 }
