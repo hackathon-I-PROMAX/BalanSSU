@@ -12,6 +12,8 @@ import Then
 
 final class VoteStackView: UIStackView {
     
+    var isSelected = false
+    
     let optionButton = OptionChoiceButton(buttonType: .nonActive)
     let optionLabel = UILabel().then {
         $0.text = "23%"
