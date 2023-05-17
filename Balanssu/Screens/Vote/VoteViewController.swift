@@ -6,12 +6,19 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
 final class VoteViewController: BaseViewController {
-   var categoryId: String?
-
+    
+    var categoryId: String?
+    var voteChoice: [choicesData] = []
+    
+    private var comment: [String] = ["차라리 총장님과 포토그레이 찍겠습니다.", "ㄹㅇ 황벨","NPC~", "NPC가 뭐예요?", "정문 앞에서 맨날 시위하시는 분"]
+    private var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
+    private var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
+    
    init(categoryId: String?) {
        super.init(nibName: nil, bundle: nil)
        self.categoryId = categoryId
@@ -21,13 +28,8 @@ final class VoteViewController: BaseViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var voteChoice: [choicesData] = []
-    
+    private let backButton = BackButton(type: .system)
     private var voteView = VoteView()
-    
-    //MARK: - Joni
-    let backButton = BackButton(type: .system)
-    
     let commentIcon : UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "coolicon")
@@ -47,7 +49,6 @@ final class VoteViewController: BaseViewController {
         label.textColor = .black
         return label
     }()
-    
     private let tableView : UITableView = { // 테이블 뷰 생성
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,20 +57,17 @@ final class VoteViewController: BaseViewController {
         tableView.estimatedRowHeight = 130
         return tableView
     }()
-    
     private lazy var container: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1)
         view.layer.cornerRadius = 8
         return view
     }()
-    
     private let commentField : UITextField = {
         let field = UITextField()
         field.placeholder = "댓글을 입력하세요."
         return field
     }()
-    
     private let commentButton : UIButton = {
         let button = UIButton()
         button.setImage(UIImage(systemName: "paperplane"), for: .normal)
@@ -79,25 +77,18 @@ final class VoteViewController: BaseViewController {
         button.tintColor = .gray
         return button
     }()
-    var comment: [String] = ["차라리 총장님과 포토그레이 찍겠습니다.", "ㄹㅇ 황벨","NPC~", "NPC가 뭐예요?", "정문 앞에서 맨날 시위하시는 분"]
-    var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
-    var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
-    
-    lazy var backBarButton: UIBarButtonItem = {
+    private lazy var backBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
         button.tintColor = .black
             return button
     }()
-    
-    //MARK: - Bibi
-    lazy var scrapBarButton: UIBarButtonItem = {
+    private lazy var scrapBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
         button.tintColor = .black
             return button
     }()
     
     @objc func backBarButtonTapped() {
-        print("tapped")
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -124,38 +115,70 @@ final class VoteViewController: BaseViewController {
             }
        }
     }
+    
     @objc private func keyboardWillHide(_ notification: Notification) {
         // 키보드가 사라질 때
         self.view.frame.origin.y = 0
+    }
+    
+    @objc func voteButtonTapped() {
+        var choiceID: String = ""
+        guard let categoryId = self.categoryId else { return }
+        
+        if voteView.optionA.isSelected || voteView.optionB.isSelected {
+            if voteView.optionA.isSelected {
+                choiceID = self.voteChoice[0].choiceId
+            } else if voteView.optionB.isSelected {
+                choiceID = self.voteChoice[1].choiceId
+            }
+            voteView.makeVoteViewTypeView(status: .vote)
+            postChoices(categoryId: categoryId, choiceId: choiceID) { [weak self] result in
+                if result.choices[0].count > result.choices[1].count {
+                    self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
+                    self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                } else {
+                    self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .voteActive)
+                    self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                }
+                self?.voteView.optionA.optionLabel.text = "\(result.choices[0].count)%"
+                self?.voteView.optionB.optionLabel.text = "\(result.choices[1].count)%"
+            }
+        }
     }
     
     // 화면 터치하면 keyboard 내려가도록
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
           self.view.endEditing(true)
     }
+        
+    private func setAddTaget() {
+        voteView.voteButton.addTarget(self, action: #selector(voteButtonTapped), for: .touchUpInside)
+    }
     
-    override func setViewHierarchy() {
-        view.addSubview(voteView)
-        // ====
-        self.view.addSubview(commentIcon)
-        self.view.addSubview(commentLabel)
-        self.view.addSubview(commentCount)
-        self.view.addSubview(container)
-        container.addSubview(commentField)
-        self.commentField.rightView = commentButton
-        self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
-        self.view.addSubview(tableView)
-
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = .white
+        self.navigationItem.leftBarButtonItem = backBarButton
+        self.navigationItem.rightBarButtonItem = scrapBarButton
+        setAddTaget()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getVoteView(categoryId ?? "")
+    }
+    
+    override func setupNavigationBar() {
+        super.setupNavigationBar()
     }
     
     override func setConstraints() {
-            voteView.snp.makeConstraints {
-                $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-                $0.leading.trailing.equalToSuperview().inset(20)
-                $0.height.equalTo(345)
-            }
+        voteView.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(345)
+        }
         
-        //====
         commentIcon.snp.makeConstraints {
             //$0.bottom.equalTo(container.snp.top).offset(-23)
             $0.leading.equalToSuperview().inset(28)
@@ -190,11 +213,22 @@ final class VoteViewController: BaseViewController {
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             //$0.bottom.equalToSuperview()
         }
-        
-        
     }
     
-    func setLayouts() {
+    override func setViewHierarchy() {
+        view.addSubview(voteView)
+
+        self.view.addSubview(commentIcon)
+        self.view.addSubview(commentLabel)
+        self.view.addSubview(commentCount)
+        self.view.addSubview(container)
+        container.addSubview(commentField)
+        self.commentField.rightView = commentButton
+        self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
+        self.view.addSubview(tableView)
+    }
+    
+    override func configUI() {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorInset.left = 20
@@ -202,28 +236,6 @@ final class VoteViewController: BaseViewController {
         commentField.delegate = self
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        setViewHierarchy()
-        setConstraints()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        getVoteView(categoryId ?? "")
-//        print(voteViewTitle)
-        //self.optionAButton.setTitle(voteChoice[0].name, for: .normal)
-        self.view.backgroundColor = .white
-        self.navigationItem.leftBarButtonItem = backBarButton
-    
-        self.navigationItem.rightBarButtonItem = scrapBarButton
-//        optionALabel.isHidden = true
-//        optionBLabel.isHidden = true
-
-        setLayouts()
-    }
-    
-    override func setupNavigationBar() {
-        super.setupNavigationBar()
     }
 }
 
@@ -257,23 +269,55 @@ extension VoteViewController : UITextFieldDelegate {
 }
 
 extension VoteViewController {
-    func getVoteView(_ categoryId: String) {
+    private func getVoteView(_ categoryId: String) {
         NetworkService.shared.voteView.getVoteView(categoryId: categoryId) { [weak self] result in
             switch result {
             case .success(let response):
                 guard let data = response as? VoteViewResponse else { return }
-//                self?.voteViewTitle = data.category.title
                 self?.voteChoice = data.choices
-//                print("==== VoteListArr Test: \(String(describing: self?.voteViewTitle))")
-                print("==== VoteListArr Test: \(String(describing: self?.voteChoice[0]))")
+                
+                if data.category.isParticipating {
+                    self?.voteView.makeVoteViewTypeView(status: .vote)
+                    if data.choices[0].count > data.choices[1].count {
+                        self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
+                        self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                    } else {
+                        self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .voteActive)
+                        self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                    }
+                }
                 self?.voteView.topicLabel.text = data.category.title
                 self?.voteView.joinNumberLabel.text = "현재 \(data.category.participantCount)명 참여중"
                 self?.voteView.deadlineLabel.text = "D-\(data.category.dday)"
-                self?.voteView.optionAButton.setTitle(data.choices[0].name, for: .normal)
-                self?.voteView.optionBButton.setTitle(data.choices[1].name, for: .normal)
+                self?.voteView.optionA.optionButton.optionTitleLabel.text = data.choices[0].name
+                self?.voteView.optionB.optionButton.optionTitleLabel.text = data.choices[1].name
+                
+                self?.voteView.optionA.optionLabel.text = "\(data.choices[0].count)%"
+                self?.voteView.optionB.optionLabel.text = "\(data.choices[1].count)%"
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
+    
+    private func postChoices(categoryId: String, choiceId: String, completion: @escaping (ChoicesResponse) -> Void) {
+        NetworkService.shared.choices.postChoices(categoryId: categoryId, choiceId: choiceId) {
+            result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? ChoicesResponse else { return }
+                completion(data)
+            case .requestErr(let error):
+                dump(error)
+                guard let data = error as? ErrorResponse else { return }
                 print(data.message)
             case .pathErr:
                 print("pathErr")
