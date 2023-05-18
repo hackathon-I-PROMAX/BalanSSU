@@ -27,4 +27,7 @@ enum URLConst {
     
     // MARK: - Choices
     static let choices = "/choices"
+    
+    // MARK: - token
+    static let refresh = "/auth/refresh"
 }

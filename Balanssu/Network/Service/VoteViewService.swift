@@ -10,7 +10,7 @@ import Moya
 
 final class VoteViewService {
     
-    private var voteViewProvider = MoyaProvider<VoteViewAPI>()
+    private var voteViewProvider = MoyaProvider<VoteViewAPI>(session : Moya.Session(interceptor: Interceptor()))
     
     private enum ResponseData {
         case voteView
