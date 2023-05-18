@@ -11,6 +11,7 @@ import UIKit
 enum CustomColor {
     case defaultBlue
     case defaultGray
+    case choiceButtonText
 }
 
 extension UIColor {
@@ -21,6 +22,8 @@ extension UIColor {
             return UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1.00)
         case .defaultGray:
             return UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1.00)
+        case .choiceButtonText:
+            return UIColor(red: 0.064, green: 0.096, blue: 0.160, alpha: 1.00)
         }
     }
 }
