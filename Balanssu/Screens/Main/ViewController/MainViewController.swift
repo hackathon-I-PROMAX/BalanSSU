@@ -173,7 +173,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCellDelegate, DeadLineCollectionViewCellDelegate {
         
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView) {
-        let nextViewController = VoteListViewController()
+        let nextViewController = VoteViewController(categoryId: self.hottestCategories[index].categoryId)
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
@@ -182,7 +182,7 @@ extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCe
         }
     
     func collectionView(collectionviewcell: DeadLineCollectionViewCell?, index: Int, didTappedInTableViewCell: DeadLineCollectionView) {
-        let nextViewController = VoteListViewController()
+        let nextViewController = VoteViewController(categoryId: self.deadLineCategories[index].categoryId)
         self.navigationController?.pushViewController(nextViewController, animated: true)
         print("deadLine")
     }

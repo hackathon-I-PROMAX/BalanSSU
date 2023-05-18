@@ -10,7 +10,7 @@ import Moya
 
 final class ChoicesService {
 
-    private var choicesProvider = MoyaProvider<ChoicesAPI>()
+    private var choicesProvider = MoyaProvider<ChoicesAPI>(session : Moya.Session(interceptor: Interceptor()))
 
     private enum ResponseData {
         case postChoices

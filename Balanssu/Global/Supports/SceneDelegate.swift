@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         var rootViewController: UIViewController
         
-        if UserDefaults.standard.bool(forKey: UserDefaultKey.loginStatus) {
+        if UserDefaultHandler.loginStatus == true {
             rootViewController = UINavigationController(rootViewController: MainViewController())
         } else {
             rootViewController = UINavigationController(rootViewController: StartViewController())

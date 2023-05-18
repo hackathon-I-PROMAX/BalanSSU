@@ -20,13 +20,8 @@ extension BaseTargetType {
         return Data()
     }
     
-//    var headers: [String : String]? {
-//        return [
-//            "content-type": "application/json"
-//        ]
-//    }
     var headers: [String: String]? {
-        if let token = UserDefaults.standard.value(forKey: UserDefaultKey.accessToken) {
+        if let token = UserDefaults.standard.value(forKey: UserDefaultHandler.accessToken) {
             let header = [
                 "Content-Type": "application/json",
                 "Authorization": "Bearer \(String(describing: token))"
@@ -39,5 +34,9 @@ extension BaseTargetType {
             return header
         }
     }
+    
+    var validationType: ValidationType {
+            return .successCodes
+        }
 }
 

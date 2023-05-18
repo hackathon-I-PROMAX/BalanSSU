@@ -179,9 +179,9 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         postSignIn(password: password, username: userName) { data in
             print(data.refreshToken)
-            UserDefaults.standard.setValue(true, forKey: UserDefaultKey.loginStatus)
-            UserDefaults.standard.setValue(data.accessToken, forKey: UserDefaultKey.accessToken)
-            UserDefaults.standard.setValue(data.refreshToken, forKey: UserDefaultKey.refreshToken)
+            UserDefaultHandler.accessToken = data.accessToken
+            UserDefaultHandler.refreshToken = data.refreshToken
+            UserDefaultHandler.loginStatus = true
             
             let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
             sceneDelegate?.changeRootView()
@@ -199,11 +199,6 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         navigationBar.standardAppearance = appearance
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
-        
-//        super.setupNavigationBar()
-//        
-//        let backBarButton = makeBarButtonItem(with: backBarButton)
-//        navigationItem.leftBarButtonItem = backBarButton
     }
 }
 
