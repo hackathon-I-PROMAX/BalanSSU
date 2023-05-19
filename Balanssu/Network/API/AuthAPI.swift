@@ -15,6 +15,15 @@ enum AuthAPI {
 }
 
 extension AuthAPI: BaseTargetType {
+    var headers: [String: String]? {
+        switch self {
+        case .postSignIn, .postSignUp, .postRefreshToken:
+            return [
+                "Content-Type": "application/json"
+            ]
+        }
+    }
+    
     var path: String {
         switch self {
         case .postSignUp:
@@ -50,9 +59,10 @@ extension AuthAPI: BaseTargetType {
                 "gender": gender
             ], encoding: JSONEncoding.default)
         case .postRefreshToken(let refreshToken):
-            return .requestParameters(parameters:[
+            return .requestParameters(parameters: [
                 "refreshToken": refreshToken
             ], encoding: JSONEncoding.default)
         }
     }
 }
+
