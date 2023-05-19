@@ -47,6 +47,7 @@
 		5A73AD742A152C1200F395F0 /* TokenResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD732A152C1200F395F0 /* TokenResponse.swift */; };
 		5A73AD782A15340800F395F0 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD772A15340800F395F0 /* UserDefault.swift */; };
 		5A73AD7A2A1534D600F395F0 /* UserDefaultHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD792A1534D600F395F0 /* UserDefaultHandler.swift */; };
+		5A73AD8D2A1787AD00F395F0 /* MoyaLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A73AD8C2A1787AD00F395F0 /* MoyaLoggerPlugin.swift */; };
 		5A99A27129A1CE24006FE9B2 /* TopicCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27029A1CE24006FE9B2 /* TopicCollectionViewCell.swift */; };
 		5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27229A1CE39006FE9B2 /* HotCollectionViewCell.swift */; };
 		5A99A27529A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99A27429A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift */; };
@@ -111,6 +112,7 @@
 		5A73AD732A152C1200F395F0 /* TokenResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenResponse.swift; sourceTree = "<group>"; };
 		5A73AD772A15340800F395F0 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		5A73AD792A1534D600F395F0 /* UserDefaultHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultHandler.swift; sourceTree = "<group>"; };
+		5A73AD8C2A1787AD00F395F0 /* MoyaLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaLoggerPlugin.swift; sourceTree = "<group>"; };
 		5A99A27029A1CE24006FE9B2 /* TopicCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicCollectionViewCell.swift; sourceTree = "<group>"; };
 		5A99A27229A1CE39006FE9B2 /* HotCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HotCollectionViewCell.swift; sourceTree = "<group>"; };
 		5A99A27429A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeadLineCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				5A99A28629A1F257006FE9B2 /* NetworkResult.swift */,
 				5A99A28829A1F284006FE9B2 /* URLConst.swift */,
 				5A73AD712A15278000F395F0 /* Interceptor.swift */,
+				5A73AD8C2A1787AD00F395F0 /* MoyaLoggerPlugin.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -551,6 +554,7 @@
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
 				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
 				5AACF2DF299F534F00D1C06B /* MainViewController.swift in Sources */,
+				5A73AD8D2A1787AD00F395F0 /* MoyaLoggerPlugin.swift in Sources */,
 				02F8940A29AA063D00681A4D /* VoteViewService.swift in Sources */,
 				0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */,
 				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
