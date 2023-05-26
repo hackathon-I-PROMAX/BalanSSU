@@ -21,22 +21,15 @@ extension BaseTargetType {
     }
     
     var headers: [String: String]? {
-        if let token = UserDefaults.standard.value(forKey: UserDefaultHandler.accessToken) {
-            let header = [
-                "Content-Type": "application/json",
-                "Authorization": "Bearer \(String(describing: token))"
-            ]
-            return header
-        } else {
-            let header = [
-                "Content-Type": "application/json"
-            ]
-            return header
-        }
+        let header = [
+            "Content-Type": "application/json",
+            "Authorization": "Bearer "
+        ]
+        return header
     }
     
     var validationType: ValidationType {
-            return .successCodes
-        }
+        return .successCodes
+    }
 }
 

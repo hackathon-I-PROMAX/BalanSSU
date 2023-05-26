@@ -17,6 +17,8 @@ class CommentListTableViewCell: UITableViewCell {
         view.layer.cornerRadius = 8
         view.clipsToBounds = true
         view.backgroundColor = .gray
+        view.layer.borderWidth = 1.0
+        view.layer.borderColor = UIColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1).cgColor
         return view
     }()
     let name : UILabel = {
@@ -59,7 +61,7 @@ class CommentListTableViewCell: UITableViewCell {
         img.snp.makeConstraints {
             $0.top.equalToSuperview().inset(12)
             $0.leading.equalToSuperview().inset(20)
-            $0.size.width.height.equalTo(24)
+            $0.size.width.height.equalTo(30)
         }
         
         name.snp.makeConstraints {

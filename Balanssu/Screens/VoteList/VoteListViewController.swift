@@ -37,20 +37,13 @@ class VoteListViewController: BaseViewController {
     }
     
     override func setConstraints() {
-                
-        // 1. superView에 맞게 적용
-        tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
 
         // 2. safeAreaLayoutGuide에 맞게 적용
         tableView.snp.makeConstraints {
-            $0.edges.equalTo(view.safeAreaLayoutGuide)
-        }
-                
-        // 3. superView에 맞게 적용 한 뒤 inset 적용
-        tableView.snp.makeConstraints {
-            $0.edges.equalToSuperview().inset(20)
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(5)
+            $0.bottom.equalToSuperview().inset(5)
+
         }
     }
     

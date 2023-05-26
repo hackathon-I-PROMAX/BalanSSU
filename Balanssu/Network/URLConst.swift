@@ -30,4 +30,8 @@ enum URLConst {
     
     // MARK: - token
     static let refresh = "/auth/refresh"
+    
+    // MARK: - Mypage
+    static let myPage = "/auth/info"
+    
 }
