@@ -28,7 +28,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 20.0)
         label.textColor = .black
-        label.text = "Joni"
+        label.text = "nameLabel"
         label.textAlignment = .center
         return label
     }()
@@ -37,7 +37,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "글로벌미디어학부 / 20학번"
+        label.text = "userInfo / schoolAge"
         label.textAlignment = .center
         return label
     }()
@@ -46,7 +46,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "@Joeun1005"
+        label.text = "@idLabel"
         label.textAlignment = .center
         return label
     }()
@@ -181,6 +181,9 @@ extension MypageViewController {
             case .success(let response):
                 guard let data = response as? MyPageResponse else { return }
                 print("==== \(String(describing: data))")
+                self?.nameLabel.text = data.user.nickname
+                self?.userInfo.text = "\(data.user.departure) / \(data.user.schoolAge)학번"
+                self?.idLabel.text = "@\(data.user.username)"
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }

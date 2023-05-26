@@ -7,7 +7,7 @@
 import UIKit
 
 struct MyPageResponse: Codable {
-    let user: [myPageData]
+    let user: myPageData
 }
 
 struct myPageData: Codable {
