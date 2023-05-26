@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		020352832A2042C800412493 /* MyPageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 020352822A2042C800412493 /* MyPageService.swift */; };
 		022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022DDE40299F2F0D00702B87 /* AppDelegate.swift */; };
 		022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 022DDE42299F2F0D00702B87 /* SceneDelegate.swift */; };
 		022DDE4A299F2F0E00702B87 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 022DDE49299F2F0E00702B87 /* Assets.xcassets */; };
@@ -26,6 +27,8 @@
 		0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */; };
 		0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */; };
 		0283DC5029A1F74900DBC2B5 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4F29A1F74900DBC2B5 /* BasePaddingLabel.swift */; };
+		02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A19D2A1F4AB900E520F6 /* MyPageResponse.swift */; };
+		02D5A1A02A1F4E9000E520F6 /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A19F2A1F4E9000E520F6 /* MyPageAPI.swift */; };
 		02F893FE29A9A37100681A4D /* VoteListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F893FD29A9A37100681A4D /* VoteListResponse.swift */; };
 		02F8940029A9A55300681A4D /* VoteListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F893FF29A9A55300681A4D /* VoteListAPI.swift */; };
 		02F8940229A9A6A900681A4D /* VoteListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8940129A9A6A900681A4D /* VoteListService.swift */; };
@@ -75,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		020352822A2042C800412493 /* MyPageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageService.swift; sourceTree = "<group>"; };
 		022DDE3D299F2F0D00702B87 /* Balanssu.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Balanssu.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		022DDE40299F2F0D00702B87 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		022DDE42299F2F0D00702B87 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +94,8 @@
 		0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
 		0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListTableViewCell.swift; sourceTree = "<group>"; };
 		0283DC4F29A1F74900DBC2B5 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
+		02D5A19D2A1F4AB900E520F6 /* MyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageResponse.swift; sourceTree = "<group>"; };
+		02D5A19F2A1F4E9000E520F6 /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		02F893FD29A9A37100681A4D /* VoteListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListResponse.swift; sourceTree = "<group>"; };
 		02F893FF29A9A55300681A4D /* VoteListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListAPI.swift; sourceTree = "<group>"; };
 		02F8940129A9A6A900681A4D /* VoteListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListService.swift; sourceTree = "<group>"; };
@@ -363,6 +369,7 @@
 				02F893FF29A9A55300681A4D /* VoteListAPI.swift */,
 				02F8940729AA05CE00681A4D /* VoteViewAPI.swift */,
 				5A73AD662A12154800F395F0 /* ChoicesAPI.swift */,
+				02D5A19F2A1F4E9000E520F6 /* MyPageAPI.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -375,6 +382,7 @@
 				02F8940129A9A6A900681A4D /* VoteListService.swift */,
 				02F8940929AA063D00681A4D /* VoteViewService.swift */,
 				5A73AD682A12158800F395F0 /* ChoicesService.swift */,
+				020352822A2042C800412493 /* MyPageService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -390,6 +398,7 @@
 				02F8940529AA007300681A4D /* VoteViewResponse.swift */,
 				5A73AD6A2A1216F700F395F0 /* ChoicesResponse.swift */,
 				5A73AD732A152C1200F395F0 /* TokenResponse.swift */,
+				02D5A19D2A1F4AB900E520F6 /* MyPageResponse.swift */,
 			);
 			path = DTO;
 			sourceTree = "<group>";
@@ -532,6 +541,7 @@
 				02F8940629AA007300681A4D /* VoteViewResponse.swift in Sources */,
 				5A73AD6B2A1216F700F395F0 /* ChoicesResponse.swift in Sources */,
 				5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */,
+				02D5A1A02A1F4E9000E520F6 /* MyPageAPI.swift in Sources */,
 				5A99A2E429A9F1A8006FE9B2 /* MainCategoriesAPI.swift in Sources */,
 				02F8940029A9A55300681A4D /* VoteListAPI.swift in Sources */,
 				3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */,
@@ -539,7 +549,9 @@
 				5A99A27D29A1CECA006FE9B2 /* HotCollectionViewHeader.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
 				5A99A28B29A34C9D006FE9B2 /* AuthAPI.swift in Sources */,
+				02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
+				020352832A2042C800412493 /* MyPageService.swift in Sources */,
 				5A73AD742A152C1200F395F0 /* TokenResponse.swift in Sources */,
 				5A99A27B29A1CEAA006FE9B2 /* DeadLineCollectionView.swift in Sources */,
 				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,

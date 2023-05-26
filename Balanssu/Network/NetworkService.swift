@@ -18,4 +18,5 @@ final class NetworkService {
     let voteList = VoteListService()
     let voteView = VoteViewService()
     let choices = ChoicesService()
+    let myPage = MyPageService()
 }

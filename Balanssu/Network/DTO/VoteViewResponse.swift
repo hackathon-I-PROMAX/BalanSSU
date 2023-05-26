@@ -10,7 +10,6 @@ import UIKit
 struct VoteViewResponse: Codable {
     let category: categoryData
     let choices: [choicesData]
-    let comments: [commentsData]
 }
 
 struct categoryData: Codable {
@@ -26,12 +25,5 @@ struct choicesData: Codable {
     let choiceId: String
     let count: Int
     let name: String
-}
-
-struct commentsData: Codable {
-    let content: String
-    let department: String
-    let isOwner: Bool
-    let nickname: String
 }
 
