@@ -45,6 +45,7 @@ final class VoteViewController: BaseViewController {
     }()
     let commentCount : UILabel = {
         let label = UILabel()
+        label.text = "0개"
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 18.0)
         label.textColor = .black
         return label
@@ -220,6 +221,7 @@ final class VoteViewController: BaseViewController {
 
         self.view.addSubview(commentIcon)
         self.view.addSubview(commentLabel)
+        commentCount.text = "\(comment.count)개"
         self.view.addSubview(commentCount)
         self.view.addSubview(container)
         container.addSubview(commentField)
@@ -245,11 +247,12 @@ extension VoteViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        commentCount.text = "\(comment.count)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
         // let cardImage = UIImage(named: "\(card[indexPath.row]).png")
         // cell.cardImage.image = cardImage
-        cell.img.image = UIImage(named: "ppussung")
+        cell.img.image = UIImage(named: "profileImage")
         cell.name.text = userName[((comment.count)-1)-indexPath.row]
         cell.badge.text = departure[((comment.count)-1)-indexPath.row]
         cell.comment.text = comment[((comment.count)-1)-indexPath.row]

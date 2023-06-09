@@ -29,8 +29,8 @@ extension BaseTargetType {
     }
     
     var validationType: ValidationType {
-            return .successCodes
-        }
+        return .successCodes
+    }
 }
 
 

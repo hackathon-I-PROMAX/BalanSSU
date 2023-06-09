@@ -62,7 +62,7 @@ class VoteListTableViewCell: UITableViewCell {
         
         participant.snp.makeConstraints {
             $0.centerY.equalToSuperview()
-            $0.trailing.equalToSuperview().offset(-5)
+            $0.trailing.equalToSuperview().offset(-20)
         }
     }
         
