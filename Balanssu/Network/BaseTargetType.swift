@@ -19,11 +19,11 @@ extension BaseTargetType {
     var sampleData: Data {
         return Data()
     }
-    
+
     var headers: [String: String]? {
         let header = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer "
+            "Authorization": "Bearer \(UserDefaultHandler.accessToken)"
         ]
         return header
     }
@@ -32,4 +32,5 @@ extension BaseTargetType {
         return .successCodes
     }
 }
+
 

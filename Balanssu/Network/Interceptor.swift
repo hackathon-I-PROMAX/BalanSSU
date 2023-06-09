@@ -10,20 +10,25 @@ import Foundation
 import Alamofire
 import Moya
 
-final class Interceptor: RequestInterceptor {
+class Interceptor: RequestInterceptor {
     
     private let limit = 2
     private let retryDelay: TimeInterval = 1
     
     func adapt(_ urlRequest: URLRequest, for session: Session, completion: @escaping (Result<URLRequest, Error>) -> Void) {
         var urlRequest = urlRequest
-        urlRequest.headers.add(.authorization(bearerToken: UserDefaultHandler.accessToken))
+        urlRequest.setValue(
+                    "Bearer " + UserDefaultHandler.accessToken,
+                    forHTTPHeaderField: "Authorization"
+                )
+        
         
         print("adapt 적용 \(urlRequest.headers)")
         completion(.success(urlRequest))
     }
     
     func retry(_ request: Request, for session: Session, dueTo error: Error, completion: @escaping (RetryResult) -> Void) {
+        print("retry 진입")
         guard let response = request.task?.response as? HTTPURLResponse else {
             completion(.doNotRetryWithError(error))
             return
@@ -37,18 +42,16 @@ final class Interceptor: RequestInterceptor {
         
         getToken { isSuccess in
             if isSuccess {
-                if request.retryCount < self.limit {
-                    completion(.retryWithDelay(self.retryDelay))
-                }
+                completion(.retry)
             } else {
-                print("refresh token expired")
                 completion(.doNotRetry)
             }
+
         }
     }
     
-    private func getToken(completion: @escaping(Bool) -> Void) {
-        NetworkService.shared.auth.postRereshToken(rereshToken: UserDefaultHandler.refreshToken) { result in
+    func getToken(completion: @escaping(Bool) -> Void) {
+        NetworkService.shared.auth.postRereshToken(refreshToken: UserDefaultHandler.refreshToken) { result in
             switch result {
             case .success(let response):
                 guard let data = response as? TokenResponse else { return }
@@ -64,3 +67,5 @@ final class Interceptor: RequestInterceptor {
         }
     }
 }
+
+
