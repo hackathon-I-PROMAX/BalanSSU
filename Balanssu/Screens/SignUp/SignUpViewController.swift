@@ -6,9 +6,87 @@
 //
 
 import UIKit
+
+import RxSwift
+import RxCocoa
 import SnapKit
 
 class SignUpViewController: BaseViewController, UITextFieldDelegate {
+    
+    private var disposeBag = DisposeBag()
+    var viewModel: SetAuthViewModel
+    
+    init(viewModel: SetAuthViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("MakeNicknameViewController Error!")
+    }
+    
+    
+    private func bind() {
+//        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), tapConfirmButton:checkButton.rx.tap.asObservable())
+        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldDidTapEvent: checkPasswordTextField.rx.controlEvent(.editingChanged).asObservable(), tapConfirmButton: checkButton.rx.tap.asObservable())
+        let output = viewModel.transform(input: input)
+        
+        output.isIdValid
+            .asDriver(onErrorJustReturn: false)
+            .drive(with: self) { owner, result in
+                owner.idImageView.image = result ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle")
+            }
+            .disposed(by: disposeBag)
+
+        output.isPasswordValid
+            .asDriver(onErrorJustReturn: false)
+            .drive(with: self) { owner, result in
+                owner.passwordImageView.image = result ? UIImage(systemName: "checkmark.circle.fill") :UIImage(systemName: "checkmark.circle")
+                owner.PasswordcheckLabel.isHidden = result
+            }
+            .disposed(by: disposeBag)
+        
+        output.isPasswordCheckValid
+            .asDriver(onErrorJustReturn: false)
+            .drive(with: self) { owner, result in
+                owner.checkPasswordImageView.image = result ? UIImage(systemName: "checkmark.circle.fill") :UIImage(systemName: "checkmark.circle")
+                owner.checkPasswordcheckLabel.isHidden = result
+            }
+            .disposed(by: disposeBag)
+        
+        output.isAllInputValid
+            .debug()
+            .asDriver(onErrorJustReturn: false)
+            .drive(with: self) { owner, result in
+                owner.checkButton.isEnabled = result
+                owner.checkButton.backgroundColor = result ? UIColor.black : UIColor.systemRed
+            }
+            .disposed(by: disposeBag)
+        
+        
+        // textFieldShouldReturn (리턴키 선택 시 키보드를 닫기)
+        idTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.idTextField.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+        
+        passwordTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.passwordTextField.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+        
+        checkPasswordTextField.rx.controlEvent(.editingDidEndOnExit)
+            .subscribe(onNext: { [weak self] _ in
+                self?.checkPasswordTextField.resignFirstResponder()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    
+    
+    
     let idLabel = UILabel().then {
         $0.text = "아이디"
         $0.textColor = .black
@@ -34,78 +112,11 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.addLeftPadding()
     }
     
-    @objc func textFieldDidChanged(_ sender: UITextField) {
-        if self.idTextField.text?.isEmpty == false
-            && self.idTextField.text!.count > 4
-        {
-//            self.checkIdLabel.textColor = UIColor(r: 64, g: 96, b: 160)
-        } else {
-            self.checkIdLabel.textColor = .white
-        }
-        
-        if self.idTextField.text?.isEmpty == false
-            && self.idTextField.text!.count > 4
-        {
-            idImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
-            idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        else {
-            idImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
-            idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        
-        if self.passwordTextField.text?.isEmpty == false
-            && self.passwordTextField.text!.count > 7
-        {
-            passwordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
-            passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        else {
-            passwordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
-            passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        
-        if self.checkPasswordTextField.text?.isEmpty == false
-            && self.checkPasswordTextField.text == self.passwordTextField.text
-        {
-            checkPasswordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
-            checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        else {
-            checkPasswordImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
-            checkPasswordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        
-        if self.checkPasswordTextField.text == self.passwordTextField.text {
-            checkPasswordcheckLabel.textColor = .white
-        } else {
-            checkPasswordcheckLabel.textColor = UIColor(r: 64, g: 96, b: 160)
-        }
-        
-        if self.idTextField.text!.count > 4
-            && self.passwordTextField.text!.count > 7
-            && self.checkPasswordTextField.text == self.passwordTextField.text
-        {
-            checkButton.isEnabled = true
-            checkButton.setTitleColor(.white, for: .normal)
-            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
-            checkButton.layer.borderWidth = 0
-            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-        } else {
-            checkButton.isEnabled = false
-            checkButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
-            checkButton.backgroundColor = .white
-            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-            checkButton.layer.borderWidth = 1
-            checkButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
-        }
-    }
-    
     let passwordTextField = UITextField().then {
         $0.placeholder = "8자리 이상의 비밀번호를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
-        $0.isSecureTextEntry = true
+//        $0.isSecureTextEntry = true
         $0.addLeftPadding()
     }
 
@@ -134,10 +145,19 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
     
-    let checkPasswordcheckLabel = UILabel().then {
+    lazy var checkPasswordcheckLabel = UILabel().then {
         $0.text = "비밀번호가 일치하지 않습니다"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
-        $0.textColor = .white
+        $0.isHidden = true
+        $0.textColor = .red
+        $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
+    }
+    
+    lazy var PasswordcheckLabel = UILabel().then {
+        $0.text = "8 자리 이상 비밀번호 입력해주세요"
+        $0.textColor = UIColor(r: 64, g: 96, b: 160)
+        $0.isHidden = true
+        $0.textColor = .red
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
@@ -156,15 +176,15 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
-    let checkButton = UIButton().then {
-        $0.isEnabled = true
+    var checkButton = UIButton().then {
+//        $0.isEnabled = true
         $0.setTitle("확인", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
         $0.layer.cornerRadius = 8
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
-        $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
+//        $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
   
     @objc func checkButtonTapped() {
@@ -200,14 +220,10 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         setConstraints()
         configUI()
         setupNavigationBar()
+        bind()
         navigationItem.title = "회원가입"
-        self.idTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
-        self.passwordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
-        self.checkPasswordTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
         self.navigationItem.leftBarButtonItem = backBarButton
-        idTextField.delegate = self
-        passwordTextField.delegate = self
-        checkPasswordTextField.delegate = self
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -221,6 +237,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         view.addSubview(checkPasswordLabel)
         view.addSubview(idTextField)
         view.addSubview(passwordTextField)
+        view.addSubview(PasswordcheckLabel)
         view.addSubview(checkPasswordTextField)
         view.addSubview(passwordLabel)
         view.addSubview(checkIdLabel)
@@ -259,6 +276,12 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
             $0.leading.equalTo(view).inset(20)
             $0.trailing.equalTo(view).inset(50)
             $0.height.equalTo(48)
+        }
+        
+        PasswordcheckLabel.snp.makeConstraints {
+            $0.top.equalTo(passwordTextField.snp.bottom).offset(2)
+            $0.leading.trailing.equalTo(view).inset(28)
+            $0.height.equalTo(16)
         }
 
         checkPasswordTextField.snp.makeConstraints {
