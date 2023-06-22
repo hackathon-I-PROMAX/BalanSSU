@@ -25,16 +25,18 @@ class SetAuthViewModel:ViewModelType {
     
     struct Output { 
 //        let didBackButtonTapped: Signal<Void>
-//        let didConfirmButtonTapped: Signal<Void>
         let isIdValid = PublishRelay<Bool>()
         let isPasswordValid = PublishRelay<Bool>()
         let isPasswordCheckValid = PublishRelay<Bool>()
         let isAllInputValid = PublishRelay<Bool>()
+        let didConfirmButtonTapped = PublishRelay<(String, String)>()
     }
     
     
     func transform(input: Input) -> Output {
         let output = Output()
+        
+        let isPasswordCheckValid = Observable.combineLatest(input.didPasswordTextFieldChange, input.didPasswordCheckTextFieldChange)
         
         let isAllInputValid = Observable.combineLatest(output.isIdValid, output.isPasswordValid, output.isPasswordCheckValid, resultSelector: { $0 && $1 && $2 })
         
@@ -42,7 +44,7 @@ class SetAuthViewModel:ViewModelType {
             .distinctUntilChanged()
             .withUnretained(self)
             .map { owner, text in
-                owner.validate(text: text)
+                owner.idValidCheck(id: text)
             }
             .subscribe(onNext: { result in
                 output.isIdValid.accept(result)
@@ -78,11 +80,22 @@ class SetAuthViewModel:ViewModelType {
             })
             .disposed(by: disposeBag)
         
+        input.tapConfirmButton
+            .withLatestFrom(isAllInputValid)
+            .filter { $0 }
+            .withLatestFrom(Observable.combineLatest(input.didIdTextFieldChange, input.didPasswordTextFieldChange))
+            .subscribe(onNext: { id, passwd in
+                output.didConfirmButtonTapped.accept((id, passwd))
+            })
+            .disposed(by: disposeBag)
+        
         return output
     }
     
-    private func validate(text: String) -> Bool {
-        return text.count > 8
+    private func idValidCheck(id: String) -> Bool {
+        let idRegex = "^(?=.*[A-Za-z])(?=.*\\d).{8,}$"
+        let idPredicate = NSPredicate(format: "SELF MATCHES %@", idRegex)
+        return idPredicate.evaluate(with: id)
     }
     
     private func passwordValidCheck(password: String) -> Bool {
