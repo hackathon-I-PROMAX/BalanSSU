@@ -25,10 +25,24 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         fatalError("MakeNicknameViewController Error!")
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setViewHierarchy()
+        setConstraints()
+        configUI()
+        bind()
+        bindAction()
+        setupNotificationCenter()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "회원가입"
+    }
+    
     
     private func bind() {
-//        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), tapConfirmButton:checkButton.rx.tap.asObservable())
-        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldDidTapEvent: checkPasswordTextField.rx.controlEvent(.editingChanged).asObservable(), tapConfirmButton: checkButton.rx.tap.asObservable())
+        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldDidTapEvent: checkPasswordTextField.rx.controlEvent(.editingChanged).asObservable(), tapConfirmButton: checkButton.rx.tap.asObservable().throttle(.seconds(3), scheduler: MainScheduler.instance))
         let output = viewModel.transform(input: input)
         
         output.isIdValid
@@ -55,15 +69,22 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
             .disposed(by: disposeBag)
         
         output.isAllInputValid
-            .debug()
             .asDriver(onErrorJustReturn: false)
             .drive(with: self) { owner, result in
                 owner.checkButton.isEnabled = result
-                owner.checkButton.backgroundColor = result ? UIColor.black : UIColor.systemRed
+                owner.checkButton.backgroundColor = result ? UIColor(r: 64, g: 96, b: 160) : UIColor.customColor(.defaultGray)
             }
             .disposed(by: disposeBag)
         
-        
+        output.didConfirmButtonTapped
+            .bind { [weak self] (id, pwd) in
+                let userInfoViewController = SignUp2ViewController(username: id, password: pwd)
+                self?.navigationController?.pushViewController(userInfoViewController, animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    func bindAction() {
         // textFieldShouldReturn (리턴키 선택 시 키보드를 닫기)
         idTextField.rx.controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] _ in
@@ -82,10 +103,15 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
                 self?.checkPasswordTextField.resignFirstResponder()
             })
             .disposed(by: disposeBag)
+        
+        realBackButton.rx.tap
+            .bind { self.navigationController?.popViewController(animated: true) }
+            .disposed(by: disposeBag)
     }
-    
-    
-    
+        
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
     
     let idLabel = UILabel().then {
         $0.text = "아이디"
@@ -109,6 +135,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.placeholder = "5자 이상의 아이디를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
+        $0.textColor = .black
         $0.addLeftPadding()
     }
     
@@ -116,7 +143,8 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.placeholder = "8자리 이상의 비밀번호를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
-//        $0.isSecureTextEntry = true
+        $0.isSecureTextEntry = true
+        $0.textColor = .black
         $0.addLeftPadding()
     }
 
@@ -125,6 +153,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
         $0.isSecureTextEntry = true
+        $0.textColor = .black
         $0.addLeftPadding()
     }
     
@@ -142,7 +171,6 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.layer.cornerRadius = 8
         $0.layer.borderWidth = 1
         $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
-        $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
     
     lazy var checkPasswordcheckLabel = UILabel().then {
@@ -162,192 +190,176 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
     }
     
     let idImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        $0.image = UIImage(systemName: "checkmark.circle")
+        $0.contentMode = .scaleAspectFit
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
     let passwordImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        $0.image = UIImage(systemName: "checkmark.circle")
+        $0.contentMode = .scaleAspectFit
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
     let checkPasswordImageView = UIImageView().then {
-        $0.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
+        $0.image = UIImage(systemName: "checkmark.circle")
+        $0.contentMode = .scaleAspectFit
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
     var checkButton = UIButton().then {
-//        $0.isEnabled = true
         $0.setTitle("확인", for: .normal)
-        $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
+        $0.backgroundColor = UIColor.customColor(.defaultGray)
+        $0.setTitleColor(UIColor.black, for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
         $0.layer.cornerRadius = 8
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
-//        $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
-    }
-  
-    @objc func checkButtonTapped() {
-        let nextVC = SignUp2ViewController(username: idTextField.text, password: passwordTextField.text)
-        self.navigationController?.pushViewController(nextVC, animated: true)
-    }
-
-    lazy var backBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
-        button.tintColor = .black
-            return button
-    }()
-    
-    @objc func backBarButtonTapped() {
-        print("tapped")
-        self.navigationController?.popViewController(animated: true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
+    let idStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 10
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        idTextField.resignFirstResponder()
-        passwordTextField.resignFirstResponder()
-        checkPasswordTextField.resignFirstResponder()
-        return true
+    let passwordStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 10
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setViewHierarchy()
-        setConstraints()
-        configUI()
-        setupNavigationBar()
-        bind()
-        navigationItem.title = "회원가입"
-        self.navigationItem.leftBarButtonItem = backBarButton
-
+    let passwordCheckStackView = UIStackView().then {
+        $0.axis = .horizontal
+        $0.spacing = 10
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
-    }
-    
+      
     override func setViewHierarchy() {
+        
+        
+        [idTextField, idImageView].forEach { subView in
+            idStackView.addArrangedSubview(subView)
+        }
+        
+        [passwordTextField, passwordImageView].forEach { subView in
+            passwordStackView.addArrangedSubview(subView)
+        }
+        
+        [checkPasswordTextField, checkPasswordImageView].forEach { subView in
+            passwordCheckStackView.addArrangedSubview(subView)
+        }
+        
+        view.addSubview(idStackView)
+        view.addSubview(passwordStackView)
+        view.addSubview(passwordCheckStackView)
         view.addSubview(idLabel)
         view.addSubview(passwordLabel)
         view.addSubview(checkPasswordLabel)
-        view.addSubview(idTextField)
-        view.addSubview(passwordTextField)
         view.addSubview(PasswordcheckLabel)
-        view.addSubview(checkPasswordTextField)
         view.addSubview(passwordLabel)
         view.addSubview(checkIdLabel)
         view.addSubview(checkPasswordcheckLabel)
         view.addSubview(checkButton)
-        view.addSubview(idImageView)
-        view.addSubview(passwordImageView)
-        view.addSubview(checkPasswordImageView)
     }
     
     override func setConstraints() {
         idLabel.snp.makeConstraints {
-            $0.top.equalTo(view).offset(124)
-            $0.leading.equalTo(view).inset(20)
-        }
-        
-        passwordLabel.snp.makeConstraints {
-            $0.top.equalTo(view).offset(238)
-            $0.leading.equalTo(view).inset(20)
-        }
-        
-        checkPasswordLabel.snp.makeConstraints {
-            $0.top.equalTo(view).offset(334)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(20)
             $0.leading.equalTo(view).inset(20)
         }
         
         idTextField.snp.makeConstraints {
-            $0.top.equalTo(view).offset(147)
-            $0.leading.equalTo(view).inset(20)
-            $0.trailing.equalTo(view).inset(50)
-            $0.height.equalTo(48)
+            $0.width.equalTo(300)
         }
-        
-        passwordTextField.snp.makeConstraints {
-            $0.top.equalTo(view).offset(262)
-            $0.leading.equalTo(view).inset(20)
-            $0.trailing.equalTo(view).inset(50)
-            $0.height.equalTo(48)
-        }
-        
-        PasswordcheckLabel.snp.makeConstraints {
-            $0.top.equalTo(passwordTextField.snp.bottom).offset(2)
-            $0.leading.trailing.equalTo(view).inset(28)
-            $0.height.equalTo(16)
-        }
-
-        checkPasswordTextField.snp.makeConstraints {
-            $0.top.equalTo(view).offset(357)
-            $0.leading.equalTo(view).inset(20)
-            $0.trailing.equalTo(view).inset(50)
+    
+        idStackView.snp.makeConstraints {
+            $0.top.equalTo(idLabel.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(48)
         }
         
         checkIdLabel.snp.makeConstraints {
-            $0.top.equalTo(view).offset(199)
-            $0.leading.trailing.equalTo(view).inset(28)
+            $0.top.equalTo(idStackView.snp.bottom).offset(3)
+            $0.leading.equalToSuperview().inset(20)
             $0.height.equalTo(16)
         }
         
+        passwordLabel.snp.makeConstraints {
+            $0.top.equalTo(idStackView.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().inset(20)
+        }
+        
+        passwordTextField.snp.makeConstraints {
+            $0.width.equalTo(300)
+        }
+        
+        passwordStackView.snp.makeConstraints {
+            $0.top.equalTo(passwordLabel.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(48)
+        }
+        
+        PasswordcheckLabel.snp.makeConstraints {
+            $0.top.equalTo(passwordStackView.snp.bottom).offset(3)
+            $0.leading.equalToSuperview().inset(20)
+            $0.height.equalTo(16)
+        }
+        
+        checkPasswordLabel.snp.makeConstraints {
+            $0.top.equalTo(passwordStackView.snp.bottom).offset(30)
+            $0.leading.equalToSuperview().inset(20)
+        }
+        
+        checkPasswordTextField.snp.makeConstraints {
+            $0.width.equalTo(300)
+        }
+        
+        passwordCheckStackView.snp.makeConstraints {
+            $0.top.equalTo(checkPasswordLabel.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(20)
+            $0.height.equalTo(48)
+        }
+        
         checkPasswordcheckLabel.snp.makeConstraints {
-            $0.top.equalTo(view).offset(409)
-            $0.leading.trailing.equalTo(view).inset(28)
+            $0.top.equalTo(passwordCheckStackView.snp.bottom).offset(3)
+            $0.leading.equalToSuperview().inset(20)
             $0.height.equalTo(16)
         }
         
         checkButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-54)
-            $0.leading.trailing.equalTo(view).inset(20)
+            $0.bottom.equalTo(view.keyboardLayoutGuide.snp.top).offset(-10)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(48)
         }
-        
-        idImageView.snp.makeConstraints {
-            $0.top.equalTo(view).offset(161)
-            $0.trailing.equalTo(view).offset(-22)
-            $0.height.width.equalTo(20)
-        }
-        
-        passwordImageView.snp.makeConstraints {
-            $0.top.equalTo(view).offset(276)
-            $0.trailing.equalTo(view).offset(-22)
-            $0.height.width.equalTo(20)
-        }
-        
-        checkPasswordImageView.snp.makeConstraints {
-            $0.top.equalTo(view).offset(371)
-            $0.trailing.equalTo(view).offset(-22)
-            $0.height.width.equalTo(20)
-        }
     }
     
-    override func configUI() {
-        view.backgroundColor = .white
+    private func setupNotificationCenter() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
-    override func makeBarButtonItem<T: UIView>(with view: T) -> UIBarButtonItem {
-        return UIBarButtonItem(customView: view)
+    @objc private func keyboardWillShow(notification: NSNotification) {
+        let textFieldHeight = checkPasswordTextField.frame.height
+
+        guard checkPasswordTextField.isFirstResponder else { return }
+        UIView.animate(
+            withDuration: 0.3
+            , animations: {
+                self.view.frame.origin.y -= (textFieldHeight)
+                self.view.layoutIfNeeded()
+            }
+        )
     }
+    
+    @objc private func keyboardWillHide(notification:NSNotification) {
+        let textFieldHeight = checkPasswordTextField.frame.height
         
-    override func setupNavigationBar() {
-        guard let navigationBar = navigationController?.navigationBar else { return }
-        let appearance = UINavigationBarAppearance()
-        
-        appearance.shadowColor = .clear
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        
-        navigationBar.standardAppearance = appearance
-        navigationBar.compactAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-                
-        super.setupNavigationBar()
+        guard checkPasswordTextField.isFirstResponder else { return }
+        UIView.animate(
+            withDuration: 0.3
+            , animations: {
+                self.view.frame.origin.y += (textFieldHeight)
+                self.view.layoutIfNeeded()
+            }
+        )
     }
 }
