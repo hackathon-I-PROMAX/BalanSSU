@@ -82,6 +82,9 @@
 		5AB3D1222A34563200A2FBA8 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 5AB3D1212A34563200A2FBA8 /* RxRelay */; };
 		5AB3D1242A34563200A2FBA8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AB3D1232A34563200A2FBA8 /* RxSwift */; };
 		5AB3D1332A3C68B300A2FBA8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D1322A3C68B300A2FBA8 /* Coordinator.swift */; };
+		5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */; };
+		5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */; };
+		5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -153,6 +156,9 @@
 		5AB3D1192A34509000A2FBA8 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		5AB3D11C2A3455B900A2FBA8 /* SetAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAuthViewModel.swift; sourceTree = "<group>"; };
 		5AB3D1322A3C68B300A2FBA8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
+		5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
+		5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +284,7 @@
 		5AACF2D1299F515700D1C06B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5AB3D13A2A44253B00A2FBA8 /* DataSource */,
 				5AACF2DD299F531500D1C06B /* DTO */,
 				5AACF2DC299F530D00D1C06B /* Service */,
 				5AACF2DB299F530800D1C06B /* API */,
@@ -287,6 +294,8 @@
 				5A99A28829A1F284006FE9B2 /* URLConst.swift */,
 				5A73AD712A15278000F395F0 /* Interceptor.swift */,
 				5A73AD8C2A1787AD00F395F0 /* MoyaLoggerPlugin.swift */,
+				5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */,
+				5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -465,6 +474,14 @@
 			path = Coordinator;
 			sourceTree = "<group>";
 		};
+		5AB3D13A2A44253B00A2FBA8 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -574,6 +591,7 @@
 				5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */,
 				3E392B2129A8678D0004C40E /* VoteView.swift in Sources */,
 				5A73AD692A12158800F395F0 /* ChoicesService.swift in Sources */,
+				5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */,
 				0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */,
 				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
@@ -588,6 +606,7 @@
 				5A99A27D29A1CECA006FE9B2 /* HotCollectionViewHeader.swift in Sources */,
 				5AB3D11A2A34509000A2FBA8 /* ViewModelType.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
+				5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */,
 				5A99A28B29A34C9D006FE9B2 /* AuthAPI.swift in Sources */,
 				02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
@@ -617,6 +636,7 @@
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,
 				5AB3D1332A3C68B300A2FBA8 /* Coordinator.swift in Sources */,
 				5A99A2B329A75B2C006FE9B2 /* LoginResponse.swift in Sources */,
+				5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
