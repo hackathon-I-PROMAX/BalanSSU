@@ -42,7 +42,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
     
     
     private func bind() {
-        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldDidTapEvent: checkPasswordTextField.rx.controlEvent(.editingChanged).asObservable(), tapConfirmButton: checkButton.rx.tap.asObservable().throttle(.seconds(3), scheduler: MainScheduler.instance))
+        let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldDidTapEvent: checkPasswordTextField.rx.controlEvent(.editingChanged).asObservable(), didIdValidationEvent: idTextField.rx.controlEvent(.editingDidEnd).asObservable(), tapConfirmButton: checkButton.rx.tap.asObservable().throttle(.seconds(3), scheduler: MainScheduler.instance))
         let output = viewModel.transform(input: input)
         
         output.isIdValid
@@ -51,7 +51,14 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
                 owner.idImageView.image = result ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle")
             }
             .disposed(by: disposeBag)
-
+        
+        output.didIdDuplicateCheck
+            .asDriver(onErrorJustReturn: false)
+            .drive(with: self) { owner, result in
+            owner.checkIdLabel.isHidden = result
+        }
+            .disposed(by: disposeBag)
+        
         output.isPasswordValid
             .asDriver(onErrorJustReturn: false)
             .drive(with: self) { owner, result in
@@ -113,67 +120,80 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         self.view.endEditing(true)
     }
     
-    let idLabel = UILabel().then {
+    private let idLabel = UILabel().then {
         $0.text = "아이디"
         $0.textColor = .black
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
-    let passwordLabel = UILabel().then {
+    private let passwordLabel = UILabel().then {
         $0.text = "비밀번호"
         $0.textColor = .black
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
-    let checkPasswordLabel = UILabel().then {
+    private let checkPasswordLabel = UILabel().then {
         $0.text = "비밀번호 확인"
         $0.textColor = .black
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
     }
     
-    let idTextField = UITextField().then {
-        $0.placeholder = "5자 이상의 아이디를 입력해주세요"
+    private let idTextField = UITextField().then {
+        $0.placeholder = "영/숫자 포함 8자리 이상"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
         $0.textColor = .black
         $0.addLeftPadding()
+        $0.keyboardType = .asciiCapable
+        
+        if let placeholder = $0.placeholder {
+            let attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor(r: 177, g: 177, b: 177)
+            ])
+            $0.attributedPlaceholder = attributedPlaceholder
+        }
     }
     
-    let passwordTextField = UITextField().then {
-        $0.placeholder = "8자리 이상의 비밀번호를 입력해주세요"
+    private let passwordTextField = UITextField().then {
+        $0.placeholder = "영/숫자/특수 포함 8자리 이상"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
         $0.isSecureTextEntry = true
         $0.textColor = .black
         $0.addLeftPadding()
+        
+        if let placeholder = $0.placeholder {
+            let attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor(r: 177, g: 177, b: 177)
+            ])
+            $0.attributedPlaceholder = attributedPlaceholder
+        }
     }
 
-    let checkPasswordTextField = UITextField().then {
-        $0.placeholder = "비밀번호를 확인합니다"
+    private let checkPasswordTextField = UITextField().then {
+        $0.placeholder = "비밀번호 확인"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
         $0.isSecureTextEntry = true
         $0.textColor = .black
         $0.addLeftPadding()
+        
+        if let placeholder = $0.placeholder {
+            let attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [
+                NSAttributedString.Key.foregroundColor: UIColor(r: 177, g: 177, b: 177)
+            ])
+            $0.attributedPlaceholder = attributedPlaceholder
+        }
     }
     
-    let checkIdLabel = UILabel().then {
-        $0.text = "이미 사용중인 아이디입니다"
-        $0.textColor = .white
+    private lazy var checkIdLabel = UILabel().then {
+        $0.text = "3자 이하 혹은 이미 사용중인 아이디입니다"
+        $0.textColor = .red
+        $0.isHidden = true
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
-    let checkIDButton = UIButton().then {
-        $0.isEnabled = true
-        $0.setTitle("확인", for: .normal)
-        $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
-        $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-        $0.layer.cornerRadius = 8
-        $0.layer.borderWidth = 1
-        $0.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
-    }
-    
-    lazy var checkPasswordcheckLabel = UILabel().then {
+    private lazy var checkPasswordcheckLabel = UILabel().then {
         $0.text = "비밀번호가 일치하지 않습니다"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
         $0.isHidden = true
@@ -181,33 +201,33 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
-    lazy var PasswordcheckLabel = UILabel().then {
-        $0.text = "8 자리 이상 비밀번호 입력해주세요"
+    private lazy var PasswordcheckLabel = UILabel().then {
+        $0.text = "영소문자/숫자/특수문자 포함 8자리 이상 입력해주세요."
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
         $0.isHidden = true
         $0.textColor = .red
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
     
-    let idImageView = UIImageView().then {
+    private let idImageView = UIImageView().then {
         $0.image = UIImage(systemName: "checkmark.circle")
         $0.contentMode = .scaleAspectFit
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
-    let passwordImageView = UIImageView().then {
+    private let passwordImageView = UIImageView().then {
         $0.image = UIImage(systemName: "checkmark.circle")
         $0.contentMode = .scaleAspectFit
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
-    let checkPasswordImageView = UIImageView().then {
+    private let checkPasswordImageView = UIImageView().then {
         $0.image = UIImage(systemName: "checkmark.circle")
         $0.contentMode = .scaleAspectFit
         $0.tintColor = UIColor(r: 64, g: 96, b: 160)
     }
     
-    var checkButton = UIButton().then {
+    private var checkButton = UIButton().then {
         $0.setTitle("확인", for: .normal)
         $0.backgroundColor = UIColor.customColor(.defaultGray)
         $0.setTitleColor(UIColor.black, for: .normal)
@@ -215,24 +235,22 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.layer.cornerRadius = 8
     }
     
-    let idStackView = UIStackView().then {
+    private let idStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 10
     }
     
-    let passwordStackView = UIStackView().then {
+    private let passwordStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 10
     }
     
-    let passwordCheckStackView = UIStackView().then {
+    private let passwordCheckStackView = UIStackView().then {
         $0.axis = .horizontal
         $0.spacing = 10
     }
       
     override func setViewHierarchy() {
-        
-        
         [idTextField, idImageView].forEach { subView in
             idStackView.addArrangedSubview(subView)
         }
@@ -280,7 +298,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
             $0.leading.equalToSuperview().inset(20)
             $0.height.equalTo(16)
         }
-        
+
         passwordLabel.snp.makeConstraints {
             $0.top.equalTo(idStackView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().inset(20)
