@@ -16,6 +16,9 @@ enum URLConst {
     // 회원가입
     static let signUp = "/auth/sign-up"
     
+    // 아이디 중복검사
+    static let validationId = "/auth/validation/username"
+    
     // 메인
     static let main = "/categories/main"
     

@@ -47,7 +47,7 @@ class StartViewController: BaseViewController {
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 14)
     }
     
-    let backButton = BackButton(type: .system)
+//    let backButton = BackButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +74,7 @@ class StartViewController: BaseViewController {
     }
     
     @objc func signUpButtonTapped() {
-        self.navigationController?.pushViewController(SignUpViewController(), animated: true)
+        self.navigationController?.pushViewController(SignUpViewController(viewModel: SetAuthViewModel(authDataSource: DefaultAuthDataSource())), animated: true)
     }
     
     override func setConstraints() {
