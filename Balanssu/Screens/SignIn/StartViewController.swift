@@ -74,7 +74,7 @@ class StartViewController: BaseViewController {
     }
     
     @objc func signUpButtonTapped() {
-        self.navigationController?.pushViewController(SignUpViewController(viewModel: SetAuthViewModel()), animated: true)
+        self.navigationController?.pushViewController(SignUpViewController(viewModel: SetAuthViewModel(authDataSource: DefaultAuthDataSource())), animated: true)
     }
     
     override func setConstraints() {
