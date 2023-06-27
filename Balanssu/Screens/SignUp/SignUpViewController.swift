@@ -285,6 +285,11 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         idTextField.snp.makeConstraints {
             $0.width.equalTo(300)
         }
+        
+        idImageView.snp.makeConstraints {
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
+        }
     
         idStackView.snp.makeConstraints {
             $0.top.equalTo(idLabel.snp.bottom).offset(20)
@@ -308,6 +313,11 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
             $0.width.equalTo(300)
         }
         
+        passwordImageView.snp.makeConstraints {
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
+        }
+        
         passwordStackView.snp.makeConstraints {
             $0.top.equalTo(passwordLabel.snp.bottom).offset(20)
             $0.leading.equalToSuperview().inset(20)
@@ -328,6 +338,11 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         
         checkPasswordTextField.snp.makeConstraints {
             $0.width.equalTo(300)
+        }
+        
+        checkPasswordImageView.snp.makeConstraints {
+            $0.width.equalTo(24)
+            $0.height.equalTo(24)
         }
         
         passwordCheckStackView.snp.makeConstraints {
