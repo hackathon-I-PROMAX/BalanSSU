@@ -1,35 +1,35 @@
 //
-//  VoteListService.swift
+//  ChoicesService.swift
 //  Balanssu
 //
-//  Created by 이조은 on 2023/02/25.
+//  Created by 김규철 on 2023/03/20.
 //
 
 import Foundation
 import Moya
 
-final class VoteListService {
-    
-    private var voteListProvider = MoyaProvider<VoteListAPI>()
-//    private var voteListProvider = MoyaProvider<VoteListAPI>(session : Moya.Session(interceptor: Interceptor()))
-    
+final class ChoicesService {
+
+    private var choicesProvider = MoyaProvider<ChoicesAPI>()
+//    private var choicesProvider = MoyaProvider<ChoicesAPI>(session : Moya.Session(interceptor: Interceptor()))
+
     private enum ResponseData {
-        case voteList
+        case postChoices
     }
-    
-    public func getVoteList(completion: @escaping (NetworkResult<Any>) -> Void) {
-        voteListProvider.request(.getVoteListAPI) { result in
+
+    public func postChoices(categoryId: String, choiceId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        choicesProvider.request(.postChoice(categoryId: categoryId, choiceId: choiceId)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
                 let data = response.data
-                
-                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .voteList)
+
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postChoices)
                 completion(networkResult)
-                
+
             case .failure(let error):
                 print(error)
-                
+
             }
         }
     }
@@ -41,7 +41,7 @@ final class VoteListService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .voteList:
+            case .postChoices:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
@@ -60,14 +60,12 @@ final class VoteListService {
     
     private func isValidData(data: Data, responseData: ResponseData) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
-        
         switch responseData {
-        case .voteList:
-            guard let decodedData = try? decoder.decode(VoteListResponse.self, from: data) else {
+        case .postChoices:
+            guard let decodedData = try? decoder.decode(ChoicesResponse.self, from: data) else {
                 return .pathErr
             }
             return .success(decodedData)
         }
     }
-    
 }

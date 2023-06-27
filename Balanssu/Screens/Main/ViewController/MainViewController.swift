@@ -6,22 +6,21 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
-class MainViewController: BaseViewController {
+final class MainViewController: BaseViewController {
     
     var hottestCategories: [hotCategoriesData] = []
     var deadLineCategories: [closedCategoriesData] = []
     
-    let tableView = UITableView(frame: .zero, style: .plain).then {
+    private let tableView = UITableView(frame: .zero, style: .plain).then {
         $0.showsVerticalScrollIndicator = false
         $0.backgroundColor = UIColor.tertiarySystemGroupedBackground
     }
-    
-    let hotCollectionView = HotCollectionView()
-    
-    let deadLineCollectionView = DeadLineCollectionView()
+    private let hotCollectionView = HotCollectionView()
+    private let deadLineCollectionView = DeadLineCollectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,7 +45,7 @@ class MainViewController: BaseViewController {
     override func configUI() {
     }
     
-    func setUpTableView() {
+    private func setUpTableView() {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.backgroundColor = .white
@@ -127,15 +126,10 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 return cell
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: HotCollectionView.identifier, for: indexPath) as! HotCollectionView
-                
-//                cell.collectionView.delegate = self
-//                cell.collectionView.dataSource = self
-//                cell.collectionView.tag = indexPath.row
+            
                 cell.cellDelegate = self
                 cell.data = self.hottestCategories
                 cell.collectionView.reloadData()
-
-                
                 return cell
             case 2:
                 let cell = tableView.dequeueReusableCell(withIdentifier: DeadLineCollectionView.identifier, for: indexPath) as! DeadLineCollectionView
@@ -143,7 +137,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
                 cell.cellDelegate = self
                 cell.data = self.deadLineCategories
                 cell.collectionView.reloadData()
-                
                 return cell
             default:
                 return UITableViewCell()
@@ -180,7 +173,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCellDelegate, DeadLineCollectionViewCellDelegate {
         
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView) {
-        let nextViewController = VoteListViewController()
+        let nextViewController = VoteViewController(categoryId: self.hottestCategories[index].categoryId)
         self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
@@ -189,7 +182,7 @@ extension MainViewController: TopCollectionViewCellDelegate, HotCollectionViewCe
         }
     
     func collectionView(collectionviewcell: DeadLineCollectionViewCell?, index: Int, didTappedInTableViewCell: DeadLineCollectionView) {
-        let nextViewController = VoteListViewController()
+        let nextViewController = VoteViewController(categoryId: self.deadLineCategories[index].categoryId)
         self.navigationController?.pushViewController(nextViewController, animated: true)
         print("deadLine")
     }

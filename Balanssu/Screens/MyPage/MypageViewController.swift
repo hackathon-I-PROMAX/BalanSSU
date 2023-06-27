@@ -28,7 +28,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 20.0)
         label.textColor = .black
-        label.text = "Joni"
+        label.text = "nameLabel"
         label.textAlignment = .center
         return label
     }()
@@ -37,7 +37,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "글로벌미디어학부 / 20학번"
+        label.text = "userInfo / schoolAge"
         label.textAlignment = .center
         return label
     }()
@@ -46,7 +46,7 @@ class MypageViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "@Joeun1005"
+        label.text = "@idLabel"
         label.textAlignment = .center
         return label
     }()
@@ -75,22 +75,6 @@ class MypageViewController: BaseViewController {
         view.backgroundColor = UIColor(red: 0.943, green: 0.943, blue: 0.943, alpha: 1)
         return view
     }()
-    private let cardLabel: UILabel = {
-        let label = UILabel()
-        label.text = "모은 밸런슈 카드"
-        label.textColor = .black
-        label.font = UIFont(name: "AppleSDGothicNeoB00", size: 20.0)
-        return label
-    }()
-    private let tableView : UITableView = { // 테이블 뷰 생성
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.register(MypageCardCell.self, forCellReuseIdentifier: MypageCardCell.identifier)
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 190
-        return tableView
-    }()
-    let card: [String] = ["card1", "card2","card3"]
     
     @objc
     func moreButtonTap() {
@@ -121,8 +105,6 @@ class MypageViewController: BaseViewController {
         moreButton.addSubview(moreLabel)
         
         self.view.addSubview(grayLine)
-        self.view.addSubview(cardLabel)
-        self.view.addSubview(tableView)
     }
     override func setConstraints() {
         
@@ -169,21 +151,9 @@ class MypageViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(4)
         }
-        cardLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(21)
-            $0.top.equalTo(grayLine.snp.bottom).offset(20)
-        }
-        tableView.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview()
-            $0.top.equalTo(cardLabel.snp.bottom).offset(12)
-            $0.bottom.equalToSuperview()
-        }
             
     }
     func setLayouts() {
-        tableView.dataSource = self
-        tableView.delegate = self
-        
         setViewHierarchy()
         setConstraints()
     }
@@ -193,6 +163,7 @@ class MypageViewController: BaseViewController {
         view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
         
+        getMyPage()
         setLayouts()
     }
     
@@ -202,27 +173,29 @@ class MypageViewController: BaseViewController {
     }
 }
 
-extension MypageViewController : UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: MypageCardCell.identifier, for: indexPath) as! MypageCardCell
-        let cardImage = UIImage(named: "\(card[indexPath.row]).png")
-        cell.cardImage.image = cardImage
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
-    }
-}
-
-extension MypageViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("select \(indexPath.row)")
+//data 가져오기
+extension MypageViewController {
+    func getMyPage() {
+        NetworkService.shared.myPage.getMyPage() { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? MyPageResponse else { return }
+                print("==== \(String(describing: data))")
+                self?.nameLabel.text = data.user.nickname
+                self?.userInfo.text = "\(data.user.departure) / \(data.user.schoolAge)학번"
+                self?.idLabel.text = "@\(data.user.username)"
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
     }
 }
 

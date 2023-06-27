@@ -1,30 +1,29 @@
 //
-//  VoteListService.swift
+//  MyPageService.swift
 //  Balanssu
 //
-//  Created by 이조은 on 2023/02/25.
+//  Created by 이조은 on 2023/05/26.
 //
 
 import Foundation
 import Moya
 
-final class VoteListService {
+final class MyPageService {
     
-    private var voteListProvider = MoyaProvider<VoteListAPI>()
-//    private var voteListProvider = MoyaProvider<VoteListAPI>(session : Moya.Session(interceptor: Interceptor()))
+    private var myPageProvider = MoyaProvider<MyPageAPI>()
     
     private enum ResponseData {
-        case voteList
+        case myPage
     }
     
-    public func getVoteList(completion: @escaping (NetworkResult<Any>) -> Void) {
-        voteListProvider.request(.getVoteListAPI) { result in
+    public func getMyPage(completion: @escaping (NetworkResult<Any>) -> Void) {
+        myPageProvider.request(.getMyPageAPI) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
                 let data = response.data
                 
-                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .voteList)
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .myPage)
                 completion(networkResult)
                 
             case .failure(let error):
@@ -41,7 +40,7 @@ final class VoteListService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .voteList:
+            case .myPage:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
@@ -62,8 +61,8 @@ final class VoteListService {
         let decoder = JSONDecoder()
         
         switch responseData {
-        case .voteList:
-            guard let decodedData = try? decoder.decode(VoteListResponse.self, from: data) else {
+        case .myPage:
+            guard let decodedData = try? decoder.decode(MyPageResponse.self, from: data) else {
                 return .pathErr
             }
             return .success(decodedData)

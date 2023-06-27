@@ -38,7 +38,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         if self.idTextField.text?.isEmpty == false
             && self.idTextField.text!.count > 4
         {
-            self.checkIdLabel.textColor = UIColor(r: 64, g: 96, b: 160)
+//            self.checkIdLabel.textColor = UIColor(r: 64, g: 96, b: 160)
         } else {
             self.checkIdLabel.textColor = .white
         }

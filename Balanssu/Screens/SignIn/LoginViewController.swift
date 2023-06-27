@@ -174,18 +174,7 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
     func signIn() {
         guard let userName = self.idTextField.text else { return }
         guard let password = self.passwordTextField.text else { return }
-        print(userName)
-        print(password)
-        
-        postSignIn(password: password, username: userName) { data in
-            print(data.refreshToken)
-            UserDefaults.standard.setValue(true, forKey: UserDefaultKey.loginStatus)
-            UserDefaults.standard.setValue(data.accessToken, forKey: UserDefaultKey.accessToken)
-            UserDefaults.standard.setValue(data.refreshToken, forKey: UserDefaultKey.refreshToken)
-            
-            let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-            sceneDelegate?.changeRootView()
-        }
+        postSignIn(password: password, username: userName)
     }
         
     override func setupNavigationBar() {
@@ -199,11 +188,6 @@ override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         navigationBar.standardAppearance = appearance
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
-        
-//        super.setupNavigationBar()
-//        
-//        let backBarButton = makeBarButtonItem(with: backBarButton)
-//        navigationItem.leftBarButtonItem = backBarButton
     }
 }
 
@@ -216,16 +200,19 @@ extension UITextField {
 }
 
 extension LoginViewController {
-    func postSignIn(password: String, username: String, completion: @escaping (LoginResponse) -> Void) {
-        NetworkService.shared.auth.postSignIn(password: password, username: username) { result in
+    func postSignIn(password: String, username: String) {
+        NetworkService.shared.auth.postSignIn(password: password, username: username) { [weak self] result in
             switch result {
             case .success(let response):
                 guard let data = response as? LoginResponse else { return }
-                completion(data)
+                UserDefaultHandler.accessToken = String(data.accessToken)
+                UserDefaultHandler.refreshToken = String(data.refreshToken)
+                UserDefaultHandler.loginStatus = true
+                let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+                sceneDelegate?.changeRootView()
             case .requestErr(let errorResponse):
-                dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
-                self.showToastMessageAlert(message: data.message!)
+                    self?.showToastMessageAlert(message: data.message!)
             case .pathErr:
                 print("pathErr")
             case .serverErr:
@@ -236,3 +223,4 @@ extension LoginViewController {
         }
     }
 }
+

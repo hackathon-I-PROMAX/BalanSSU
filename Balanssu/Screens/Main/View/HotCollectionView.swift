@@ -15,7 +15,7 @@ protocol HotCollectionViewCellDelegate: AnyObject {
     func collectionView(collectionviewcell: HotCollectionViewCell?, index: Int, didTappedInTableViewCell: HotCollectionView)
 }
 
-class HotCollectionView: UITableViewCell {
+final class HotCollectionView: UITableViewCell {
     
     private enum Size {
         static let collectionHorizontalSpacing: CGFloat = 12
@@ -35,8 +35,8 @@ class HotCollectionView: UITableViewCell {
     
     weak var cellDelegate: HotCollectionViewCellDelegate?
     
-    let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
-    
+    private let hotImageArray: [UIImage] = [ImageLiterals.hotCellOne, ImageLiterals.hotCellTwo, ImageLiterals.hotCellThree]
+
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
@@ -59,18 +59,18 @@ class HotCollectionView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpcollectionView() {
+    private func setUpcollectionView() {
         collectionView.register(HotCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: HotCollectionViewCell.identifier)
         
         collectionView.dataSource = self
         collectionView.delegate = self
     }
     
-    func setViewHierarchy() {
+    private func setViewHierarchy() {
         contentView.addSubview(collectionView)
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }

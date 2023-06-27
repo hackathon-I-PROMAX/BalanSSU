@@ -10,11 +10,13 @@ import Moya
 
 final class AuthService {
     
-    private var authProvider = MoyaProvider<AuthAPI>()
+    private var tokenProvider = MoyaProvider<AuthAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [MoyaLoggerPlugin()])
+    private var authProvider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
     
     private enum ResponseData {
         case postSignUp
         case postSignIn
+        case postRereshToken
     }
     
     public func postSignUp(username: String, password: String, nickname: String, schoolAge: String, departure: String, gender: String, completion: @escaping (NetworkResult<Any>) -> Void) {
@@ -50,6 +52,22 @@ final class AuthService {
         }
     }
     
+    public func postRereshToken(refreshToken: String, completion: @escaping (NetworkResult<Any>) -> Void ) {
+        tokenProvider.request(.postRefreshToken(refreshToken: refreshToken)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postRereshToken)
+                completion(networkResult)
+                
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
     private func judgeStatus(by statusCode: Int, _ data: Data, responseData: ResponseData) -> NetworkResult<Any> {
 
         let decoder = JSONDecoder()
@@ -57,7 +75,7 @@ final class AuthService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .postSignIn, .postSignUp:
+            case .postSignIn, .postSignUp, .postRereshToken:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
@@ -84,8 +102,14 @@ final class AuthService {
         case .postSignUp:
             let decodedData = try? decoder.decode(BlankDataResponse.self, from: data)
             return .success(decodedData ?? "success")
+        case .postRereshToken:
+            guard let decodedData = try? decoder.decode(TokenResponse.self, from: data) else {
+                return .pathErr
+            }
+            return .success(decodedData)
         }
     }
     
 }
+
 

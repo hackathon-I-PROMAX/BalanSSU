@@ -284,7 +284,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     @objc func textFieldDidChanged(_ sender: UITextField) {
         if self.nickNameTextField.text?.isEmpty == false
         {
-            self.checkNickNameLabel.textColor = UIColor(r: 64, g: 96, b: 160)
+//            self.checkNickNameLabel.textColor = UIColor(r: 64, g: 96, b: 160)
         } else {
             self.checkNickNameLabel.textColor = .white
         }

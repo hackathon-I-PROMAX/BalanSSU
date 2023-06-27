@@ -8,22 +8,21 @@
 import UIKit
 
 import SnapKit
-
 import Then
 
 protocol TopCollectionViewCellDelegate: AnyObject {
     func collectionView(collectionviewcell: TopicCollectionViewCell?, index: Int, didTappedInTableViewCell: TopicCollectionView)
 }
 
-class TopicCollectionView: UITableViewCell {
+final class TopicCollectionView: UITableViewCell {
     
     static let identifier = "TopicCollectionView"
 
-    let topicImageArray: [UIImage] = [ImageLiterals.topicCell, ImageLiterals.topicCell, ImageLiterals.topicCell]
+    private let topicImageArray: [UIImage] = [ImageLiterals.topicCell, ImageLiterals.topicCell, ImageLiterals.topicCell]
     
     weak var cellDelegate: TopCollectionViewCellDelegate?
     
-    var topicCollectionView : UICollectionView = {
+    private var topicCollectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
 
@@ -45,17 +44,17 @@ class TopicCollectionView: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setUpcollectionView() {
+    private func setUpcollectionView() {
         topicCollectionView.delegate = self
         topicCollectionView.dataSource = self
         topicCollectionView.register(TopicCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: TopicCollectionViewCell.identifier)
     }
     
-    func setViewHierarchy() {
+    private func setViewHierarchy() {
         contentView.addSubview(topicCollectionView)
     }
     
-    func setConstraints() {
+    private func setConstraints() {
         topicCollectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
