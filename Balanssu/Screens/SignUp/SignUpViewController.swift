@@ -28,11 +28,17 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
     }
     
     let idTextField = UITextField().then {
-        $0.placeholder = "5자 이상의 아이디를 입력해주세요"
+        $0.placeholder = "3자 이상의 아이디를 입력해주세요"
         $0.backgroundColor = UIColor(r: 248, g: 248, b: 248)
         $0.layer.cornerRadius = 8
         $0.addLeftPadding()
     }
+    
+    func passwordValidCheck(_ password: String) -> Bool {
+          let passwordRegEx = ("(?=.*[A-Za-z])(?=.*[0-9]).{8,20}")
+          let passwordTest = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
+          return passwordTest.evaluate(with: password)
+      }
     
     @objc func textFieldDidChanged(_ sender: UITextField) {
         if self.idTextField.text?.isEmpty == false
@@ -44,7 +50,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         }
         
         if self.idTextField.text?.isEmpty == false
-            && self.idTextField.text!.count > 4
+            && self.idTextField.text!.count > 2
         {
             idImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             idImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
@@ -56,6 +62,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
         
         if self.passwordTextField.text?.isEmpty == false
             && self.passwordTextField.text!.count > 7
+            && self.passwordValidCheck(passwordTextField.text!) == true
         {
             passwordImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             passwordImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
@@ -82,7 +89,7 @@ class SignUpViewController: BaseViewController, UITextFieldDelegate {
             checkPasswordcheckLabel.textColor = UIColor(r: 64, g: 96, b: 160)
         }
         
-        if self.idTextField.text!.count > 4
+        if self.idTextField.text!.count > 2
             && self.passwordTextField.text!.count > 7
             && self.checkPasswordTextField.text == self.passwordTextField.text
         {
