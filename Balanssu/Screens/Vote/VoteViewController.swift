@@ -15,9 +15,9 @@ final class VoteViewController: BaseViewController {
     var categoryId: String?
     var voteChoice: [choicesData] = []
     
-    private var comment: [String] = ["차라리 총장님과 포토그레이 찍겠습니다.", "ㄹㅇ 황벨","NPC~", "NPC가 뭐예요?", "정문 앞에서 맨날 시위하시는 분"]
-    private var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
-    private var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
+    var commentList: Comments? = nil
+    // private var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
+    // private var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
     
    init(categoryId: String?) {
        super.init(nibName: nil, bundle: nil)
@@ -99,9 +99,9 @@ final class VoteViewController: BaseViewController {
         commentText = commentField.text ?? "error"
         commentField.resignFirstResponder() //텍스트필드 비활성화
         commentField.text = ""
-        comment.append(commentText)
-        userName.append("Joni")
-        departure.append("글로벌미디어학부")
+//        comment.append(commentText)
+//        userName.append("Joni")
+//        departure.append("글로벌미디어학부")
         //commentCount.text = comment.count()
         tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
     }
@@ -162,11 +162,13 @@ final class VoteViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = backBarButton
         self.navigationItem.rightBarButtonItem = scrapBarButton
         setAddTaget()
+        getComment(categoryId ?? "")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getVoteView(categoryId ?? "")
+        getComment(categoryId ?? "")
     }
     
     override func setupNavigationBar() {
@@ -221,7 +223,7 @@ final class VoteViewController: BaseViewController {
 
         self.view.addSubview(commentIcon)
         self.view.addSubview(commentLabel)
-        commentCount.text = "\(comment.count)개"
+        // commentCount.text = "\(commentList.count)개"
         self.view.addSubview(commentCount)
         self.view.addSubview(container)
         container.addSubview(commentField)
@@ -243,19 +245,20 @@ final class VoteViewController: BaseViewController {
 
 extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return comment.count
+        return 5// commentList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        commentCount.text = "\(comment.count)개"
+        let num: Int = commentList?.content.count ?? 0
+        commentCount.text = "\(commentList?.totalElements)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
         // let cardImage = UIImage(named: "\(card[indexPath.row]).png")
         // cell.cardImage.image = cardImage
         cell.img.image = UIImage(named: "profileImage")
-        cell.name.text = userName[((comment.count)-1)-indexPath.row]
-        cell.badge.text = departure[((comment.count)-1)-indexPath.row]
-        cell.comment.text = comment[((comment.count)-1)-indexPath.row]
+        cell.name.text = commentList?.content[(num-1)-indexPath.row].nickname
+        cell.badge.text = commentList?.content[(num-1)-indexPath.row].department
+        cell.comment.text = commentList?.content[(num-1)-indexPath.row].content
         return cell
     }
 
@@ -321,6 +324,30 @@ extension VoteViewController {
             case .requestErr(let error):
                 dump(error)
                 guard let data = error as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            }
+        }
+    }
+    
+    //댓글 정보 불러오기
+    private func getComment(_ categoryId: String) {
+        print("getComment")
+        NetworkService.shared.comment.getComment(categoryId: categoryId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? CommentResponse else { return }
+                self?.commentList = data.comments
+                
+                // print("==== comment Test2: \(String(describing: self?.commentList?.content[0]))")
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
                 print(data.message)
             case .pathErr:
                 print("pathErr")
