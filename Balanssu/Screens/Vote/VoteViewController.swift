@@ -15,9 +15,8 @@ final class VoteViewController: BaseViewController {
     var categoryId: String?
     var voteChoice: [choicesData] = []
     
-    var commentList: Comments? = nil
-    // private var userName: [String] = ["Mike", "Joeum", "Cindy", "Bibi", "Javier"]
-    // private var departure: [String] = ["전자정보공학부","글로벌미디어학부","컴퓨터학부","컴퓨터학부","미디어 경영"]
+    var commentList: [Content] = []
+    var listCount: Int = 0
     
    init(categoryId: String?) {
        super.init(nibName: nil, bundle: nil)
@@ -162,7 +161,6 @@ final class VoteViewController: BaseViewController {
         self.navigationItem.leftBarButtonItem = backBarButton
         self.navigationItem.rightBarButtonItem = scrapBarButton
         setAddTaget()
-        getComment(categoryId ?? "")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -183,25 +181,21 @@ final class VoteViewController: BaseViewController {
         }
         
         commentIcon.snp.makeConstraints {
-            //$0.bottom.equalTo(container.snp.top).offset(-23)
             $0.leading.equalToSuperview().inset(28)
             $0.width.height.equalTo(18)
             $0.top.equalTo(voteView.snp.bottom).offset(33)
         }
         commentLabel.snp.makeConstraints {
             $0.top.equalTo(voteView.snp.bottom).offset(29)
-            //$0.bottom.equalTo(container.snp.top).offset(-22)
             $0.leading.equalTo(commentIcon.snp.leading).inset(25)
         }
         commentCount.snp.makeConstraints {
             $0.top.equalTo(voteView.snp.bottom).offset(30)
-            //$0.bottom.equalTo(container.snp.top).offset(-22)
             $0.leading.equalTo(commentLabel.snp.trailing).offset(4)
         }
         
         container.snp.makeConstraints {
             $0.top.equalTo(commentLabel.snp.bottom).offset(10)
-            //$0.bottom.equalTo(tableView.snp.top).offset(0)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
@@ -211,10 +205,8 @@ final class VoteViewController: BaseViewController {
         }
         
         tableView.snp.makeConstraints {
-            //$0.height.equalTo(198)
             $0.top.equalTo(container.snp.bottom).offset(3)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
-            //$0.bottom.equalToSuperview()
         }
     }
     
@@ -223,7 +215,6 @@ final class VoteViewController: BaseViewController {
 
         self.view.addSubview(commentIcon)
         self.view.addSubview(commentLabel)
-        // commentCount.text = "\(commentList.count)개"
         self.view.addSubview(commentCount)
         self.view.addSubview(container)
         container.addSubview(commentField)
@@ -245,8 +236,7 @@ final class VoteViewController: BaseViewController {
 
 extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let num: Int = commentList?.content.count ?? 0
-        if num == 0 {
+        if listCount == 0 {
             tableView.setEmptyMessage("댓글이 아직 없습니다. :)")
             return 0
         }
@@ -255,16 +245,14 @@ extension VoteViewController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let num: Int = commentList?.content.count ?? 0
-        commentCount.text = "\(commentList?.totalElements)개"
+        let num: Int = listCount
+        commentCount.text = "\(num)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
-        // let cardImage = UIImage(named: "\(card[indexPath.row]).png")
-        // cell.cardImage.image = cardImage
         cell.img.image = UIImage(named: "profileImage")
-        cell.name.text = commentList?.content[(num-1)-indexPath.row].nickname
-        cell.badge.text = commentList?.content[(num-1)-indexPath.row].department
-        cell.comment.text = commentList?.content[(num-1)-indexPath.row].content
+        cell.name.text = commentList[(num-1)-indexPath.row].nickname
+        cell.badge.text = commentList[(num-1)-indexPath.row].department
+        cell.comment.text = commentList[(num-1)-indexPath.row].content
         return cell
     }
 
@@ -348,9 +336,9 @@ extension VoteViewController {
             switch result {
             case .success(let response):
                 guard let data = response as? CommentResponse else { return }
-                self?.commentList = data.comments
-                
-                // print("==== comment Test2: \(String(describing: self?.commentList?.content[0]))")
+                self?.commentList = data.comments.content
+                self?.listCount = data.comments.totalElements
+                self?.tableView.reloadData()
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
