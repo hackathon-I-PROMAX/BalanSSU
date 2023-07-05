@@ -245,6 +245,12 @@ final class VoteViewController: BaseViewController {
 
 extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let num: Int = commentList?.content.count ?? 0
+        if num == 0 {
+            tableView.setEmptyMessage("댓글이 아직 없습니다. :)")
+            return 0
+        }
+        tableView.restore()
         return 5// commentList.count
     }
     
@@ -335,7 +341,7 @@ extension VoteViewController {
         }
     }
     
-    //댓글 정보 불러오기
+    //댓글 api
     private func getComment(_ categoryId: String) {
         print("getComment")
         NetworkService.shared.comment.getComment(categoryId: categoryId) { [weak self] result in
@@ -357,6 +363,25 @@ extension VoteViewController {
                 print("networkFail")
             }
         }
+    }
+}
+
+extension UITableView {
+    func setEmptyMessage(_ message: String) {
+        let messageLabel: UILabel = {
+            let label = UILabel()
+            label.text = message
+            label.font = UIFont(name: "AppleSDGothicNeoR00", size: 14.0)
+            label.textColor = .lightGray
+            label.numberOfLines = 0;
+            label.textAlignment = .center;
+            return label
+        }()
+        self.backgroundView = messageLabel
+    }
+    
+    func restore() {
+        self.backgroundView = nil
     }
 }
 
