@@ -14,6 +14,7 @@ final class CommentService {
 
     private enum ResponseData {
         case getComment
+        case postComment
     }
 
     public func getComment(categoryId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
@@ -33,6 +34,23 @@ final class CommentService {
         }
     }
     
+    public func postComment(categoryId: String, content: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        commentProvider.request(.postComment(categoryId: categoryId, content: content)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postComment)
+                completion(networkResult)
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
+    }
+    
     private func judgeStatus(by statusCode: Int, _ data: Data, responseData: ResponseData) -> NetworkResult<Any> {
 
         let decoder = JSONDecoder()
@@ -40,7 +58,7 @@ final class CommentService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .getComment:
+            case .getComment, .postComment:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
@@ -65,6 +83,9 @@ final class CommentService {
                 return .pathErr
             }
             return .success(decodedData)
+        case .postComment:
+            let decodedData = try? decoder.decode(BlankDataResponse.self, from: data)
+            return .success(decodedData ?? "success")
         }
     }
 }

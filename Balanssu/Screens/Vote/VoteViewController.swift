@@ -16,7 +16,6 @@ final class VoteViewController: BaseViewController {
     var voteChoice: [choicesData] = []
     
     var commentList: [Content] = []
-    var listCount: Int = 0
     
    init(categoryId: String?) {
        super.init(nibName: nil, bundle: nil)
@@ -98,11 +97,10 @@ final class VoteViewController: BaseViewController {
         commentText = commentField.text ?? "error"
         commentField.resignFirstResponder() //텍스트필드 비활성화
         commentField.text = ""
-//        comment.append(commentText)
-//        userName.append("Joni")
-//        departure.append("글로벌미디어학부")
-        //commentCount.text = comment.count()
-        tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .automatic)
+        postComment(categoryId ?? "categoryId error", commentText) { _ in
+            print("댓글 작성 성공")
+        }
+        getComment(categoryId ?? "")
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -236,23 +234,23 @@ final class VoteViewController: BaseViewController {
 
 extension VoteViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if listCount == 0 {
+        if commentList.count == 0 {
             tableView.setEmptyMessage("댓글이 아직 없습니다. :)")
             return 0
         }
         tableView.restore()
-        return 5// commentList.count
+        return commentList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let num: Int = listCount
+        let num: Int = commentList.count
         commentCount.text = "\(num)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
-        cell.img.image = UIImage(named: "profileImage")
-        cell.name.text = commentList[(num-1)-indexPath.row].nickname
-        cell.badge.text = commentList[(num-1)-indexPath.row].department
-        cell.comment.text = commentList[(num-1)-indexPath.row].content
+        cell.img.image = UIImage(named: "ppussung")
+        cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
+        cell.badge.text = commentList[(num-1)-(indexPath.row)].department
+        cell.comment.text = commentList[(num-1)-(indexPath.row)].content
         return cell
     }
 
@@ -329,7 +327,7 @@ extension VoteViewController {
         }
     }
     
-    //댓글 api
+    //댓글 정보 (get)
     private func getComment(_ categoryId: String) {
         print("getComment")
         NetworkService.shared.comment.getComment(categoryId: categoryId) { [weak self] result in
@@ -337,7 +335,7 @@ extension VoteViewController {
             case .success(let response):
                 guard let data = response as? CommentResponse else { return }
                 self?.commentList = data.comments.content
-                self?.listCount = data.comments.totalElements
+                // self?.listCount = data.comments.totalElements
                 self?.tableView.reloadData()
             case .requestErr(let errorResponse):
                 dump(errorResponse)
@@ -352,6 +350,28 @@ extension VoteViewController {
             }
         }
     }
+    // 댓글 작성 (post)
+    func postComment(_ categoryId: String,_ content: String,
+                     completion: @escaping (BlankDataResponse) -> Void) {
+        NetworkService.shared.comment.postComment(categoryId: categoryId, content: content) { result in
+           
+           switch result {
+           case .success(let response):
+               guard let data = response as? BlankDataResponse else { return }
+               completion(data)
+           case .requestErr(let errorResponse):
+               dump(errorResponse)
+               guard let data = errorResponse as? ErrorResponse else { return }
+               print(data)
+           case .serverErr:
+               print("serverErr")
+           case .networkFail:
+               print("networkFail")
+           case .pathErr:
+               print("pathErr")
+           }
+       }
+   }
 }
 
 extension UITableView {

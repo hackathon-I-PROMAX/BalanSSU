@@ -10,12 +10,13 @@ import Moya
 
 enum CommentAPI {
     case getComment(categoryId: String)
+    case postComment(categoryId: String, content: String)
 }
 
 extension CommentAPI: BaseTargetType {
     var path: String {
         switch self {
-        case .getComment:
+        case .getComment, .postComment:
             return URLConst.comment
         }
     }
@@ -24,6 +25,8 @@ extension CommentAPI: BaseTargetType {
         switch self {
         case .getComment:
             return .get
+        case .postComment:
+            return .post
         }
     }
     
@@ -33,6 +36,11 @@ extension CommentAPI: BaseTargetType {
             return .requestParameters(parameters: [
                 "categoryId": categoryId 
             ], encoding: URLEncoding.default)
+        case .postComment(let categoryId, let content):
+            return .requestParameters(parameters: [
+                "categoryId": categoryId,
+                "content": content
+            ], encoding: JSONEncoding.default)
         }
     }
 }
