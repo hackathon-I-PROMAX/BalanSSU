@@ -17,10 +17,10 @@ final class VoteViewController: BaseViewController {
     
     var commentList: [Content] = []
     
-   init(categoryId: String?) {
-       super.init(nibName: nil, bundle: nil)
-       self.categoryId = categoryId
-   }
+    init(categoryId: String?) {
+        super.init(nibName: nil, bundle: nil)
+        self.categoryId = categoryId
+    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -79,12 +79,12 @@ final class VoteViewController: BaseViewController {
     private lazy var backBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
         button.tintColor = .black
-            return button
+        return button
     }()
     private lazy var scrapBarButton: UIBarButtonItem = {
         let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
         button.tintColor = .black
-            return button
+        return button
     }()
     
     @objc func backBarButtonTapped() {
@@ -104,14 +104,14 @@ final class VoteViewController: BaseViewController {
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
-         // 키보드가 생성될 때
+        // 키보드가 생성될 때
         if let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue {
             let keyboardHeight = keyboardFrame.cgRectValue.height
             print("keyboardWillShow" )
             if self.view.frame.origin.y == 0.0 {
                 self.view.frame.origin.y -= keyboardHeight-190
             }
-       }
+        }
     }
     
     @objc private func keyboardWillHide(_ notification: Notification) {
@@ -146,9 +146,9 @@ final class VoteViewController: BaseViewController {
     
     // 화면 터치하면 keyboard 내려가도록
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){
-          self.view.endEditing(true)
+        self.view.endEditing(true)
     }
-        
+    
     private func setAddTaget() {
         voteView.voteButton.addTarget(self, action: #selector(voteButtonTapped), for: .touchUpInside)
     }
@@ -210,7 +210,7 @@ final class VoteViewController: BaseViewController {
     
     override func setViewHierarchy() {
         view.addSubview(voteView)
-
+        
         self.view.addSubview(commentIcon)
         self.view.addSubview(commentLabel)
         self.view.addSubview(commentCount)
@@ -233,6 +233,7 @@ final class VoteViewController: BaseViewController {
 }
 
 extension VoteViewController : UITableViewDataSource {
+    // cell 개수
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if commentList.count == 0 {
             tableView.setEmptyMessage("댓글이 아직 없습니다. :)")
@@ -241,7 +242,7 @@ extension VoteViewController : UITableViewDataSource {
         tableView.restore()
         return commentList.count
     }
-    
+    // cell 지정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let num: Int = commentList.count
         commentCount.text = "\(num)개"
@@ -251,9 +252,40 @@ extension VoteViewController : UITableViewDataSource {
         cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
         cell.badge.text = commentList[(num-1)-(indexPath.row)].department
         cell.comment.text = commentList[(num-1)-(indexPath.row)].content
+        cell.selectionStyle = .none
         return cell
     }
-
+    // swipe delete
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let num: Int = commentList.count
+            let comment = commentList[(num-1)-(indexPath.row)]
+            if comment.isOwner {
+                commentList.remove(at: (num-1)-(indexPath.row))
+                tableView.deleteRows(at: [indexPath], with: .fade)
+                let commentId: String = comment.commentID
+                deleteComment(categoryId ?? "categoryId error", commentId)  { _ in
+                    print("댓글 삭제 성공")
+                }
+            } else {
+                // 1. 알람 인스턴스 생성
+                let alert = UIAlertController(title: "댓글 삭제 불가", message: "자신이 작성한 댓글이 아니면 \n 삭제 할 수 없습니다.", preferredStyle: .alert)
+                // 2. 액션 생성
+                let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                    print("수행 할 동작")
+                    return
+                }
+                // 3. 알람에 액션 추가
+                alert.addAction(okAction)
+                // 4. 화면에 표현
+                present(alert, animated: true)
+                return
+            }
+            
+        } else if editingStyle == .insert {
+            
+        }
+    }
 }
 
 extension VoteViewController : UITableViewDelegate {
@@ -262,8 +294,27 @@ extension VoteViewController : UITableViewDelegate {
     }
 }
 
-extension VoteViewController : UITextFieldDelegate {
+extension UITableView {
+    func setEmptyMessage(_ message: String) {
+        let messageLabel: UILabel = {
+            let label = UILabel()
+            label.text = message
+            label.font = UIFont(name: "AppleSDGothicNeoR00", size: 14.0)
+            label.textColor = .lightGray
+            label.numberOfLines = 0;
+            label.textAlignment = .center;
+            return label
+        }()
+        self.backgroundView = messageLabel
+    }
+    
+    func restore() {
+        self.backgroundView = nil
+    }
+}
 
+extension VoteViewController : UITextFieldDelegate {
+    
 }
 
 extension VoteViewController {
@@ -329,7 +380,6 @@ extension VoteViewController {
     
     //댓글 정보 (get)
     private func getComment(_ categoryId: String) {
-        print("getComment")
         NetworkService.shared.comment.getComment(categoryId: categoryId) { [weak self] result in
             switch result {
             case .success(let response):
@@ -354,43 +404,45 @@ extension VoteViewController {
     func postComment(_ categoryId: String,_ content: String,
                      completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.comment.postComment(categoryId: categoryId, content: content) { result in
-           
-           switch result {
-           case .success(let response):
-               guard let data = response as? BlankDataResponse else { return }
-               completion(data)
-           case .requestErr(let errorResponse):
-               dump(errorResponse)
-               guard let data = errorResponse as? ErrorResponse else { return }
-               print(data)
-           case .serverErr:
-               print("serverErr")
-           case .networkFail:
-               print("networkFail")
-           case .pathErr:
-               print("pathErr")
-           }
-       }
-   }
-}
-
-extension UITableView {
-    func setEmptyMessage(_ message: String) {
-        let messageLabel: UILabel = {
-            let label = UILabel()
-            label.text = message
-            label.font = UIFont(name: "AppleSDGothicNeoR00", size: 14.0)
-            label.textColor = .lightGray
-            label.numberOfLines = 0;
-            label.textAlignment = .center;
-            return label
-        }()
-        self.backgroundView = messageLabel
+            
+            switch result {
+            case .success(let response):
+                guard let data = response as? BlankDataResponse else { return }
+                completion(data)
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data)
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .pathErr:
+                print("pathErr")
+            }
+        }
     }
-    
-    func restore() {
-        self.backgroundView = nil
+    // 댓글 삭제 (delete)
+    func deleteComment(_ categoryId: String,_ commentId: String,
+                     completion: @escaping (BlankDataResponse) -> Void) {
+        NetworkService.shared.comment.deleteComment(categoryId: categoryId, commentId: commentId) { result in
+            
+            switch result {
+            case .success(let response):
+                guard let data = response as? BlankDataResponse else { return }
+                completion(data)
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data)
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
+            case .pathErr:
+                print("pathErr")
+            }
+        }
     }
 }
-
 

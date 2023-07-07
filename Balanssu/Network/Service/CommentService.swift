@@ -15,6 +15,7 @@ final class CommentService {
     private enum ResponseData {
         case getComment
         case postComment
+        case deleteComment
     }
 
     public func getComment(categoryId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
@@ -51,6 +52,23 @@ final class CommentService {
         }
     }
     
+    public func deleteComment(categoryId: String, commentId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        commentProvider.request(.deleteComment(categoryId: categoryId, commentId: commentId)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .deleteComment)
+                completion(networkResult)
+                
+            case .failure(let error):
+                print(error)
+                
+            }
+        }
+    }
+    
     private func judgeStatus(by statusCode: Int, _ data: Data, responseData: ResponseData) -> NetworkResult<Any> {
 
         let decoder = JSONDecoder()
@@ -58,7 +76,7 @@ final class CommentService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .getComment, .postComment:
+            case .getComment, .postComment, .deleteComment:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
@@ -84,6 +102,9 @@ final class CommentService {
             }
             return .success(decodedData)
         case .postComment:
+            let decodedData = try? decoder.decode(BlankDataResponse.self, from: data)
+            return .success(decodedData ?? "success")
+        case .deleteComment:
             let decodedData = try? decoder.decode(BlankDataResponse.self, from: data)
             return .success(decodedData ?? "success")
         }
