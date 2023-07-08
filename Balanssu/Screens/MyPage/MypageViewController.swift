@@ -10,8 +10,6 @@ import SnapKit
 import YDS
 
 class MypageViewController: BaseViewController {
-    let appInfo = ["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "개인정보 처리방침"]
-    let account = ["비밀번호 변경", "계정 관리"]
     let data = [["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "개인정보 처리방침"], ["비밀번호 변경", "계정 관리"]]
 
     let backButton = BackButton(type: .system)
@@ -232,18 +230,11 @@ extension MypageViewController {
 
 extension MypageViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return data.count
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch section {
-        case 0:
-            return 5
-        case 1:
-            return 2
-        default:
-            return 0
-        }
+        return data[section].count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
