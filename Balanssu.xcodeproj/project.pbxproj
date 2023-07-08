@@ -85,6 +85,11 @@
 		5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */; };
 		5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */; };
 		5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */; };
+		95B14EDD2A593E99007B5128 /* AboutBalanSSUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */; };
+		95B14EDF2A593EAC007B5128 /* AppInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */; };
+		95B14EE12A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */; };
+		95B14EE32A593EF3007B5128 /* DeveloperInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */; };
+		95B14EE52A593F08007B5128 /* DeveloperInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +164,11 @@
 		5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
 		5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBalanSSUViewController.swift; sourceTree = "<group>"; };
+		95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
+		95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoTableViewCell.swift; sourceTree = "<group>"; };
+		95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -364,6 +374,11 @@
 			children = (
 				5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */,
 				024E388D29A3471D00E08150 /* MypageCardCell.swift */,
+				95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */,
+				95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */,
+				95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */,
+				95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */,
+				95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -589,6 +604,7 @@
 				022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */,
 				02F893FE29A9A37100681A4D /* VoteListResponse.swift in Sources */,
 				5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */,
+				95B14EE32A593EF3007B5128 /* DeveloperInfoTableViewCell.swift in Sources */,
 				3E392B2129A8678D0004C40E /* VoteView.swift in Sources */,
 				5A73AD692A12158800F395F0 /* ChoicesService.swift in Sources */,
 				5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */,
@@ -607,10 +623,12 @@
 				5AB3D11A2A34509000A2FBA8 /* ViewModelType.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
 				5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */,
+				95B14EE52A593F08007B5128 /* DeveloperInfoViewController.swift in Sources */,
 				5A99A28B29A34C9D006FE9B2 /* AuthAPI.swift in Sources */,
 				02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
 				020352832A2042C800412493 /* MyPageService.swift in Sources */,
+				95B14EE12A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift in Sources */,
 				5A73AD742A152C1200F395F0 /* TokenResponse.swift in Sources */,
 				5A99A27B29A1CEAA006FE9B2 /* DeadLineCollectionView.swift in Sources */,
 				3E691FC529A0A22D005CC39F /* LoginViewController.swift in Sources */,
@@ -632,10 +650,12 @@
 				5A99A29129A4BB40006FE9B2 /* ErrorResponse.swift in Sources */,
 				5A73AD7A2A1534D600F395F0 /* UserDefaultHandler.swift in Sources */,
 				5A73AD782A15340800F395F0 /* UserDefault.swift in Sources */,
+				95B14EDD2A593E99007B5128 /* AboutBalanSSUViewController.swift in Sources */,
 				5A99A28529A1F1BB006FE9B2 /* NetworkService.swift in Sources */,
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,
 				5AB3D1332A3C68B300A2FBA8 /* Coordinator.swift in Sources */,
 				5A99A2B329A75B2C006FE9B2 /* LoginResponse.swift in Sources */,
+				95B14EDF2A593EAC007B5128 /* AppInfoCollectionViewCell.swift in Sources */,
 				5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

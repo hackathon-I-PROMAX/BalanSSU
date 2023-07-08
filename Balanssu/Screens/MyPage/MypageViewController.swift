@@ -10,10 +10,32 @@ import SnapKit
 import YDS
 
 class MypageViewController: BaseViewController {
+    let appInfo = ["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "개인정보 처리방침"]
+    let account = ["비밀번호 변경", "계정 관리"]
+    let data = [["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "개인정보 처리방침"], ["비밀번호 변경", "계정 관리"]]
+
     let backButton = BackButton(type: .system)
     
     let contentView = UIView()
-    
+
+    var infoCollectionView: UICollectionView = {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(51))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(51))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0)
+//        let sectionHeader = self.createSectionHeader()
+//        section.boundarySupplementaryItems = [sectionHeader]
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.isScrollEnabled = false
+
+        return collectionView
+    }()
+
     private let profileView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "ppussung")
@@ -61,6 +83,7 @@ class MypageViewController: BaseViewController {
         button.addTarget(self, action: #selector(moreButtonTap), for: .touchUpInside)
         return button
     }()
+
     private let moreLabel: UILabel = {
         let label = UILabel()
         label.text = "밸런스게임 질문을 만들고 싶다면?"
@@ -101,17 +124,24 @@ class MypageViewController: BaseViewController {
         contentView.addSubview(nameLabel)
         
         self.view.addSubview(contentView)
+        self.view.addSubview(infoCollectionView)
         self.view.addSubview(moreButton)
         moreButton.addSubview(moreLabel)
         
         self.view.addSubview(grayLine)
     }
+
     override func setConstraints() {
         
         contentView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().offset(3)
             $0.top.equalToSuperview().offset(110)
             $0.height.equalTo(120)
+        }
+        
+        infoCollectionView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(grayLine.snp.bottom)
         }
         
         profileView.snp.makeConstraints {
@@ -151,11 +181,12 @@ class MypageViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(4)
         }
-            
     }
+
     func setLayouts() {
         setViewHierarchy()
         setConstraints()
+        setCollectionView()
     }
     
     override func viewDidLoad() {
@@ -199,3 +230,65 @@ extension MypageViewController {
     }
 }
 
+extension MypageViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 2
+    }
+
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 5
+        case 1:
+            return 2
+        default:
+            return 0
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppInfoCollectionViewCell.identifier,
+                                                            for: indexPath) as? AppInfoCollectionViewCell else { return UICollectionViewCell() }
+        cell.label.text = data[indexPath.section][indexPath.row]
+
+        return cell
+    }
+    
+    func setCollectionView() {
+        infoCollectionView.register(AppInfoCollectionViewCell.self, forCellWithReuseIdentifier: AppInfoCollectionViewCell.identifier)
+        infoCollectionView.register(AppInfoCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                withReuseIdentifier: AppInfoCollectionViewHeaderCell.identifier)
+        infoCollectionView.delegate = self
+        infoCollectionView.dataSource = self
+    }
+    
+    func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
+        let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
+                                                             heightDimension: .absolute(51))
+        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize,
+                                                                        elementKind: UICollectionView.elementKindSectionHeader,
+                                                                        alignment: .topLeading)
+        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+
+        return sectionHeader
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppInfoCollectionViewHeaderCell.identifier, for: indexPath)
+            return header
+        } else {
+            return UICollectionReusableView()
+        }
+    }
+}
+
+extension MypageViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 && indexPath.row == 0 {
+            self.navigationController?.pushViewController(AboutBalanSSUViewController(), animated: true)
+        } else if indexPath.section == 0 && indexPath.row == 1 {
+            self.navigationController?.pushViewController(DeveloperInfoViewController(), animated: true)
+        }
+    }
+}
