@@ -18,8 +18,8 @@ final class CommentService {
         case deleteComment
     }
 
-    public func getComment(categoryId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        commentProvider.request(.getComment(categoryId: categoryId)) { result in
+    public func getComment(categoryId: String, page: Int, size: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        commentProvider.request(.getComment(categoryId: categoryId, page: page, size: size)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode

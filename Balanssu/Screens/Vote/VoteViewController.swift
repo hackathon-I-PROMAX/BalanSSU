@@ -100,7 +100,6 @@ final class VoteViewController: BaseViewController {
         postComment(categoryId ?? "categoryId error", commentText) { _ in
             print("댓글 작성 성공")
         }
-        getComment(categoryId ?? "")
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
@@ -269,7 +268,7 @@ extension VoteViewController : UITableViewDataSource {
                 }
             } else {
                 // 1. 알람 인스턴스 생성
-                let alert = UIAlertController(title: "댓글 삭제 불가", message: "자신이 작성한 댓글이 아니면 \n 삭제 할 수 없습니다.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "댓글 삭제 불가", message: "자신이 작성한 댓글이 아니면 \n 삭제할 수 없습니다.", preferredStyle: .alert)
                 // 2. 액션 생성
                 let okAction = UIAlertAction(title: "확인", style: .default) { _ in
                     print("수행 할 동작")
@@ -380,13 +379,17 @@ extension VoteViewController {
     
     //댓글 정보 (get)
     private func getComment(_ categoryId: String) {
-        NetworkService.shared.comment.getComment(categoryId: categoryId) { [weak self] result in
+        let page = 0
+        let size = 20
+        NetworkService.shared.comment.getComment(categoryId: categoryId, page: page, size: size) { [weak self] result in
             switch result {
             case .success(let response):
+                print("categortId: \(categoryId)")
                 guard let data = response as? CommentResponse else { return }
                 self?.commentList = data.comments.content
-                // self?.listCount = data.comments.totalElements
                 self?.tableView.reloadData()
+                
+                print("댓글 가져오기")
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
@@ -404,9 +407,9 @@ extension VoteViewController {
     func postComment(_ categoryId: String,_ content: String,
                      completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.comment.postComment(categoryId: categoryId, content: content) { result in
-            
             switch result {
             case .success(let response):
+                self.getComment(categoryId)
                 guard let data = response as? BlankDataResponse else { return }
                 completion(data)
             case .requestErr(let errorResponse):
