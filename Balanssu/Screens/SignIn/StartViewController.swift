@@ -35,19 +35,12 @@ class StartViewController: BaseViewController {
         $0.layer.cornerRadius = 8
         $0.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
-
-    let findPasswordButton = YDSLabel(style: .body1).then {
-        $0.text = "비밀번호 찾기"
-        $0.textColor = UIColor(r: 125, g: 125, b: 125)
-    }
     
     let browsingBarButton = UIButton().then {
         $0.setTitle("둘러보기", for: .normal)
         $0.setTitleColor(UIColor(r: 125, g: 125, b: 125), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 14)
     }
-    
-//    let backButton = BackButton(type: .system)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,7 +59,6 @@ class StartViewController: BaseViewController {
         view.addSubview(logoImageView)
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
-        view.addSubview(findPasswordButton)
     }
     
     @objc func signInButtonTapped() {
@@ -94,12 +86,6 @@ class StartViewController: BaseViewController {
             $0.leading.trailing.equalTo(view).inset(20)
             $0.bottom.equalToSuperview().offset(-85)
             $0.height.equalTo(48)
-        }
-        
-        findPasswordButton.snp.makeConstraints {
-            $0.bottom.equalToSuperview().offset(-54)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(17)
         }
     }
     

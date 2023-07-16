@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if UserDefaultHandler.loginStatus == true {
             rootViewController = UINavigationController(rootViewController: MainViewController())
         } else {
-            rootViewController = UINavigationController(rootViewController: MypageViewController())
+            rootViewController = UINavigationController(rootViewController: StartViewController())
         }
         window.rootViewController = rootViewController // 시작 VC 작성해주기
         window.makeKeyAndVisible()

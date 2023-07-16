@@ -13,7 +13,10 @@ import Moya
 class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     var username: String?
     var password: String?
- 
+    var genderCheck: Bool = false
+    var gradeCheck: Bool = false
+    var majorCheck: Bool = false
+
     init(username: String?, password: String?) {
         super.init(nibName: nil, bundle: nil)
         self.username = username
@@ -67,10 +70,10 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         let btnCancel = UIBarButtonItem(title: "취소", style: .done, target: self, action: #selector(onPickCancel))
         toolBar.setItems([btnCancel , space , btnDone], animated: true)
         toolBar.isUserInteractionEnabled = true
-                
+
         genderTextField.inputAccessoryView = toolBar
     }
-    
+
     func createGradePickerView() {
         let gradePickerView = UIPickerView()
         gradePickerView.dataSource = self
@@ -142,13 +145,39 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         switch pickerView.tag {
         case 1:
+            genderCheck = true
+            updateButtonState()
             return genderTextField.text = gender[row]
         case 2:
+            gradeCheck = true
+            updateButtonState()
             return gradeTextField.text = grade[row]
         case 3:
+            majorCheck = true
+            updateButtonState()
             return majorTextField.text = major[row]
         default:
             return
+        }
+    }
+    
+    func updateButtonState() {
+        if genderCheck == true
+            && gradeCheck == true
+            && majorCheck == true
+            && nickNameLabel.text!.count > 2 {
+            checkButton.isEnabled = true // 버튼 활성화
+            checkButton.setTitleColor(.white, for: .normal)
+            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
+            checkButton.layer.borderWidth = 0
+            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+        } else {
+            checkButton.isEnabled = false
+            checkButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
+            checkButton.backgroundColor = .white
+            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
+            checkButton.layer.borderWidth = 1
+            checkButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         }
     }
     
@@ -234,8 +263,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         }
     
     let checkButton = UIButton().then {
-        $0.isEnabled = true
-//        $0.isEnabled = false
+        $0.isEnabled = false
         $0.setTitle("확인", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
@@ -245,17 +273,14 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         $0.addTarget(self, action: #selector(checkButtonTapped), for: .touchUpInside)
     }
     
-        @objc func checkButtonTapped() {
-        
-            if self.checkButton.isEnabled {
-                signUp()
-                makeSignUpAlert()
-            }
-            
+    @objc func checkButtonTapped() {
+        if self.checkButton.isEnabled {
+            signUp()
+            makeSignUpAlert()
+        }
     }
     
     func signUp() {
-        
         guard let username = self.username else { return }
         guard let password = self.password else { return }
         guard let nickname = self.nickNameTextField.text else { return }
@@ -280,7 +305,7 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         loginAlert.addAction(okAction)
         self.present(loginAlert, animated: true)
     }
-    
+
     @objc func textFieldDidChanged(_ sender: UITextField) {
         if self.nickNameTextField.text?.isEmpty == false
         {
@@ -293,31 +318,10 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         {
             nickNameImageView.image = UIImage(systemName: "checkmark.circle.fill")?.withRenderingMode(.alwaysTemplate)
             nickNameImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-            //            checkButton.isEnabled = true
         }
         else {
             nickNameImageView.image = UIImage(systemName: "checkmark.circle")?.withRenderingMode(.alwaysTemplate)
             nickNameImageView.tintColor = UIColor(r: 64, g: 96, b: 160)
-            //            checkButton.isEnabled = false
-        }
-        
-        if self.nickNameTextField.text?.isEmpty == false
-            && self.genderTextField.text == ""
-            && self.gradeTextField.text == ""
-            && self.majorTextField.text == ""
-        {
-            checkButton.isEnabled = true
-            checkButton.setTitleColor(.white, for: .normal)
-            checkButton.backgroundColor = UIColor(r: 64, g: 96, b: 160)
-            checkButton.layer.borderWidth = 0
-            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-        } else {
-            checkButton.isEnabled = false
-            checkButton.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
-            checkButton.backgroundColor = .white
-            checkButton.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-            checkButton.layer.borderWidth = 1
-            checkButton.layer.borderColor = UIColor(r: 64, g: 96, b: 160).cgColor
         }
     }
     
@@ -347,9 +351,6 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         gradeTextField.delegate = self
         majorTextField.delegate = self
         self.nickNameTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .editingChanged)
-        self.genderTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .valueChanged)
-        self.gradeTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .valueChanged)
-        self.majorTextField.addTarget(self, action: #selector(self.textFieldDidChanged), for: .valueChanged)
         self.navigationItem.leftBarButtonItem = backBarButton
         navigationItem.title = "회원가입"
         
@@ -369,7 +370,6 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         view.addSubview(nickNameTextField)
         view.addSubview(genderTextField)
         view.addSubview(gradeTextField)
-//        view.addSubview(gradeButton)
         view.addSubview(majorTextField)
         view.addSubview(checkButton)
         view.addSubview(checkNickNameLabel)
