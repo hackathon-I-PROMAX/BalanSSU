@@ -25,8 +25,7 @@ class MypageViewController: BaseViewController {
         group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0)
-//        let sectionHeader = self.createSectionHeader()
-//        section.boundarySupplementaryItems = [sectionHeader]
+        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)]
         let layout = UICollectionViewCompositionalLayout(section: section)
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.isScrollEnabled = false
@@ -252,26 +251,26 @@ extension MypageViewController: UICollectionViewDelegateFlowLayout, UICollection
         infoCollectionView.delegate = self
         infoCollectionView.dataSource = self
     }
-    
-    func createSectionHeader() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let layoutSectionHeaderSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),
-                                                             heightDimension: .absolute(51))
-        let sectionHeader = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: layoutSectionHeaderSize,
-                                                                        elementKind: UICollectionView.elementKindSectionHeader,
-                                                                        alignment: .topLeading)
-        sectionHeader.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
 
-        return sectionHeader
-    }
-    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppInfoCollectionViewHeaderCell.identifier, for: indexPath)
-            return header
-        } else {
+            if kind == UICollectionView.elementKindSectionHeader {
+                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppInfoCollectionViewHeaderCell.identifier, for: indexPath) as! AppInfoCollectionViewHeaderCell
+                header.configure()
+
+                if indexPath.section == 0 {
+                    header.label.text = "앱 정보"
+                } else {
+                    header.label.text = "계정"
+                }
+                return header
+            }
+
             return UICollectionReusableView()
         }
-    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+           return CGSize(width: collectionView.bounds.width, height: 50)
+       }
 }
 
 extension MypageViewController {

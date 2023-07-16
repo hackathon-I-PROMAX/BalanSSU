@@ -23,7 +23,7 @@ class AboutBalanSSUViewController: BaseViewController {
 
     let contentLabel: UILabel = {
         let label = UILabel()
-        label.text = "‘밸런슈’는\n숭실대 관련 및 여러 질문에 대해\n밸런스 게임을 하고,의견 공유 및 자신의\n취향을 알아 볼 수 있는 서비스 입니다.\n\n학생들 사이에서 밸런스 게임이 굉장히\n떠오르고 있으며 바이럴을 일으킵니다.\n\n자주 나오는 이야기와 즐거운 논쟁들을 주\n제로 숭실대 학생들은 어떤 선택을 하는지\n서로 의견을 공유하는 커뮤니티를 제작하\n고자 했습니다.\n\n이를 통해 나오는 결과들과 유익한 정보들\n을 학생들에게 제공할 수 있습니다."
+        label.text = "‘밸런슈’는\n숭실대 관련 및 여러 질문에 대해\n밸런스 게임을 하고, 의견 공유 및 자신의 취향을 알아볼 수 있는 서비스 입니다.\n\n학생들 사이에서 밸런스 게임이 굉장히 떠오르고 있으며 바이럴을 일으킵니다.\n\n자주 나오는 이야기와 즐거운 논쟁들을 주제로 숭실대 학생들은 어떤 선택을 하는지 서로 의견을 공유하는 커뮤니티를 제작하고자 했습니다.\n\n이를 통해 나오는 결과들과 유익한 정보들을 학생들에게 제공할 수 있습니다."
         label.font = UIFont(name: "AppleSDGothicNeoM00", size: 20.0)
         label.textColor = .black
         label.numberOfLines = 0
@@ -66,12 +66,12 @@ class AboutBalanSSUViewController: BaseViewController {
         contentView.snp.makeConstraints {
             $0.top.equalToSuperview().offset(150)
             $0.leading.equalToSuperview().offset(26)
-            $0.trailing.equalToSuperview().offset(26)
+            $0.centerX.equalToSuperview()
             $0.bottom.equalToSuperview()
         }
         
         contentLabel.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(contentView)
         }
     }
     

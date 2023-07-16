@@ -15,14 +15,12 @@ class AppInfoCollectionViewHeaderCell: UICollectionReusableView {
     private(set) lazy var label = UILabel()
 
     func setConfigure() {
-        label.font = UIFont(name: "AppleSDGothicNeoM00", size: 16.0)
+        label.font = UIFont(name: "AppleSDGothicNeoB00", size: 16.0)
         label.textColor = .black
-        label.text = "Dddd"
     }
 
     public func configure() {
         addSubview(label)
-        backgroundColor = .purple
     }
     
     override func layoutSubviews() {
