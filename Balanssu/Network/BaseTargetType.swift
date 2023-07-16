@@ -33,6 +33,3 @@ extension BaseTargetType {
     }
 }
 
-
-// Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6Imt5dWNodWwxMjMxMjMiLCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.DN1LrQYtksdhzt4RWkAYTRd2z0SV0iPRlXkbcrse-Ds
-
