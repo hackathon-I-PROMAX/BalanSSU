@@ -103,8 +103,7 @@ final class WithDrawViewController: BaseViewController {
             .drive(with:self) { owner, alertType in
                 if alertType == .withDrawSuccess {
                     owner.errorPresentAlert(type: alertType, buttonAction: {
-                        let startViewController = StartViewController()
-                        owner.navigationController?.setViewControllers([startViewController], animated: true)
+                        self.presentRootVC()
                     })
                 } else if alertType == .withDrawError {
                     owner.errorPresentAlert(type: alertType)
@@ -119,6 +118,18 @@ final class WithDrawViewController: BaseViewController {
                 self?.navigationController?.popViewController(animated: true)
             }
             .disposed(by: disposeBag)
+    }
+    
+    private func presentRootVC() {
+        let rootVC = StartViewController()
+        let navVC = UINavigationController(rootViewController: rootVC)
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let sceneDelegate = windowScene.delegate as? SceneDelegate,
+           let window = sceneDelegate.window {
+            window.rootViewController = navVC
+            window.makeKeyAndVisible()
+        }
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -65,6 +65,15 @@ final class AccountViewModel: ViewModelType {
         UserDefaultHandler.loginStatus = false
     }
     
+    private func resetUserData() {
+        guard let bundleIdentifier = Bundle.main.bundleIdentifier else {
+                    return
+                }
+        
+        UserDefaults.standard.removePersistentDomain(forName: bundleIdentifier)
+        UserDefaults.standard.synchronize()
+    }
+    
     private func withDrawValidCheck(text: String) -> Bool {
         return text == "밸런슈 그동안 고마웠어요"
     }
@@ -74,7 +83,7 @@ final class AccountViewModel: ViewModelType {
             .subscribe { [weak self] result in
                 switch result {
                 case .success(_):
-                    self?.resetUserDefaultValues()
+                    self?.resetUserData()
                 case .failure(_):
                     break
                 }
