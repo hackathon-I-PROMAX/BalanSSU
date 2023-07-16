@@ -9,6 +9,7 @@ import Moya
 
 enum MyPageAPI {
     case getMyPageAPI
+    case deleteUser
 }
 
 extension MyPageAPI: BaseTargetType {
@@ -16,6 +17,8 @@ extension MyPageAPI: BaseTargetType {
         switch self {
         case .getMyPageAPI:
             return URLConst.myPage
+        case .deleteUser:
+            return URLConst.withdrawal
         }
     }
     
@@ -23,12 +26,15 @@ extension MyPageAPI: BaseTargetType {
         switch self {
         case .getMyPageAPI:
             return .get
+        case .deleteUser:
+            return .delete
         }
+        
     }
     
     var task: Moya.Task {
         switch self {
-        case .getMyPageAPI:
+        case .getMyPageAPI, .deleteUser:
             return .requestPlain
         }
     }
