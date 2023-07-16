@@ -17,7 +17,7 @@ protocol MyPageDataSource {
 
 final class DefaultMyPageDataSource: MyPageDataSource {
     
-   private let moyaProvider = MoyaProvider<MyPageAPI>(plugins: [MoyaLoggerPlugin()])
+   private let moyaProvider = MoyaProvider<MyPageAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [MoyaLoggerPlugin()])
 
     func getUserInfo() -> Single<Result<MyPageResponse, NetworkError>> {
         return moyaProvider.rx.request(.getMyPageAPI)

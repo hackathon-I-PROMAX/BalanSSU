@@ -103,7 +103,7 @@ final class WithDrawViewController: BaseViewController {
             .drive(with:self) { owner, alertType in
                 if alertType == .withDrawSuccess {
                     owner.errorPresentAlert(type: alertType, buttonAction: {
-                        self.presentRootVC()
+                        RootHandler.shard.presentStartVC()
                     })
                 } else if alertType == .withDrawError {
                     owner.errorPresentAlert(type: alertType)
@@ -120,17 +120,17 @@ final class WithDrawViewController: BaseViewController {
             .disposed(by: disposeBag)
     }
     
-    private func presentRootVC() {
-        let rootVC = StartViewController()
-        let navVC = UINavigationController(rootViewController: rootVC)
-        
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
-           let sceneDelegate = windowScene.delegate as? SceneDelegate,
-           let window = sceneDelegate.window {
-            window.rootViewController = navVC
-            window.makeKeyAndVisible()
-        }
-    }
+//    private func presentRootVC() {
+//        let rootVC = StartViewController()
+//        let navVC = UINavigationController(rootViewController: rootVC)
+//
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let sceneDelegate = windowScene.delegate as? SceneDelegate,
+//           let window = sceneDelegate.window {
+//            window.rootViewController = navVC
+//            window.makeKeyAndVisible()
+//        }
+//    }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

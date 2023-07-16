@@ -98,6 +98,7 @@
 		5ACADD322A5F25BE00B92C07 /* WithDrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD312A5F25BE00B92C07 /* WithDrawViewController.swift */; };
 		5ACADD362A6294BC00B92C07 /* BalanSSUErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD352A6294BC00B92C07 /* BalanSSUErrorPopup.swift */; };
 		5ACADD382A6295CD00B92C07 /* ErrorAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */; };
+		5ACADD3D2A63FD0A00B92C07 /* RootHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -185,6 +186,7 @@
 		5ACADD312A5F25BE00B92C07 /* WithDrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawViewController.swift; sourceTree = "<group>"; };
 		5ACADD352A6294BC00B92C07 /* BalanSSUErrorPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanSSUErrorPopup.swift; sourceTree = "<group>"; };
 		5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertType.swift; sourceTree = "<group>"; };
+		5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -240,6 +242,7 @@
 				5ACADCD72A570DDD00B92C07 /* Constant  */,
 				5A73AD772A15340800F395F0 /* UserDefault.swift */,
 				5A73AD792A1534D600F395F0 /* UserDefaultHandler.swift */,
+				5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -652,6 +655,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ACADD3D2A63FD0A00B92C07 /* RootHandler.swift in Sources */,
 				5A99A28329A1EDC5006FE9B2 /* BaseTargetType.swift in Sources */,
 				5A99A28D29A35EAC006FE9B2 /* AuthService.swift in Sources */,
 				5A73AD702A13673400F395F0 /* VoteStackView.swift in Sources */,

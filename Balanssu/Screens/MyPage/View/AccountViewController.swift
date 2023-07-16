@@ -46,8 +46,9 @@ final class AccountViewController: BaseViewController {
                     self?.presentAlert(type: .logout, leftButtonAction: nil) {
                         let viewModel = AccountViewModel(myPageDataSource: DefaultMyPageDataSource())
                         viewModel.resetUserDefaultValues()
-                        let startViewController = StartViewController()
-                        self?.navigationController?.setViewControllers([startViewController], animated: true)
+//                        let startViewController = StartViewController()
+//                        self?.navigationController?.setViewControllers([startViewController], animated: true)
+                        RootHandler.shard.presentStartVC()
                     }
                 case .withdrawal:
                     self?.presentAlert(type: .withDraw, leftButtonAction: nil) {
