@@ -14,7 +14,6 @@ class SetAuthViewModel:ViewModelType {
 
     var disposeBag = DisposeBag()
     private let authDataSource: DefaultAuthDataSource
-    var booll = Bool()
 
     init(authDataSource: DefaultAuthDataSource) {
         self.authDataSource = authDataSource
@@ -90,7 +89,6 @@ class SetAuthViewModel:ViewModelType {
             .map { password, checkPassword in
                 !checkPassword.isEmpty && password == checkPassword
             }
-            .debug()
             .subscribe(onNext: { result in
                 output.isPasswordCheckValid.accept(result)
             })

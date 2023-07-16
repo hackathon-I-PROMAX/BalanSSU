@@ -11,9 +11,8 @@ import RxSwift
 import RxCocoa
 import SnapKit
 
-class SignUpViewController: BaseViewController, UITextFieldDelegate {
+final class SignUpViewController: BaseViewController, UITextFieldDelegate {
     
-    private var disposeBag = DisposeBag()
     var viewModel: SetAuthViewModel
     
     init(viewModel: SetAuthViewModel) {

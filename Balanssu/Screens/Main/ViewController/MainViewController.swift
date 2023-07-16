@@ -79,7 +79,7 @@ final class MainViewController: BaseViewController {
     }
     
     @objc func myPageBtn(sender: UIBarButtonItem) {
-        let nextViewController = MypageViewController()
+        let nextViewController = MypageViewController(viewModel: MypageViewModel(myPageDataSource: DefaultMyPageDataSource()))
         self.navigationController?.pushViewController(nextViewController, animated: true)
         print("myPageBtn")
     }
