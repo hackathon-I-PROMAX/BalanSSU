@@ -34,6 +34,11 @@ class CommentListTableViewCell: UITableViewCell {
             $0.layer.cornerRadius = 4 // 둥글게 만드는 정도
             $0.textAlignment = .center
     }
+    let reportButton: UIButton = {
+       let button = UIButton()
+        button.setImage(UIImage(named: "report"), for: .normal)
+        return button
+    }()
     let comment : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
@@ -53,6 +58,7 @@ class CommentListTableViewCell: UITableViewCell {
         contentView.addSubview(img)
         contentView.addSubview(name)
         contentView.addSubview(badge)
+        contentView.addSubview(reportButton)
         contentView.addSubview(comment)
     }
         
@@ -72,6 +78,13 @@ class CommentListTableViewCell: UITableViewCell {
         badge.snp.makeConstraints {
             $0.top.equalToSuperview().inset(14)
             $0.leading.equalTo(name.snp.trailing).offset(5)
+        }
+        
+        reportButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(16)
+            $0.height.equalTo(17)
+            $0.width.equalTo(14)
+            $0.trailing.equalToSuperview().inset(25)
         }
         
         comment.snp.makeConstraints {

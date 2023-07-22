@@ -90,7 +90,23 @@ final class VoteViewController: BaseViewController {
     @objc func backBarButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
-    
+    @objc func reportButtonTapped(sender: UIButton) {
+        print("신고하기")
+        let alert = UIAlertController(title: "댓글 신고", message: "댓글 신고 이유를 작성해주세요.", preferredStyle: .alert)
+        alert.addTextField(){ (text) in
+            text.placeholder = "예시) 부적절한 어휘 사용"
+        }
+        let okAction = UIAlertAction(title: "신고하기", style: .destructive) { _ in
+            if let txt = alert.textFields?[0].text {
+                print("\(txt)")
+            }
+            return
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
     @objc func commentEroll() {
         print("댓글 등록")
         var commentText: String = ""
@@ -252,6 +268,9 @@ extension VoteViewController : UITableViewDataSource {
         cell.badge.text = commentList[(num-1)-(indexPath.row)].department
         cell.comment.text = commentList[(num-1)-(indexPath.row)].content
         cell.selectionStyle = .none
+        
+        cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
+        
         return cell
     }
     // swipe delete
