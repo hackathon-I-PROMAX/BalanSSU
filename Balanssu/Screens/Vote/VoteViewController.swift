@@ -81,11 +81,6 @@ final class VoteViewController: BaseViewController {
         button.tintColor = .black
         return button
     }()
-    private lazy var scrapBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: UIImage(systemName: "heart"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
-        button.tintColor = .black
-        return button
-    }()
     
     @objc func backBarButtonTapped() {
         self.navigationController?.popViewController(animated: true)
@@ -172,7 +167,6 @@ final class VoteViewController: BaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
-        self.navigationItem.rightBarButtonItem = scrapBarButton
         setAddTaget()
     }
     
