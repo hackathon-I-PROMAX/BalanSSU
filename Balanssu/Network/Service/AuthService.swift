@@ -10,7 +10,6 @@ import Moya
 
 final class AuthService {
     
-    private var tokenProvider = MoyaProvider<AuthAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [MoyaLoggerPlugin()])
     private var authProvider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
     
     private enum ResponseData {
@@ -53,7 +52,7 @@ final class AuthService {
     }
     
     public func postRereshToken(refreshToken: String, completion: @escaping (NetworkResult<Any>) -> Void ) {
-        tokenProvider.request(.postRefreshToken(refreshToken: refreshToken)) { result in
+        authProvider.request(.postRefreshToken(refreshToken: refreshToken)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode

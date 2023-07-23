@@ -10,8 +10,8 @@ import Moya
 
 final class VoteListService {
     
-    private var voteListProvider = MoyaProvider<VoteListAPI>()
-//    private var voteListProvider = MoyaProvider<VoteListAPI>(session : Moya.Session(interceptor: Interceptor()))
+//    private var voteListProvider = MoyaProvider<VoteListAPI>()
+    private var voteListProvider = MoyaProvider<VoteListAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [MoyaLoggerPlugin()])
     
     private enum ResponseData {
         case voteList

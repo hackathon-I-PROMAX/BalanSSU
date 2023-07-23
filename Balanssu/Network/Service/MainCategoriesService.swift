@@ -10,8 +10,8 @@ import Moya
 
 final class MainCategoriesService {
     
-    private var mainCategoriesProvider = MoyaProvider<MainCategoriesAPI>()
-//    private var mainCategoriesProvider = MoyaProvider<MainCategoriesAPI>(session : Moya.Session(interceptor: Interceptor()))
+//    private var mainCategoriesProvider = MoyaProvider<MainCategoriesAPI>()
+    private var mainCategoriesProvider = MoyaProvider<MainCategoriesAPI>(session: Moya.Session(interceptor: Interceptor()), plugins: [MoyaLoggerPlugin()])
     
     private enum ResponseData {
         case getMainCategories
