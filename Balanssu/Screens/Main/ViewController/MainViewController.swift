@@ -30,6 +30,7 @@ final class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMainCategories()
+        self.realBackButton.isHidden = true
     }
     
     override func setViewHierarchy() {
