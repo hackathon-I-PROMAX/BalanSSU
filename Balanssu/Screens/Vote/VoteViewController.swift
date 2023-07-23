@@ -259,7 +259,7 @@ extension VoteViewController : UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
         cell.img.image = UIImage(named: "ppussung")
         cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
-        cell.badge.text = commentList[(num-1)-(indexPath.row)].department
+        cell.badge.text = commentList[(num-1)-(indexPath.row)].mbti
         cell.comment.text = commentList[(num-1)-(indexPath.row)].content
         cell.selectionStyle = .none
         

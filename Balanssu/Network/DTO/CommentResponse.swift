@@ -25,12 +25,12 @@ struct Comments: Codable {
 
 // MARK: - Content
 struct Content: Codable {
-    let commentID, content, department, nickname: String
+    let commentID, content, mbti, nickname: String
     let isOwner, isUserDeleted: Bool
 
     enum CodingKeys: String, CodingKey {
         case commentID = "commentId"
-        case content, department, isOwner, isUserDeleted, nickname
+        case content, mbti, isOwner, isUserDeleted, nickname
     }
 }
 
