@@ -103,7 +103,6 @@ final class VoteView: UIView {
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
         $0.backgroundColor = UIColor(r: 64, g: 96, b: 160)
         $0.layer.cornerRadius = 8
-        $0.layer.borderWidth = 1
     }
     
     override init(frame: CGRect) {
