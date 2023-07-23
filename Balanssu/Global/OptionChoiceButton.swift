@@ -17,6 +17,7 @@ final class OptionChoiceButton: UIView {
         case nonActive
         case voteActive
         case nonVoteActive
+        case nonVoteWin
         
         
         var titleColor: UIColor? {
@@ -25,7 +26,7 @@ final class OptionChoiceButton: UIView {
                 return UIColor.customColor(.choiceButtonText)
             case .nonActive:
                 return .black
-            case .voteActive:
+            case .voteActive, .nonVoteWin:
                 return .white
             case .nonVoteActive:
                 return UIColor(r: 150, g: 150, b: 150)
@@ -38,7 +39,7 @@ final class OptionChoiceButton: UIView {
                 return UIColor(r: 226, g: 231, b: 240)
             case .nonActive:
                 return .white
-            case .voteActive:
+            case .voteActive, .nonVoteWin:
                 return UIColor(r: 64, g: 96, b: 160)
             case .nonVoteActive:
                 return UIColor(r: 240, g: 240, b: 240)
@@ -47,7 +48,7 @@ final class OptionChoiceButton: UIView {
         
         var borderWidth: CGFloat {
             switch self {
-            case .active, .voteActive, .nonVoteActive:
+            case .active, .voteActive, .nonVoteActive, .nonVoteWin:
                 return 0
             case .nonActive:
                 return 1
@@ -62,7 +63,7 @@ final class OptionChoiceButton: UIView {
                 return UIImage(named: "UnselectedOption")
             case .voteActive:
                 return UIImage(named: "SelectedOptionResult")
-            case .nonVoteActive:
+            case .nonVoteActive, .nonVoteWin:
                 return nil
             }
         }
@@ -128,7 +129,7 @@ extension OptionChoiceButton {
     }
     
     private func setButtonHeight(status: ButtonActive) {
-        if status == .nonVoteActive {
+        if status == .nonVoteActive || status == .nonVoteWin {
             self.snp.remakeConstraints {
                 $0.height.equalTo(85)
             }
