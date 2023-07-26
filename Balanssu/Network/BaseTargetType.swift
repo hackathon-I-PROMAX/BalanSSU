@@ -23,7 +23,7 @@ extension BaseTargetType {
     var headers: [String: String]? {
         let header = [
             "Content-Type": "application/json",
-            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJpZCI6IkpvZXVuMTIzNCIsInJvbGVzIjpbIlJPTEVfVVNFUiJdfQ.BPJ92tnJZN2nHfvrXK33gVtPbnAz6tlA9cPN_8Nx1Y0"
+            "Authorization": UserDefaultHandler.accessToken
         ]
         return header
     }
@@ -32,5 +32,3 @@ extension BaseTargetType {
         return .successCodes
     }
 }
-
-
