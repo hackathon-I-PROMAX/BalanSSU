@@ -14,10 +14,11 @@ final class VoteView: UIView {
     enum VoteViewType {
         case vote
         case nonVote
+        case closed
 
         var isHidden: Bool {
             switch self {
-            case .vote:
+            case .vote, .closed:
                 return false
             case .nonVote:
                 return true
@@ -30,12 +31,14 @@ final class VoteView: UIView {
                 return "이미 투표 했어요"
             case .nonVote:
                 return "투표하기"
+            case .closed:
+                return "투표가 마감되었어요"
             }
         }
         
         var titleColor: UIColor {
             switch self {
-            case .vote:
+            case .vote, .closed:
                 return UIColor(r: 150, g: 150, b: 150)
             case .nonVote:
                 return .white
@@ -44,7 +47,7 @@ final class VoteView: UIView {
         
         var backgroundColor: UIColor {
             switch self {
-            case .vote:
+            case .vote, .closed:
                 return UIColor(r: 240, g: 240, b: 240)
             case .nonVote:
                 return UIColor(r: 64, g: 96, b: 160)
@@ -53,7 +56,7 @@ final class VoteView: UIView {
         
         var borderWidth: CGFloat {
             switch self {
-            case .vote:
+            case .vote, .closed:
                 return 0
             case .nonVote:
                 return 1
@@ -77,7 +80,11 @@ final class VoteView: UIView {
         $0.image = UIImage(systemName: "circle.fill")?.withRenderingMode(.alwaysTemplate)
         $0.tintColor = UIColor(r: 226, g: 231, b: 240)
     }
-    
+
+    let deadlineFinishedImageView = UIImageView().then {
+        $0.image = UIImage(named: "Finished")
+    }
+
     let deadlineLabel = UILabel().then {
         $0.text = "D-3"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
@@ -122,6 +129,7 @@ final class VoteView: UIView {
           addSubview(topicLabel)
           addSubview(joinNumberLabel)
           addSubview(deadlineImageView)
+        addSubview(deadlineFinishedImageView)
           addSubview(deadlineLabel)
           addSubview(optionA)
           addSubview(optionB)
@@ -150,6 +158,13 @@ final class VoteView: UIView {
             $0.height.width.equalTo(35)
         }
         
+        deadlineFinishedImageView.snp.makeConstraints {
+            $0.top.equalToSuperview().offset(22)
+            $0.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(32)
+            $0.width.equalTo(69)
+        }
+
         deadlineLabel.snp.makeConstraints {
             $0.top.equalToSuperview().offset(28)
             $0.trailing.equalToSuperview().inset(22.5)
@@ -186,6 +201,7 @@ final class VoteView: UIView {
         self.layer.borderWidth = 1
         self.layer.borderColor = UIColor(r: 223, g: 223, b: 223).cgColor
         self.layer.cornerRadius = 12
+        
     }
 }
 

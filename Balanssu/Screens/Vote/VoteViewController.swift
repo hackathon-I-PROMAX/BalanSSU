@@ -64,7 +64,7 @@ final class VoteViewController: BaseViewController {
     }()
     private let commentField : UITextField = {
         let field = UITextField()
-        field.placeholder = "댓글을 입력하세요."
+        field.placeholder = " 댓글을 입력하세요."
         return field
     }()
     private let commentButton : UIButton = {
@@ -337,19 +337,39 @@ extension VoteViewController {
                 guard let data = response as? VoteViewResponse else { return }
                 self?.voteChoice = data.choices
                 
-                if data.category.isParticipating {
-                    self?.voteView.makeVoteViewTypeView(status: .vote)
+                if data.category.dday < 0 {
+                    self?.voteView.makeVoteViewTypeView(status: .closed)
+                    self?.commentField.isEnabled = false
+                    self?.commentField.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
                     if data.choices[0].count > data.choices[1].count {
                         self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
                         self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
                     } else {
-                        self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .voteActive)
+                        self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteWin)
                         self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                    }
+                } else {
+                    if data.category.isParticipating {
+                        self?.voteView.makeVoteViewTypeView(status: .vote)
+                        if data.choices[0].count > data.choices[1].count {
+                            self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
+                            self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                        } else {
+                            self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .voteActive)
+                            self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .nonVoteActive)
+                        }
                     }
                 }
                 self?.voteView.topicLabel.text = data.category.title
-                self?.voteView.joinNumberLabel.text = "현재 \(data.category.participantCount)명 참여중"
-                self?.voteView.deadlineLabel.text = "D-\(data.category.dday)"
+                if data.category.dday < 0 {
+                    self?.voteView.deadlineImageView.image = nil
+                    self?.voteView.deadlineLabel.text = nil
+                    self?.voteView.joinNumberLabel.text = "\(data.category.participantCount)명 참여"
+                } else {
+                    self?.voteView.deadlineFinishedImageView.image = nil
+                    self?.voteView.deadlineLabel.text = "D-\(data.category.dday)"
+                    self?.voteView.joinNumberLabel.text = "현재 \(data.category.participantCount)명 참여중"
+                }
                 self?.voteView.optionA.optionButton.optionTitleLabel.text = data.choices[0].name
                 self?.voteView.optionB.optionButton.optionTitleLabel.text = data.choices[1].name
                 
