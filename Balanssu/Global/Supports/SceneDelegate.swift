@@ -28,6 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.rootViewController = rootViewController // 시작 VC 작성해주기
         window.makeKeyAndVisible()
         self.window = window
+        
     }
     
     func changeRootView() {

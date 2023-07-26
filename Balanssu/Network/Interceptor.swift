@@ -60,6 +60,8 @@ class Interceptor: RequestInterceptor {
                 completion(true)
             case .requestErr(let error):
                 dump(error)
+                // 30분 뒤에 만료(리프레시 토큰도 만료)되고 리프레시를 넘기니까 리프레시도 만료가 나서 500이 떴었던 것이다.
+                RootHandler.shard.presentStartVC()
             default:
                 print("error")
                 

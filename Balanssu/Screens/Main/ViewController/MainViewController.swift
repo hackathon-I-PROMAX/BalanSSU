@@ -30,6 +30,7 @@ final class MainViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getMainCategories()
+        self.realBackButton.isHidden = true
     }
     
     override func setViewHierarchy() {
@@ -79,7 +80,7 @@ final class MainViewController: BaseViewController {
     }
     
     @objc func myPageBtn(sender: UIBarButtonItem) {
-        let nextViewController = MypageViewController()
+        let nextViewController = MypageViewController(viewModel: MypageViewModel(myPageDataSource: DefaultMyPageDataSource()))
         self.navigationController?.pushViewController(nextViewController, animated: true)
         print("myPageBtn")
     }

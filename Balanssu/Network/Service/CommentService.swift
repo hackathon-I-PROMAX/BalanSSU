@@ -1,31 +1,48 @@
 //
-//  AuthService.swift
+//  CommentService.swift
 //  Balanssu
 //
-//  Created by 김규철 on 2023/02/20.
+//  Created by 이조은 on 2023/06/24.
 //
 
 import Foundation
 import Moya
 
-final class AuthService {
-    
-    private var authProvider = MoyaProvider<AuthAPI>(plugins: [MoyaLoggerPlugin()])
-    
+final class CommentService {
+
+    private var commentProvider = MoyaProvider<CommentAPI>()
+
     private enum ResponseData {
-        case postSignUp
-        case postSignIn
-        case postRereshToken
+        case getComment
+        case postComment
+        case deleteComment
     }
-    
-    public func postSignUp(username: String, password: String, nickname: String, schoolAge: String, departure: String, gender: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        authProvider.request(.postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, departure: departure, gender: gender)) { result in
+
+    public func getComment(categoryId: String, page: Int, size: Int, completion: @escaping (NetworkResult<Any>) -> Void) {
+        commentProvider.request(.getComment(categoryId: categoryId, page: page, size: size)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
                 let data = response.data
                 
-                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postSignUp)
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .getComment)
+                completion(networkResult)
+                
+            case .failure(let error):
+                print("123 \(error)")
+                
+            }
+        }
+    }
+    
+    public func postComment(categoryId: String, content: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        commentProvider.request(.postComment(categoryId: categoryId, content: content)) { result in
+            switch result {
+            case .success(let response):
+                let statusCode = response.statusCode
+                let data = response.data
+                
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postComment)
                 completion(networkResult)
                 
             case .failure(let error):
@@ -35,35 +52,19 @@ final class AuthService {
         }
     }
     
-    public func postSignIn(password: String, username: String, completion: @escaping (NetworkResult<Any>) -> Void ) {
-        authProvider.request(.postSignIn(password: password, username: username)) { result in
+    public func deleteComment(categoryId: String, commentId: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        commentProvider.request(.deleteComment(categoryId: categoryId, commentId: commentId)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode
                 let data = response.data
                 
-                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postSignIn)
+                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .deleteComment)
                 completion(networkResult)
                 
             case .failure(let error):
                 print(error)
-            }
-        }
-    }
-    
-    public func postRereshToken(refreshToken: String, completion: @escaping (NetworkResult<Any>) -> Void ) {
-        authProvider.request(.postRefreshToken(refreshToken: refreshToken)) { result in
-            switch result {
-            case .success(let response):
-                let statusCode = response.statusCode
-                let data = response.data
                 
-                let networkResult = self.judgeStatus(by: statusCode, data, responseData: .postRereshToken)
-                completion(networkResult)
-                
-            case .failure(let error):
-                print(error)
-                RootHandler.shard.presentStartVC()
             }
         }
     }
@@ -75,14 +76,16 @@ final class AuthService {
         switch statusCode {
         case 200..<300:
             switch responseData {
-            case .postSignIn, .postSignUp, .postRereshToken:
+            case .getComment, .postComment, .deleteComment:
                 return isValidData(data: data, responseData: responseData)
             }
         case 400..<500:
+            print(statusCode)
             guard let decodedData = try? decoder.decode(ErrorResponse.self, from: data) else {
                 return .pathErr
             }
-            return .requestErr(decodedData)
+            print(decodedData)
+            return .requestErr(data)
         case 500:
             return .serverErr
         default:
@@ -92,24 +95,20 @@ final class AuthService {
     
     private func isValidData(data: Data, responseData: ResponseData) -> NetworkResult<Any> {
         let decoder = JSONDecoder()
-        
         switch responseData {
-        case .postSignIn:
-            guard let decodedData = try? decoder.decode(LoginResponse.self, from: data) else {
+        case .getComment:
+            guard let decodedData = try? decoder.decode(CommentResponse.self, from: data) else {
                 return .pathErr
             }
             return .success(decodedData)
-        case .postSignUp:
+        case .postComment:
             let decodedData = try? decoder.decode(BlankDataResponse.self, from: data)
             return .success(decodedData ?? "success")
-        case .postRereshToken:
-            guard let decodedData = try? decoder.decode(TokenResponse.self, from: data) else {
-                return .pathErr
-            }
-            return .success(decodedData)
+        case .deleteComment:
+            let decodedData = try? decoder.decode(BlankDataResponse.self, from: data)
+            return .success(decodedData ?? "success")
         }
     }
-    
 }
 
 

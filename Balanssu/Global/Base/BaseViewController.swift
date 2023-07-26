@@ -7,8 +7,12 @@
 
 import UIKit
 
+import RxSwift
+
 class BaseViewController: UIViewController {
     
+    public var disposeBag: DisposeBag = .init()
+
     let realBackButton = UIButton().then {
         $0.setImage(ImageLiterals.navigationBarBackButton, for: .normal)
         $0.imageView?.contentMode = .scaleAspectFit

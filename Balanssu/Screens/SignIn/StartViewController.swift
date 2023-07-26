@@ -6,69 +6,73 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 import RxSwift
+import RxCocoa
 import YDS
 
-class StartViewController: BaseViewController {
+final class StartViewController: BaseViewController {
     
-    let logoImageView = UIImageView().then {
+    private let logoImageView = UIImageView().then {
         $0.image = UIImage(named: "logo")
         $0.contentMode = .scaleAspectFit
     }
     
-    let signInButton = UIButton().then {
+    private lazy var signInButton = UIButton().then {
         $0.setTitle("로그인", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = UIColor(r: 64, g: 96, b: 160)
         $0.layer.cornerRadius = 8
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
-        $0.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
     }
     
-    let signUpButton = UIButton().then {
+    private lazy var signUpButton = UIButton().then {
         $0.setTitle("회원가입", for: .normal)
         $0.setTitleColor(UIColor(r: 64, g: 96, b: 160), for: .normal)
         $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 16)
         $0.backgroundColor = UIColor(r: 232, g: 236, b: 244)
         $0.layer.cornerRadius = 8
-        $0.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)
     }
-    
-    let browsingBarButton = UIButton().then {
-        $0.setTitle("둘러보기", for: .normal)
-        $0.setTitleColor(UIColor(r: 125, g: 125, b: 125), for: .normal)
-        $0.titleLabel?.font = UIFont(name: "AppleSDGothicNeoM00", size: 14)
-    }
-    
+
+//    private lazy var findPasswordButton = YDSLabel(style: .body1).then {
+//        $0.text = "비밀번호 찾기"
+//        $0.textColor = UIColor(r: 125, g: 125, b: 125)
+//    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViewHierarchy()
-        setConstraints()
-        configUI()
-        setupNavigationBar()
+        bindAction()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.realBackButton.isHidden = true
+        
     }
     
+    func bindAction() {
+        signInButton.rx.tap
+            .bind { [weak self] in
+                self?.navigationController?.pushViewController(LoginViewController(), animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        signUpButton.rx.tap
+            .bind { [weak self] in
+                self?.navigationController?.pushViewController(SignUpViewController(viewModel: SetAuthViewModel(authDataSource: DefaultAuthDataSource())), animated: true)
+            }
+            .disposed(by: disposeBag)
+    }
+        
     override func setViewHierarchy() {
         view.addSubview(logoImageView)
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
+//        view.addSubview(findPasswordButton)
     }
-    
-    @objc func signInButtonTapped() {
-        self.navigationController?.pushViewController(LoginViewController(), animated: true)
-    }
-    
-    @objc func signUpButtonTapped() {
-        self.navigationController?.pushViewController(SignUpViewController(viewModel: SetAuthViewModel(authDataSource: DefaultAuthDataSource())), animated: true)
-    }
-    
+        
     override func setConstraints() {
         logoImageView.snp.makeConstraints {
             $0.top.equalTo(view).offset(190)
@@ -87,34 +91,13 @@ class StartViewController: BaseViewController {
             $0.bottom.equalToSuperview().offset(-85)
             $0.height.equalTo(48)
         }
-    }
-    
-    override func configUI() {
-        view.backgroundColor = .white
-    }
-    
-    override func makeBarButtonItem<T: UIView>(with view: T) -> UIBarButtonItem {
-        return UIBarButtonItem(customView: view)
-    }
         
-    override func setupNavigationBar() {
-        guard let navigationBar = navigationController?.navigationBar else { return }
-        let appearance = UINavigationBarAppearance()
-        
-        appearance.shadowColor = .clear
-        appearance.backgroundColor = .white
-        appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)]
-        
-        navigationBar.standardAppearance = appearance
-        navigationBar.compactAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
-        
-        super.setupNavigationBar()
-
-        let browsingBarButton = makeBarButtonItem(with: browsingBarButton)
-        navigationItem.rightBarButtonItem = browsingBarButton
+//        findPasswordButton.snp.makeConstraints {
+//            $0.bottom.equalToSuperview().offset(-54)
+//            $0.centerX.equalToSuperview()
+//            $0.height.equalTo(17)
+//        }
     }
-
 }
 
 extension UIColor {

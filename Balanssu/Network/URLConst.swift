@@ -8,18 +8,19 @@
 enum URLConst {
     // MARK: - baseURL
     static let base = "https://balanssu-api.yourssu.com"
+    
+    static let createQuestion = "https://docs.google.com/forms/d/e/1FAIpQLScUWg9XFi7fnVLgcJux0kTPLB1yzBjzIUU_BdR19XzGjyccMQ/viewform"
 
-    // MARK: - Auth
-    // 로그인
+    // MARK: - signIn
     static let signIn = "/auth/sign-in"
     
-    // 회원가입
+    // MARK: - signUp
     static let signUp = "/auth/sign-up"
     
-    // 아이디 중복검사
+    // MARK: - validationId
     static let validationId = "/auth/validation/username"
     
-    // 메인
+    // MARK: - main
     static let main = "/categories/main"
     
     // MARK: - Category
@@ -27,6 +28,7 @@ enum URLConst {
     
     // MARK: - VoteView
     static let voteView = "/categories"
+    static let comment = "/comments"
     
     // MARK: - Choices
     static let choices = "/choices"
@@ -36,5 +38,8 @@ enum URLConst {
     
     // MARK: - Mypage
     static let myPage = "/auth/info"
+    
+    // MARK: - Withdrawal
+    static let withdrawal = "/auth/withdrawal"
     
 }
