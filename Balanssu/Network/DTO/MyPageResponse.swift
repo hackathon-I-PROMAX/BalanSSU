@@ -11,7 +11,7 @@ struct MyPageResponse: Codable {
 }
 
 struct myPageData: Codable {
-    let departure: String
+    let mbti: String
     let nickname: String
     let schoolAge: String
     let username: String
