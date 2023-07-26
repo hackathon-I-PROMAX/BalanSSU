@@ -7,7 +7,16 @@
 
 import UIKit
 
+import RxSwift
+
 class BaseViewController: UIViewController {
+    
+    public var disposeBag: DisposeBag = .init()
+
+    let realBackButton = UIButton().then {
+        $0.setImage(ImageLiterals.navigationBarBackButton, for: .normal)
+        $0.imageView?.contentMode = .scaleAspectFit
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +39,12 @@ class BaseViewController: UIViewController {
         
     }
     
-    func configUI() {
-        view.backgroundColor = .white
-    }
-    
     func makeBarButtonItem<T: UIView>(with view: T) -> UIBarButtonItem {
         return UIBarButtonItem(customView: view)
+    }
+    
+    func configUI() {
+        view.backgroundColor = .white
     }
         
     func setupNavigationBar() {
@@ -49,5 +58,7 @@ class BaseViewController: UIViewController {
         navigationBar.standardAppearance = appearance
         navigationBar.compactAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: realBackButton)
     }
 }

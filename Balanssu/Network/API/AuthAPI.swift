@@ -12,12 +12,13 @@ enum AuthAPI {
     case postSignIn(password: String, username: String)
     case postSignUp(username: String, password: String, nickname: String, schoolAge: String, departure: String, gender: String)
     case postRefreshToken(refreshToken: String)
+    case postValidationId(username: String)
 }
 
 extension AuthAPI: BaseTargetType {
     var headers: [String: String]? {
         switch self {
-        case .postSignIn, .postSignUp, .postRefreshToken:
+        case .postSignIn, .postSignUp, .postRefreshToken, .postValidationId:
             return [
                 "Content-Type": "application/json"
             ]
@@ -32,12 +33,14 @@ extension AuthAPI: BaseTargetType {
             return URLConst.signIn
         case .postRefreshToken:
             return URLConst.refresh
+        case .postValidationId:
+            return URLConst.validationId
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .postSignIn,.postSignUp, .postRefreshToken:
+        case .postSignIn,.postSignUp, .postRefreshToken, .postValidationId:
             return .post
         }
     }
@@ -61,6 +64,10 @@ extension AuthAPI: BaseTargetType {
         case .postRefreshToken(let refreshToken):
             return .requestParameters(parameters: [
                 "refreshToken": refreshToken
+            ], encoding: JSONEncoding.default)
+        case .postValidationId(let username):
+            return .requestParameters(parameters: [
+                "username": username
             ], encoding: JSONEncoding.default)
         }
     }

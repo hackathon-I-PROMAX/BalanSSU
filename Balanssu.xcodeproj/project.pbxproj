@@ -79,6 +79,30 @@
 		5AACF2E829A091C500D1C06B /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2E729A091C500D1C06B /* BaseViewController.swift */; };
 		5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */; };
 		5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AACF2ED29A094F900D1C06B /* BackButton.swift */; };
+		5AB3D11A2A34509000A2FBA8 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D1192A34509000A2FBA8 /* ViewModelType.swift */; };
+		5AB3D11D2A3455B900A2FBA8 /* SetAuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D11C2A3455B900A2FBA8 /* SetAuthViewModel.swift */; };
+		5AB3D1202A34563200A2FBA8 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 5AB3D11F2A34563200A2FBA8 /* RxCocoa */; };
+		5AB3D1222A34563200A2FBA8 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 5AB3D1212A34563200A2FBA8 /* RxRelay */; };
+		5AB3D1242A34563200A2FBA8 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 5AB3D1232A34563200A2FBA8 /* RxSwift */; };
+		5AB3D1332A3C68B300A2FBA8 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D1322A3C68B300A2FBA8 /* Coordinator.swift */; };
+		5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */; };
+		5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */; };
+		5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */; };
+		5ACADCD12A55D7D200B92C07 /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCD02A55D7D200B92C07 /* MypageViewModel.swift */; };
+		5ACADCD62A56FA3C00B92C07 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCD52A56FA3C00B92C07 /* MypageTableViewCell.swift */; };
+		5ACADCD92A570DEC00B92C07 /* MyPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCD82A570DEC00B92C07 /* MyPageType.swift */; };
+		5ACADCDF2A57FA1900B92C07 /* RxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCDE2A57FA1900B92C07 /* RxViewController.swift */; };
+		5ACADCE12A5801EA00B92C07 /* MyPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCE02A5801EA00B92C07 /* MyPageDataSource.swift */; };
+		5ACADCE32A581FF100B92C07 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCE22A581FF100B92C07 /* AccountViewController.swift */; };
+		5ACADCE52A5824B800B92C07 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCE42A5824B800B92C07 /* AccountViewModel.swift */; };
+		5ACADCE72A5834B900B92C07 /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCE62A5834B900B92C07 /* UIViewController+.swift */; };
+		5ACADCE92A588C4400B92C07 /* BalanSSUPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCE82A588C4400B92C07 /* BalanSSUPopup.swift */; };
+		5ACADCEB2A589E6000B92C07 /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCEA2A589E6000B92C07 /* UIStackView+.swift */; };
+		5ACADD302A5ED42800B92C07 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD2F2A5ED42800B92C07 /* AlertType.swift */; };
+		5ACADD322A5F25BE00B92C07 /* WithDrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD312A5F25BE00B92C07 /* WithDrawViewController.swift */; };
+		5ACADD362A6294BC00B92C07 /* BalanSSUErrorPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD352A6294BC00B92C07 /* BalanSSUErrorPopup.swift */; };
+		5ACADD382A6295CD00B92C07 /* ErrorAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */; };
+		5ACADD3D2A63FD0A00B92C07 /* RootHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -150,6 +174,27 @@
 		5AACF2E729A091C500D1C06B /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		5AACF2EA29A0944200D1C06B /* ImageLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
 		5AACF2ED29A094F900D1C06B /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		5AB3D1192A34509000A2FBA8 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		5AB3D11C2A3455B900A2FBA8 /* SetAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetAuthViewModel.swift; sourceTree = "<group>"; };
+		5AB3D1322A3C68B300A2FBA8 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
+		5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
+		5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		5ACADCD02A55D7D200B92C07 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
+		5ACADCD52A56FA3C00B92C07 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
+		5ACADCD82A570DEC00B92C07 /* MyPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageType.swift; sourceTree = "<group>"; };
+		5ACADCDE2A57FA1900B92C07 /* RxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxViewController.swift; sourceTree = "<group>"; };
+		5ACADCE02A5801EA00B92C07 /* MyPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDataSource.swift; sourceTree = "<group>"; };
+		5ACADCE22A581FF100B92C07 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		5ACADCE42A5824B800B92C07 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		5ACADCE62A5834B900B92C07 /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
+		5ACADCE82A588C4400B92C07 /* BalanSSUPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanSSUPopup.swift; sourceTree = "<group>"; };
+		5ACADCEA2A589E6000B92C07 /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
+		5ACADD2F2A5ED42800B92C07 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
+		5ACADD312A5F25BE00B92C07 /* WithDrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithDrawViewController.swift; sourceTree = "<group>"; };
+		5ACADD352A6294BC00B92C07 /* BalanSSUErrorPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalanSSUErrorPopup.swift; sourceTree = "<group>"; };
+		5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertType.swift; sourceTree = "<group>"; };
+		5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHandler.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,11 +202,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AB3D1242A34563200A2FBA8 /* RxSwift in Frameworks */,
 				022DDE64299F4B8700702B87 /* Then in Frameworks */,
 				022DDE61299F2F6800702B87 /* RxMoya in Frameworks */,
 				022DDE56299F2F3000702B87 /* SnapKit in Frameworks */,
+				5AB3D1202A34563200A2FBA8 /* RxCocoa in Frameworks */,
 				0283DC3C29A0A79B00DBC2B5 /* YDS in Frameworks */,
 				022DDE5D299F2F6800702B87 /* Moya in Frameworks */,
+				5AB3D1222A34563200A2FBA8 /* RxRelay in Frameworks */,
 				022DDE5F299F2F6800702B87 /* ReactiveMoya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -199,8 +247,10 @@
 		5A73AD762A1533AB00F395F0 /* Util */ = {
 			isa = PBXGroup;
 			children = (
+				5ACADCD72A570DDD00B92C07 /* Constant  */,
 				5A73AD772A15340800F395F0 /* UserDefault.swift */,
 				5A73AD792A1534D600F395F0 /* UserDefaultHandler.swift */,
+				5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -246,6 +296,7 @@
 		5AACF2CF299F510F00D1C06B /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				5ACADCDD2A57F98300B92C07 /* Extension */,
 				5A73AD762A1533AB00F395F0 /* Util */,
 				5AACF2EC29A094CB00D1C06B /* DesignSystem */,
 				5AACF2E929A0943100D1C06B /* Literal */,
@@ -272,6 +323,7 @@
 		5AACF2D1299F515700D1C06B /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				5AB3D13A2A44253B00A2FBA8 /* DataSource */,
 				5AACF2DD299F531500D1C06B /* DTO */,
 				5AACF2DC299F530D00D1C06B /* Service */,
 				5AACF2DB299F530800D1C06B /* API */,
@@ -281,6 +333,8 @@
 				5A99A28829A1F284006FE9B2 /* URLConst.swift */,
 				5A73AD712A15278000F395F0 /* Interceptor.swift */,
 				5A73AD8C2A1787AD00F395F0 /* MoyaLoggerPlugin.swift */,
+				5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */,
+				5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -308,6 +362,7 @@
 		5AACF2D4299F51BB00D1C06B /* Supports */ = {
 			isa = PBXGroup;
 			children = (
+				5AB3D1312A3C689F00A2FBA8 /* Coordinator */,
 				022DDE40299F2F0D00702B87 /* AppDelegate.swift */,
 				022DDE42299F2F0D00702B87 /* SceneDelegate.swift */,
 			);
@@ -326,6 +381,7 @@
 		5AACF2D6299F528100D1C06B /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
+				5AB3D11B2A34553700A2FBA8 /* ViewModel */,
 				3E691FCA29A0BFC9005CC39F /* SignUpViewController.swift */,
 				3E691FCC29A0C83A005CC39F /* SignUp2ViewController.swift */,
 			);
@@ -345,8 +401,8 @@
 		5AACF2D8299F52A400D1C06B /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */,
-				024E388D29A3471D00E08150 /* MypageCardCell.swift */,
+				5ACADCD42A56FA1800B92C07 /* View */,
+				5ACADCCF2A55D7BB00B92C07 /* ViewModel */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -419,6 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				5AACF2E729A091C500D1C06B /* BaseViewController.swift */,
+				5AB3D1192A34509000A2FBA8 /* ViewModelType.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -439,8 +496,83 @@
 				0283DC4F29A1F74900DBC2B5 /* BasePaddingLabel.swift */,
 				5A73AD6D2A135FFE00F395F0 /* OptionChoiceButton.swift */,
 				5A73AD6F2A13673400F395F0 /* VoteStackView.swift */,
+				5ACADCE82A588C4400B92C07 /* BalanSSUPopup.swift */,
+				5ACADD352A6294BC00B92C07 /* BalanSSUErrorPopup.swift */,
 			);
 			name = DesignSystem;
+			sourceTree = "<group>";
+		};
+		5AB3D11B2A34553700A2FBA8 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5AB3D11C2A3455B900A2FBA8 /* SetAuthViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5AB3D1312A3C689F00A2FBA8 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				5AB3D1322A3C68B300A2FBA8 /* Coordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		5AB3D13A2A44253B00A2FBA8 /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */,
+				5ACADCE02A5801EA00B92C07 /* MyPageDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		5ACADCCF2A55D7BB00B92C07 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				5ACADCD02A55D7D200B92C07 /* MypageViewModel.swift */,
+				5ACADCE42A5824B800B92C07 /* AccountViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		5ACADCD42A56FA1800B92C07 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				5ACADD3B2A63E5F900B92C07 /* Cell */,
+				5ACADCE22A581FF100B92C07 /* AccountViewController.swift */,
+				5ACADD312A5F25BE00B92C07 /* WithDrawViewController.swift */,
+				5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		5ACADCD72A570DDD00B92C07 /* Constant  */ = {
+			isa = PBXGroup;
+			children = (
+				5ACADCD82A570DEC00B92C07 /* MyPageType.swift */,
+				5ACADD2F2A5ED42800B92C07 /* AlertType.swift */,
+				5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */,
+			);
+			path = "Constant ";
+			sourceTree = "<group>";
+		};
+		5ACADCDD2A57F98300B92C07 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				5ACADCDE2A57FA1900B92C07 /* RxViewController.swift */,
+				5ACADCE62A5834B900B92C07 /* UIViewController+.swift */,
+				5ACADCEA2A589E6000B92C07 /* UIStackView+.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		5ACADD3B2A63E5F900B92C07 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				5ACADCD52A56FA3C00B92C07 /* MypageTableViewCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,6 +598,9 @@
 				022DDE60299F2F6800702B87 /* RxMoya */,
 				022DDE63299F4B8700702B87 /* Then */,
 				0283DC3B29A0A79B00DBC2B5 /* YDS */,
+				5AB3D11F2A34563200A2FBA8 /* RxCocoa */,
+				5AB3D1212A34563200A2FBA8 /* RxRelay */,
+				5AB3D1232A34563200A2FBA8 /* RxSwift */,
 			);
 			productName = Balanssu;
 			productReference = 022DDE3D299F2F0D00702B87 /* Balanssu.app */;
@@ -500,6 +635,7 @@
 				022DDE59299F2F6800702B87 /* XCRemoteSwiftPackageReference "Moya" */,
 				022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */,
 				0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */,
+				5AB3D11E2A34563200A2FBA8 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 022DDE3E299F2F0D00702B87 /* Products */;
 			projectDirPath = "";
@@ -530,6 +666,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5ACADD3D2A63FD0A00B92C07 /* RootHandler.swift in Sources */,
 				5A99A28329A1EDC5006FE9B2 /* BaseTargetType.swift in Sources */,
 				5A99A28D29A35EAC006FE9B2 /* AuthService.swift in Sources */,
 				5A73AD702A13673400F395F0 /* VoteStackView.swift in Sources */,
@@ -537,18 +674,28 @@
 				5A99A28F29A4B7AE006FE9B2 /* BlankDataResponse.swift in Sources */,
 				5A99A27929A1CE99006FE9B2 /* HotCollectionView.swift in Sources */,
 				5A99A28929A1F284006FE9B2 /* URLConst.swift in Sources */,
-				024E388E29A3471D00E08150 /* MypageCardCell.swift in Sources */,
+				5AB3D11D2A3455B900A2FBA8 /* SetAuthViewModel.swift in Sources */,
 				5A99A28729A1F257006FE9B2 /* NetworkResult.swift in Sources */,
 				027DF18C2A46D0E000178DD9 /* CommentResponse.swift in Sources */,
 				02F8940229A9A6A900681A4D /* VoteListService.swift in Sources */,
+				5ACADD362A6294BC00B92C07 /* BalanSSUErrorPopup.swift in Sources */,
 				5A99A27529A1CE50006FE9B2 /* DeadLineCollectionViewCell.swift in Sources */,
+				5ACADCE32A581FF100B92C07 /* AccountViewController.swift in Sources */,
+				5ACADD302A5ED42800B92C07 /* AlertType.swift in Sources */,
+				5ACADD382A6295CD00B92C07 /* ErrorAlertType.swift in Sources */,
 				5A73AD722A15278000F395F0 /* Interceptor.swift in Sources */,
 				022DDE41299F2F0D00702B87 /* AppDelegate.swift in Sources */,
+				5ACADCD12A55D7D200B92C07 /* MypageViewModel.swift in Sources */,
 				02F893FE29A9A37100681A4D /* VoteListResponse.swift in Sources */,
+				5ACADCD62A56FA3C00B92C07 /* MypageTableViewCell.swift in Sources */,
 				5A99A27329A1CE39006FE9B2 /* HotCollectionViewCell.swift in Sources */,
+				5ACADD322A5F25BE00B92C07 /* WithDrawViewController.swift in Sources */,
+				5ACADCE72A5834B900B92C07 /* UIViewController+.swift in Sources */,
 				3E392B2129A8678D0004C40E /* VoteView.swift in Sources */,
 				5A73AD692A12158800F395F0 /* ChoicesService.swift in Sources */,
+				5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */,
 				0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */,
+				5ACADCEB2A589E6000B92C07 /* UIStackView+.swift in Sources */,
 				3E691FCD29A0C83A005CC39F /* SignUp2ViewController.swift in Sources */,
 				3E691FC329A0A225005CC39F /* StartViewController.swift in Sources */,
 				02F8940629AA007300681A4D /* VoteViewResponse.swift in Sources */,
@@ -560,7 +707,9 @@
 				3E691FCF29A133FC005CC39F /* BalanSSUColor.swift in Sources */,
 				0283DC5029A1F74900DBC2B5 /* BasePaddingLabel.swift in Sources */,
 				5A99A27D29A1CECA006FE9B2 /* HotCollectionViewHeader.swift in Sources */,
+				5AB3D11A2A34509000A2FBA8 /* ViewModelType.swift in Sources */,
 				5AACF2EE29A094F900D1C06B /* BackButton.swift in Sources */,
+				5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */,
 				5A99A28B29A34C9D006FE9B2 /* AuthAPI.swift in Sources */,
 				02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
@@ -571,7 +720,9 @@
 				5A73AD672A12154800F395F0 /* ChoicesAPI.swift in Sources */,
 				02F8940829AA05CE00681A4D /* VoteViewAPI.swift in Sources */,
 				5A99A28129A1D17E006FE9B2 /* MypageViewController.swift in Sources */,
+				5ACADCDF2A57FA1900B92C07 /* RxViewController.swift in Sources */,
 				5A73AD6E2A135FFE00F395F0 /* OptionChoiceButton.swift in Sources */,
+				5ACADCD92A570DEC00B92C07 /* MyPageType.swift in Sources */,
 				5A99A2E229A9EF8D006FE9B2 /* MainCategoriesResponse.swift in Sources */,
 				022DDE43299F2F0D00702B87 /* SceneDelegate.swift in Sources */,
 				3E691FCB29A0BFC9005CC39F /* SignUpViewController.swift in Sources */,
@@ -579,6 +730,7 @@
 				5A73AD8D2A1787AD00F395F0 /* MoyaLoggerPlugin.swift in Sources */,
 				02F8940A29AA063D00681A4D /* VoteViewService.swift in Sources */,
 				0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */,
+				5ACADCE52A5824B800B92C07 /* AccountViewModel.swift in Sources */,
 				0283DC2829A0A0D000DBC2B5 /* VoteListViewController.swift in Sources */,
 				5A99A27729A1CE7E006FE9B2 /* TopicCollectionView.swift in Sources */,
 				027DF1902A46DFD900178DD9 /* CommentAPI.swift in Sources */,
@@ -588,9 +740,12 @@
 				5A73AD7A2A1534D600F395F0 /* UserDefaultHandler.swift in Sources */,
 				027DF18E2A46D30200178DD9 /* CommentService.swift in Sources */,
 				5A73AD782A15340800F395F0 /* UserDefault.swift in Sources */,
+				5ACADCE92A588C4400B92C07 /* BalanSSUPopup.swift in Sources */,
 				5A99A28529A1F1BB006FE9B2 /* NetworkService.swift in Sources */,
 				5AACF2EB29A0944200D1C06B /* ImageLiteral.swift in Sources */,
+				5AB3D1332A3C68B300A2FBA8 /* Coordinator.swift in Sources */,
 				5A99A2B329A75B2C006FE9B2 /* LoginResponse.swift in Sources */,
+				5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -731,7 +886,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SP5RUYUBZY;
+				DEVELOPMENT_TEAM = 8LJ2P85FNV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Balanssu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -759,7 +914,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = SP5RUYUBZY;
+				DEVELOPMENT_TEAM = 8LJ2P85FNV;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Balanssu/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -836,6 +991,14 @@
 				minimumVersion = 2.0.0;
 			};
 		};
+		5AB3D11E2A34563200A2FBA8 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -868,6 +1031,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */;
 			productName = YDS;
+		};
+		5AB3D11F2A34563200A2FBA8 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5AB3D11E2A34563200A2FBA8 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		5AB3D1212A34563200A2FBA8 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5AB3D11E2A34563200A2FBA8 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		5AB3D1232A34563200A2FBA8 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5AB3D11E2A34563200A2FBA8 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
