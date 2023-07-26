@@ -38,8 +38,7 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         navigationItem.title = "회원가입"
     }
-    
-    
+
     private func bind() {
         let input = SetAuthViewModel.Input(didIdTextFieldChange: idTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldChange: passwordTextField.rx.text.orEmpty.asObservable(), didPasswordCheckTextFieldChange: checkPasswordTextField.rx.text.orEmpty.asObservable(), didPasswordTextFieldDidTapEvent: checkPasswordTextField.rx.controlEvent(.editingChanged).asObservable(), didIdValidationEvent: idTextField.rx.controlEvent(.editingDidEnd).asObservable(), tapConfirmButton: checkButton.rx.tap.asObservable().throttle(.seconds(3), scheduler: MainScheduler.instance))
         let output = viewModel.transform(input: input)
@@ -79,6 +78,7 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
             .drive(with: self) { owner, result in
                 owner.checkButton.isEnabled = result
                 owner.checkButton.backgroundColor = result ? UIColor(r: 64, g: 96, b: 160) : UIColor.customColor(.defaultGray)
+                owner.checkButton.setTitleColor(result ? .white : .black, for: .normal)
             }
             .disposed(by: disposeBag)
         
