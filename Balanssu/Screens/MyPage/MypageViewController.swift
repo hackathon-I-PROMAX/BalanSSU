@@ -122,9 +122,9 @@ final class MypageViewController: BaseViewController {
                 switch sectionType {
                 case .appInfo:
                     if row == 0 {
-//                        self?.navigationController?.pushViewController(VC, animated: true)
+                        self?.navigationController?.pushViewController(AboutBalanSSUViewController(), animated: true)
                     } else if row == 1 {
-//                        self?.navigationController?.pushViewController(VC, animated: true)
+                        self?.navigationController?.pushViewController(DeveloperInfoViewController(), animated: true)
                     } else if row == 2 {
 //                        self?.navigationController?.pushViewController(VC, animated: true)
                     } else if row == 3 {
