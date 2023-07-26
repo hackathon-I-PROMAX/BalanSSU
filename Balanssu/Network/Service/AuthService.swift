@@ -63,6 +63,7 @@ final class AuthService {
                 
             case .failure(let error):
                 print(error)
+                RootHandler.shard.presentStartVC()
             }
         }
     }
