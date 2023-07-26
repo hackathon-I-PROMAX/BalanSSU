@@ -18,8 +18,8 @@ final class AuthService {
         case postRereshToken
     }
     
-    public func postSignUp(username: String, password: String, nickname: String, schoolAge: String, departure: String, gender: String, completion: @escaping (NetworkResult<Any>) -> Void) {
-        authProvider.request(.postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, departure: departure, gender: gender)) { result in
+    public func postSignUp(username: String, password: String, nickname: String, schoolAge: String, mbti: String, gender: String, completion: @escaping (NetworkResult<Any>) -> Void) {
+        authProvider.request(.postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, mbti: mbti, gender: gender)) { result in
             switch result {
             case .success(let response):
                 let statusCode = response.statusCode

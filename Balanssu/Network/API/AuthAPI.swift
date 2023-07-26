@@ -10,7 +10,7 @@ import Moya
 
 enum AuthAPI {
     case postSignIn(password: String, username: String)
-    case postSignUp(username: String, password: String, nickname: String, schoolAge: String, departure: String, gender: String)
+    case postSignUp(username: String, password: String, nickname: String, schoolAge: String, mbti: String, gender: String)
     case postRefreshToken(refreshToken: String)
     case postValidationId(username: String)
 }
@@ -52,13 +52,13 @@ extension AuthAPI: BaseTargetType {
                 "password": password,
                 "username": username
             ], encoding: JSONEncoding.default)
-        case .postSignUp(let username, let password, let nickname, let schoolAge, let departure, let gender):
+        case .postSignUp(let username, let password, let nickname, let schoolAge, let mbti, let gender):
             return .requestParameters(parameters: [
                 "username": username,
                 "password": password,
                 "nickname": nickname,
                 "schoolAge": schoolAge,
-                "departure": departure,
+                "mbti": mbti,
                 "gender": gender
             ], encoding: JSONEncoding.default)
         case .postRefreshToken(let refreshToken):

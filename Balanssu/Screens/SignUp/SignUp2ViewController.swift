@@ -273,10 +273,10 @@ class SignUp2ViewController: BaseViewController, UITextFieldDelegate, UIPickerVi
         guard let password = self.password else { return }
         guard let nickname = self.nickNameTextField.text else { return }
         guard let schoolAge = self.gradeTextField.text else { return }
-        guard let departure = self.mbtiTextField.text else { return }
+        guard let mbti = self.mbtiTextField.text else { return }
         guard let gender = self.genderTextField.text else { return }
         
-        postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, departure: departure, gender: gender) { _ in
+        postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, mbti: mbti, gender: gender) { _ in
             print("회원가입 성공")
         }
     }
@@ -458,10 +458,10 @@ extension SignUp2ViewController {
                     password: String,
                                nickname: String,
                                schoolAge: String,
-                               departure: String,
+                               mbti: String,
                                gender: String,
                                completion: @escaping (BlankDataResponse) -> Void) {
-        NetworkService.shared.auth.postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, departure: departure, gender: gender) { result in
+        NetworkService.shared.auth.postSignUp(username: username, password: password, nickname: nickname, schoolAge: schoolAge, mbti: mbti, gender: gender) { result in
             
             switch result {
             case .success(let response):

@@ -107,7 +107,7 @@ final class MypageViewController: BaseViewController {
             .withUnretained(self)
             .bind { owner, userInfo in
                 owner.nameLabel.text = userInfo.user.nickname
-                owner.userInfo.text = "\(userInfo.user.departure) / \(userInfo.user.schoolAge)학번"
+                owner.userInfo.text = "\(userInfo.user.mbti) / \(userInfo.user.schoolAge)학번"
                 owner.idLabel.text = "@\(userInfo.user.username)"
             }
             .disposed(by: disposeBag)
