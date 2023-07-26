@@ -7,6 +7,8 @@
 
 import UIKit
 
+import SnapKit
+
 class AboutBalanSSUViewController: BaseViewController {
     let logoImage: UIImageView = {
         let logoImage = UIImageView()
@@ -64,10 +66,10 @@ class AboutBalanSSUViewController: BaseViewController {
         }
         
         contentView.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(50)
+            $0.top.equalTo(logoImage.snp.bottom).offset(10)
             $0.leading.equalToSuperview().offset(26)
             $0.centerX.equalToSuperview()
-            $0.bottom.equalToSuperview()
+//            $0.bottom.equalToSuperview()
         }
         
         contentLabel.snp.makeConstraints {
