@@ -6,33 +6,26 @@
 //
 
 import UIKit
+
+import RxCocoa
+import RxSwift
 import SnapKit
 import YDS
 
-class MypageViewController: BaseViewController {
-    let data = [["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "개인정보 처리방침"], ["비밀번호 변경", "계정 관리"]]
-
-    let backButton = BackButton(type: .system)
+final class MypageViewController: BaseViewController {
     
-    let contentView = UIView()
-
-    var infoCollectionView: UICollectionView = {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(51))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(51))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-        group.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-        let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 16, trailing: 0)
-        section.boundarySupplementaryItems = [.init(layoutSize: .init(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50)), elementKind: UICollectionView.elementKindSectionHeader, alignment: .topLeading)]
-        let layout = UICollectionViewCompositionalLayout(section: section)
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.isScrollEnabled = false
-
-        return collectionView
-    }()
-
+    var viewModel: MypageViewModel
+    
+    init(viewModel: MypageViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private let contentView = UIView()
     private let profileView: UIImageView = {
         let view = UIImageView()
         view.image = UIImage(named: "ppussung")
@@ -42,45 +35,34 @@ class MypageViewController: BaseViewController {
         
         return view
     }()
-    
-    private let nameLabel: UILabel = {
+    private lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 20.0)
         label.textColor = .black
-        label.text = "nameLabel"
         label.textAlignment = .center
         return label
     }()
-    
-    private let userInfo: UILabel = {
+    private lazy var userInfo: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "userInfo / schoolAge"
         label.textAlignment = .center
         return label
     }()
-    
-    private let idLabel: UILabel = {
+    private lazy var idLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.textColor = .black
-        label.text = "@idLabel"
         label.textAlignment = .center
         return label
     }()
-    
     private let moreButton: UIButton = {
         let button = UIButton()
         button.layer.borderWidth = 1
         button.layer.borderColor = CGColor(red: 0.249, green: 0.378, blue: 0.629, alpha: 1)
-        button.backgroundColor = nil
         button.layer.cornerRadius = 8
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(moreButtonTap), for: .touchUpInside)
         return button
     }()
-
     private let moreLabel: UILabel = {
         let label = UILabel()
         label.text = "밸런스게임 질문을 만들고 싶다면?"
@@ -89,29 +71,90 @@ class MypageViewController: BaseViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     private let grayLine: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(red: 0.943, green: 0.943, blue: 0.943, alpha: 1)
         return view
     }()
-    
-    @objc
-    func moreButtonTap() {
-        print("=====질문만들기 버튼 클릭 =====")
-        guard let url = URL(string: "https://docs.google.com/forms/d/e/1FAIpQLScUWg9XFi7fnVLgcJux0kTPLB1yzBjzIUU_BdR19XzGjyccMQ/viewform"), UIApplication.shared.canOpenURL(url) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    lazy var backBarButton: UIBarButtonItem = {
-        let button = UIBarButtonItem(image: ImageLiterals.navigationBarBackButton, style: UIBarButtonItem.Style.plain, target: self, action: #selector(backBarButtonTapped))
-        button.tintColor = .black
-        return button
+    private lazy var settingTableView: UITableView = {
+        let tableView = UITableView(frame: .zero, style: .plain)
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(MypageTableViewCell.classForCoder(), forCellReuseIdentifier: MypageTableViewCell.identifier)
+        tableView.backgroundColor = .clear
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
+        tableView.rowHeight = 50
+        return tableView
     }()
     
-    @objc func backBarButtonTapped() {
-        print("tapped")
-        self.navigationController?.popViewController(animated: true)
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        bind()
+        bindAction()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "회원가입"
+    }
+    
+    private func bind() {
+        let input = MypageViewModel.Input(viewWillAppear: rx.viewWillAppear.take(1).map { _ in })
+        let output = viewModel.transform(input: input)
+        
+        output.authInfo
+            .withUnretained(self)
+            .bind { owner, userInfo in
+                owner.nameLabel.text = userInfo.user.nickname
+                owner.userInfo.text = "\(userInfo.user.departure) / \(userInfo.user.schoolAge)학번"
+                owner.idLabel.text = "@\(userInfo.user.username)"
+            }
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindAction() {
+        settingTableView.rx.itemSelected
+            .subscribe(onNext: { [weak self] (indexPath: IndexPath) in
+                let row = indexPath.row
+                let sectionType = MyPageType.allCases[indexPath.section]
+                
+                switch sectionType {
+                case .appInfo:
+                    if row == 0 {
+//                        self?.navigationController?.pushViewController(VC, animated: true)
+                    } else if row == 1 {
+//                        self?.navigationController?.pushViewController(VC, animated: true)
+                    } else if row == 2 {
+//                        self?.navigationController?.pushViewController(VC, animated: true)
+                    } else if row == 3 {
+//                        self?.navigationController?.pushViewController(VC, animated: true)
+                    } else {
+//                        self?.navigationController?.pushViewController(VC, animated: true)
+                    }
+                case .account:
+                    if row == 0 {
+                        self?.errorPresentAlert(type: .changePasswordError)
+                    } else  {
+                        let VC = AccountViewController()
+                        self?.navigationController?.pushViewController(VC, animated: true)
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        moreButton.rx.tap
+            .bind { _ in
+                guard let url = URL(string: URLConst.createQuestion), UIApplication.shared.canOpenURL(url) else { return }
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+            .disposed(by: disposeBag)
+        
+        realBackButton.rx.tap
+            .bind { [weak self] in
+                self?.navigationController?.popViewController(animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     override func setViewHierarchy() {
@@ -121,24 +164,18 @@ class MypageViewController: BaseViewController {
         contentView.addSubview(nameLabel)
         
         self.view.addSubview(contentView)
-        self.view.addSubview(infoCollectionView)
         self.view.addSubview(moreButton)
         moreButton.addSubview(moreLabel)
         
         self.view.addSubview(grayLine)
+        self.view.addSubview(settingTableView)
     }
-
     override func setConstraints() {
         
         contentView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().offset(3)
-            $0.top.equalToSuperview().offset(110)
+            $0.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             $0.height.equalTo(120)
-        }
-        
-        infoCollectionView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
-            $0.top.equalTo(grayLine.snp.bottom)
         }
         
         profileView.snp.makeConstraints {
@@ -178,107 +215,40 @@ class MypageViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(4)
         }
-    }
-
-    func setLayouts() {
-        setViewHierarchy()
-        setConstraints()
-        setCollectionView()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .white
-        self.navigationItem.leftBarButtonItem = backBarButton
         
-        getMyPage()
-        setLayouts()
-    }
-    
-    override func setupNavigationBar() {
-        super.setupNavigationBar()
-        navigationItem.title = "마이페이지"
-    }
-}
-
-//data 가져오기
-extension MypageViewController {
-    func getMyPage() {
-        NetworkService.shared.myPage.getMyPage() { [weak self] result in
-            switch result {
-            case .success(let response):
-                guard let data = response as? MyPageResponse else { return }
-                print("==== \(String(describing: data))")
-                self?.nameLabel.text = data.user.nickname
-                self?.userInfo.text = "\(data.user.departure) / \(data.user.schoolAge)학번"
-                self?.idLabel.text = "@\(data.user.username)"
-            case .requestErr(let errorResponse):
-                dump(errorResponse)
-                guard let data = errorResponse as? ErrorResponse else { return }
-                print(data.message)
-            case .pathErr:
-                print("pathErr")
-            case .serverErr:
-                print("serverErr")
-            case .networkFail:
-                print("networkFail")
-            }
+        settingTableView.snp.makeConstraints {
+            $0.top.equalTo(grayLine.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
+            
     }
 }
 
-extension MypageViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return data.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return data[section].count
+extension MypageViewController: UITableViewDataSource, UITableViewDelegate {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return MyPageType.allCases.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AppInfoCollectionViewCell.identifier,
-                                                            for: indexPath) as? AppInfoCollectionViewCell else { return UICollectionViewCell() }
-        cell.label.text = data[indexPath.section][indexPath.row]
-
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return String(describing: MyPageType.allCases[section])
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        guard let header = view as? UITableViewHeaderFooterView else { return }
+        header.textLabel?.font = UIFont(name: "AppleSDGothicNeoB00", size: 16)
+        header.textLabel?.textColor = .black
+        header.textLabel?.sizeToFit()
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return MyPageType.allCases[section].numberOfRowInSections
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = settingTableView.dequeueReusableCell(withIdentifier: MypageTableViewCell.identifier, for: indexPath) as? MypageTableViewCell else { return UITableViewCell() }
+        cell.setData(text: MyPageType.allCases[indexPath.section].contents[indexPath.row])
         return cell
     }
     
-    func setCollectionView() {
-        infoCollectionView.register(AppInfoCollectionViewCell.self, forCellWithReuseIdentifier: AppInfoCollectionViewCell.identifier)
-        infoCollectionView.register(AppInfoCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: AppInfoCollectionViewHeaderCell.identifier)
-        infoCollectionView.delegate = self
-        infoCollectionView.dataSource = self
-    }
-
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-            if kind == UICollectionView.elementKindSectionHeader {
-                let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: AppInfoCollectionViewHeaderCell.identifier, for: indexPath) as! AppInfoCollectionViewHeaderCell
-                header.configure()
-
-                if indexPath.section == 0 {
-                    header.label.text = "앱 정보"
-                } else {
-                    header.label.text = "계정"
-                }
-                return header
-            }
-
-            return UICollectionReusableView()
-        }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-           return CGSize(width: collectionView.bounds.width, height: 50)
-       }
-}
-
-extension MypageViewController {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if indexPath.section == 0 && indexPath.row == 0 {
-            self.navigationController?.pushViewController(AboutBalanSSUViewController(), animated: true)
-        } else if indexPath.section == 0 && indexPath.row == 1 {
-            self.navigationController?.pushViewController(DeveloperInfoViewController(), animated: true)
-        }
-    }
 }
