@@ -257,12 +257,20 @@ extension VoteViewController : UITableViewDataSource {
         commentCount.text = "\(num)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
+        if (commentList[(num-1)-(indexPath.row)].isUserDeleted == true) {
+            cell.name.text = nil
+            //cell.name.textColor = .red
+            cell.badge.text = "탈퇴한 사용자"
+            cell.badge.backgroundColor = UIColor(red: 0.59, green: 0.59, blue: 0.59, alpha: 0.2)
+            cell.badge.textColor = .darkGray
+            
+        } else {
+            cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
+            cell.badge.text = commentList[(num-1)-(indexPath.row)].mbti
+        }
         cell.img.image = UIImage(named: "ppussung")
-        cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
-        cell.badge.text = commentList[(num-1)-(indexPath.row)].mbti
         cell.comment.text = commentList[(num-1)-(indexPath.row)].content
         cell.selectionStyle = .none
-        
         cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
         
         return cell
