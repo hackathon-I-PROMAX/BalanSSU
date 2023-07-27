@@ -22,6 +22,7 @@
 - SPM
 - Moya
 - SnapKit / Then
+- RxSwift
 
 ## 프로젝트 구조
 
