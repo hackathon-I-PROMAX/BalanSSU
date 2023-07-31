@@ -18,7 +18,7 @@ final class TopicCollectionView: UITableViewCell {
     
     static let identifier = "TopicCollectionView"
 
-    private let topicImageArray: [UIImage] = [ImageLiterals.topicCell, ImageLiterals.topicCell, ImageLiterals.topicCell]
+    private let topicImageArray: [UIImage] = [ImageLiterals.topicCell1, ImageLiterals.topicCell2, ImageLiterals.topicCell3]
     
     weak var cellDelegate: TopCollectionViewCellDelegate?
     

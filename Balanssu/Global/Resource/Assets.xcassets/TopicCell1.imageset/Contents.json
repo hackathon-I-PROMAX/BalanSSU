@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "hotCell1.png",
+      "filename" : "TopicCell1.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "hotCell1 1.png",
+      "filename" : "TopicCell1 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "hotCell1 2.png",
+      "filename" : "TopicCell1 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

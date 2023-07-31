@@ -16,7 +16,7 @@ class TopicCollectionViewCell: UICollectionViewCell {
     static let identifier = "TopicCollectionViewCell"
     
     var bannerImageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
     }
     
     override init(frame: CGRect) {

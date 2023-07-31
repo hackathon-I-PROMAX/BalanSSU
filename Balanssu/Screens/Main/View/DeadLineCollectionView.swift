@@ -35,7 +35,7 @@ class DeadLineCollectionView: UITableViewCell {
     
     weak var cellDelegate: DeadLineCollectionViewCellDelegate?
     
-    let deadLineImageArray: [UIImage] = [ImageLiterals.deadLineCell, ImageLiterals.deadLineCell, ImageLiterals.deadLineCell]
+    let deadLineImageArray: [UIImage] = [ImageLiterals.deadLineCell, ImageLiterals.deadLineCell2, ImageLiterals.deadLineCell3]
     
     let deadLinetitleArray: [String] = ["채플 한가지?", "더 멋진 건물은?", "치킨은 어디서?"]
     
