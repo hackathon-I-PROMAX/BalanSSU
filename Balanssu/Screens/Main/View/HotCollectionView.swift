@@ -89,7 +89,7 @@ extension HotCollectionView: UICollectionViewDataSource, UICollectionViewDelegat
         
         cell.imageView.image = hotImageArray[indexPath.row]
         cell.hotTitleLabel.text = data[indexPath.row].title
-        cell.badge.text = "D+" + String(data[indexPath.row].dday)
+        cell.badge.text = "D-" + String(data[indexPath.row].dday)
     
         return cell
     }
