@@ -96,7 +96,7 @@ final class MypageViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "회원가입"
+        navigationItem.title = "마이페이지"
     }
     
     private func bind() {

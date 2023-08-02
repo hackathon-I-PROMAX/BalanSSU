@@ -14,7 +14,9 @@ final class VoteViewController: BaseViewController {
     
     var categoryId: String?
     var voteChoice: [choicesData] = []
-    
+    var entireVote: Int = 0
+    var voteA: Double = 0
+    var voteB: Double = 0
     var commentList: [Content] = []
     
     init(categoryId: String?) {
@@ -148,8 +150,11 @@ final class VoteViewController: BaseViewController {
                     self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .voteActive)
                     self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .nonVoteActive)
                 }
-                self?.voteView.optionA.optionLabel.text = "\(result.choices[0].count)%"
-                self?.voteView.optionB.optionLabel.text = "\(result.choices[1].count)%"
+                self?.entireVote = result.choices[0].count + result.choices[1].count
+                self?.voteA = (Double(result.choices[0].count) / Double(self!.entireVote)) * 100
+                self?.voteB = (Double(result.choices[1].count) / Double(self!.entireVote)) * 100
+                self?.voteView.optionA.optionLabel.text = "\(Int((self!.voteA)))%"
+                self?.voteView.optionB.optionLabel.text = "\(Int((self!.voteB)))%"
             }
         }
     }
@@ -381,8 +386,11 @@ extension VoteViewController {
                 self?.voteView.optionA.optionButton.optionTitleLabel.text = data.choices[0].name
                 self?.voteView.optionB.optionButton.optionTitleLabel.text = data.choices[1].name
                 
-                self?.voteView.optionA.optionLabel.text = "\(data.choices[0].count)%"
-                self?.voteView.optionB.optionLabel.text = "\(data.choices[1].count)%"
+                self?.entireVote = data.choices[0].count + data.choices[1].count
+                self?.voteA = (Double(data.choices[0].count) / Double(self!.entireVote)) * 100
+                self?.voteB = (Double(data.choices[1].count) / Double(self!.entireVote)) * 100
+                self?.voteView.optionA.optionLabel.text = "\(Int((self!.voteA)))%"
+                self?.voteView.optionB.optionLabel.text = "\(Int((self!.voteB)))%"
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
