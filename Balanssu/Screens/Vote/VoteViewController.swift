@@ -9,6 +9,7 @@ import UIKit
 
 import SnapKit
 import Then
+import YDS
 
 final class VoteViewController: BaseViewController {
     
@@ -58,14 +59,21 @@ final class VoteViewController: BaseViewController {
     }()
     private lazy var container: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1)
-        view.layer.cornerRadius = 8
+        view.backgroundColor = .white
         return view
     }()
-    private let commentField : UITextField = {
-        let field = UITextField()
-        field.placeholder = " 댓글을 입력하세요."
-        return field
+    let maxHeight: CGFloat = 120
+    private lazy var commentTextView: YDSTextView = {
+        let textView = YDSTextView(maxHeight: maxHeight)
+        textView.backgroundColor = YDSColor.inputFieldElevated
+        textView.isEditable = true
+        textView.isScrollEnabled = false
+        textView.textContainerInset = .init(top: 12, left: 16, bottom: 12, right: 34)
+        textView.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        textView.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
+        textView.layer.cornerRadius = 8
+        textView.placeholder = "댓글을 입력해주세요."
+        return textView
     }()
     private let commentButton : UIButton = {
         let button = UIButton()
@@ -85,6 +93,7 @@ final class VoteViewController: BaseViewController {
     @objc func backBarButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @objc func reportButtonTapped(sender: UIButton) {
         print("신고하기")
         let alert = UIAlertController(title: "댓글 신고", message: "댓글 신고 이유를 작성해주세요.", preferredStyle: .alert)
@@ -105,9 +114,22 @@ final class VoteViewController: BaseViewController {
     @objc func commentEroll() {
         print("댓글 등록")
         var commentText: String = ""
-        commentText = commentField.text ?? "error"
-        commentField.resignFirstResponder() //텍스트필드 비활성화
-        commentField.text = ""
+        commentText = commentTextView.text ?? "error"
+        commentTextView.resignFirstResponder() //텍스트필드 비활성화
+        commentTextView.text = ""
+        let size = CGSize(width: view.frame.width, height: 48)
+        let estimatedSize = commentTextView.sizeThatFits(size)
+        // textViewDidChange(commentTextView)
+        //commentTextView.constraints.constant = estimatedSize.height
+        commentTextView.constraints.forEach { (constraint) in
+            /// 48 이하일때는 더 이상 줄어들지 않게하기
+            if estimatedSize.height <= 48 { }
+            else {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        }
         postComment(categoryId ?? "categoryId error", commentText) { _ in
             print("댓글 작성 성공")
         }
@@ -167,7 +189,12 @@ final class VoteViewController: BaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
+        commentTextView.delegate = self
+        
         setAddTaget()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -206,13 +233,20 @@ final class VoteViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
-        commentField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(10)
-            $0.top.bottom.equalToSuperview().inset(3)
+        commentTextView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(3)
+            $0.height.lessThanOrEqualTo(maxHeight)
+            $0.height.greaterThanOrEqualTo(48)
+        }
+        commentButton.snp.makeConstraints {
+            $0.trailing.equalTo(container.snp.trailing).offset(-10)
+            $0.top.equalTo(commentTextView.snp.top).offset(8)
+            $0.size.equalTo(30)
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(container.snp.bottom).offset(3)
+            $0.top.equalTo(commentTextView.snp.bottom).offset(3)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -224,9 +258,8 @@ final class VoteViewController: BaseViewController {
         self.view.addSubview(commentLabel)
         self.view.addSubview(commentCount)
         self.view.addSubview(container)
-        container.addSubview(commentField)
-        self.commentField.rightView = commentButton
-        self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
+        container.addSubview(commentTextView)
+        commentTextView.addSubview(commentButton)
         self.view.addSubview(tableView)
     }
     
@@ -235,9 +268,31 @@ final class VoteViewController: BaseViewController {
         tableView.delegate = self
         tableView.separatorInset.left = 20
         tableView.separatorInset.right = 20
-        commentField.delegate = self
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+}
+
+extension VoteViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        textView.constraints.forEach { (constraint) in
+            /// 48 이하일때는 더 이상 줄어들지 않게하기
+            if estimatedSize.height <= 48 { }
+            else {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        //이전 글자 - 선택된 글자 + 새로운 글자(대체될 글자)
+        let newLength = textView.text.count - range.length + text.count
+            if newLength > 100 {
+              return false
+            }
+        return true
     }
 }
 
@@ -333,10 +388,6 @@ extension UITableView {
     }
 }
 
-extension VoteViewController : UITextFieldDelegate {
-    
-}
-
 extension VoteViewController {
     private func getVoteView(_ categoryId: String) {
         NetworkService.shared.voteView.getVoteView(categoryId: categoryId) { [weak self] result in
@@ -347,8 +398,8 @@ extension VoteViewController {
                 
                 if data.category.dday < 0 {
                     self?.voteView.makeVoteViewTypeView(status: .closed)
-                    self?.commentField.isEnabled = false
-                    self?.commentField.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
+                    //self?.commentField.isEnabled = false
+                    //self?.commentField.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
                     if data.choices[0].count > data.choices[1].count {
                         self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
                         self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
@@ -447,6 +498,7 @@ extension VoteViewController {
     // 댓글 작성 (post)
     func postComment(_ categoryId: String,_ content: String,
                      completion: @escaping (BlankDataResponse) -> Void) {
+        print("Bearer \(UserDefaultHandler.accessToken)")
         NetworkService.shared.comment.postComment(categoryId: categoryId, content: content) { result in
             switch result {
             case .success(let response):
@@ -456,6 +508,7 @@ extension VoteViewController {
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
+                print("여기다!!")
                 print(data)
             case .serverErr:
                 print("serverErr")
@@ -468,7 +521,7 @@ extension VoteViewController {
     }
     // 댓글 삭제 (delete)
     func deleteComment(_ categoryId: String,_ commentId: String,
-                     completion: @escaping (BlankDataResponse) -> Void) {
+                       completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.comment.deleteComment(categoryId: categoryId, commentId: commentId) { result in
             
             switch result {
@@ -489,4 +542,3 @@ extension VoteViewController {
         }
     }
 }
-
