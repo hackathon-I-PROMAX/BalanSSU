@@ -17,6 +17,7 @@
 		022DDE5F299F2F6800702B87 /* ReactiveMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE5E299F2F6800702B87 /* ReactiveMoya */; };
 		022DDE61299F2F6800702B87 /* RxMoya in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE60299F2F6800702B87 /* RxMoya */; };
 		022DDE64299F4B8700702B87 /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 022DDE63299F4B8700702B87 /* Then */; };
+		0240E4BC2A89F52800C80B39 /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 0240E4BB2A89F52800C80B39 /* JGProgressHUD */; };
 		027DF18C2A46D0E000178DD9 /* CommentResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027DF18B2A46D0E000178DD9 /* CommentResponse.swift */; };
 		027DF18E2A46D30200178DD9 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027DF18D2A46D30200178DD9 /* CommentService.swift */; };
 		027DF1902A46DFD900178DD9 /* CommentAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 027DF18F2A46DFD900178DD9 /* CommentAPI.swift */; };
@@ -87,11 +88,6 @@
 		5AB3D13C2A44256000A2FBA8 /* AuthDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */; };
 		5AB3D13E2A46C96C00A2FBA8 /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */; };
 		5AB3D1402A46CE6700A2FBA8 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */; };
-		95B14EDD2A593E99007B5128 /* AboutBalanSSUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */; };
-		95B14EDF2A593EAC007B5128 /* AppInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */; };
-		95B14EE12A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */; };
-		95B14EE32A593EF3007B5128 /* DeveloperInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */; };
-		95B14EE52A593F08007B5128 /* DeveloperInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */; };
 		5ACADCD12A55D7D200B92C07 /* MypageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCD02A55D7D200B92C07 /* MypageViewModel.swift */; };
 		5ACADCD62A56FA3C00B92C07 /* MypageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCD52A56FA3C00B92C07 /* MypageTableViewCell.swift */; };
 		5ACADCD92A570DEC00B92C07 /* MyPageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADCD82A570DEC00B92C07 /* MyPageType.swift */; };
@@ -107,6 +103,11 @@
 		5ACADD382A6295CD00B92C07 /* ErrorAlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */; };
 		5ACADD3D2A63FD0A00B92C07 /* RootHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */; };
 		951053B72A70F9DC003ACB8E /* MyPageDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951053B62A70F9DC003ACB8E /* MyPageDataSource.swift */; };
+		95B14EDD2A593E99007B5128 /* AboutBalanSSUViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */; };
+		95B14EDF2A593EAC007B5128 /* AppInfoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */; };
+		95B14EE12A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */; };
+		95B14EE32A593EF3007B5128 /* DeveloperInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */; };
+		95B14EE52A593F08007B5128 /* DeveloperInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -183,11 +184,6 @@
 		5AB3D13B2A44256000A2FBA8 /* AuthDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthDataSource.swift; sourceTree = "<group>"; };
 		5AB3D13D2A46C96C00A2FBA8 /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		5AB3D13F2A46CE6700A2FBA8 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
-		95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBalanSSUViewController.swift; sourceTree = "<group>"; };
-		95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCollectionViewCell.swift; sourceTree = "<group>"; };
-		95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
-		95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoTableViewCell.swift; sourceTree = "<group>"; };
-		95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoViewController.swift; sourceTree = "<group>"; };
 		5ACADCD02A55D7D200B92C07 /* MypageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageViewModel.swift; sourceTree = "<group>"; };
 		5ACADCD52A56FA3C00B92C07 /* MypageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableViewCell.swift; sourceTree = "<group>"; };
 		5ACADCD82A570DEC00B92C07 /* MyPageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageType.swift; sourceTree = "<group>"; };
@@ -203,6 +199,11 @@
 		5ACADD372A6295CD00B92C07 /* ErrorAlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorAlertType.swift; sourceTree = "<group>"; };
 		5ACADD3C2A63FD0A00B92C07 /* RootHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootHandler.swift; sourceTree = "<group>"; };
 		951053B62A70F9DC003ACB8E /* MyPageDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageDataSource.swift; sourceTree = "<group>"; };
+		95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutBalanSSUViewController.swift; sourceTree = "<group>"; };
+		95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCollectionViewCell.swift; sourceTree = "<group>"; };
+		95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
+		95B14EE22A593EF3007B5128 /* DeveloperInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoTableViewCell.swift; sourceTree = "<group>"; };
+		95B14EE42A593F08007B5128 /* DeveloperInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeveloperInfoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -214,6 +215,7 @@
 				022DDE64299F4B8700702B87 /* Then in Frameworks */,
 				022DDE61299F2F6800702B87 /* RxMoya in Frameworks */,
 				022DDE56299F2F3000702B87 /* SnapKit in Frameworks */,
+				0240E4BC2A89F52800C80B39 /* JGProgressHUD in Frameworks */,
 				5AB3D1202A34563200A2FBA8 /* RxCocoa in Frameworks */,
 				0283DC3C29A0A79B00DBC2B5 /* YDS in Frameworks */,
 				022DDE5D299F2F6800702B87 /* Moya in Frameworks */,
@@ -410,7 +412,6 @@
 			isa = PBXGroup;
 			children = (
 				5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */,
-				024E388D29A3471D00E08150 /* MypageCardCell.swift */,
 				95B14EE02A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift */,
 				95B14EDE2A593EAC007B5128 /* AppInfoCollectionViewCell.swift */,
 				95B14EDC2A593E99007B5128 /* AboutBalanSSUViewController.swift */,
@@ -557,7 +558,6 @@
 				5ACADD3B2A63E5F900B92C07 /* Cell */,
 				5ACADCE22A581FF100B92C07 /* AccountViewController.swift */,
 				5ACADD312A5F25BE00B92C07 /* WithDrawViewController.swift */,
-				5A99A28029A1D17E006FE9B2 /* MypageViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -616,6 +616,7 @@
 				5AB3D11F2A34563200A2FBA8 /* RxCocoa */,
 				5AB3D1212A34563200A2FBA8 /* RxRelay */,
 				5AB3D1232A34563200A2FBA8 /* RxSwift */,
+				0240E4BB2A89F52800C80B39 /* JGProgressHUD */,
 			);
 			productName = Balanssu;
 			productReference = 022DDE3D299F2F0D00702B87 /* Balanssu.app */;
@@ -651,6 +652,7 @@
 				022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */,
 				0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */,
 				5AB3D11E2A34563200A2FBA8 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				0240E4BA2A89F52800C80B39 /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 			);
 			productRefGroup = 022DDE3E299F2F0D00702B87 /* Products */;
 			projectDirPath = "";
@@ -1004,6 +1006,14 @@
 				minimumVersion = 3.0.0;
 			};
 		};
+		0240E4BA2A89F52800C80B39 /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		0283DC3A29A0A79B00DBC2B5 /* XCRemoteSwiftPackageReference "YDS-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/yourssu/YDS-iOS";
@@ -1047,6 +1057,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 022DDE62299F4B8700702B87 /* XCRemoteSwiftPackageReference "Then" */;
 			productName = Then;
+		};
+		0240E4BB2A89F52800C80B39 /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0240E4BA2A89F52800C80B39 /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
 		};
 		0283DC3B29A0A79B00DBC2B5 /* YDS */ = {
 			isa = XCSwiftPackageProductDependency;

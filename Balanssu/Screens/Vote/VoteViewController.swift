@@ -10,13 +10,16 @@ import UIKit
 import SnapKit
 import Then
 import YDS
+import JGProgressHUD
 
 final class VoteViewController: BaseViewController {
     
     var categoryId: String?
     var voteChoice: [choicesData] = []
-    
     var commentList: [Content] = []
+    var Num = 0
+    var page = 0
+    var size = 20
     
     init(categoryId: String?) {
         super.init(nibName: nil, bundle: nil)
@@ -112,7 +115,7 @@ final class VoteViewController: BaseViewController {
         present(alert, animated: true)
     }
     @objc func commentEroll() {
-        print("댓글 등록")
+        print("댓글 등록\(commentTextView.text)")
         var commentText: String = ""
         commentText = commentTextView.text ?? "error"
         commentTextView.resignFirstResponder() //텍스트필드 비활성화
@@ -121,17 +124,25 @@ final class VoteViewController: BaseViewController {
         let estimatedSize = commentTextView.sizeThatFits(size)
         // textViewDidChange(commentTextView)
         //commentTextView.constraints.constant = estimatedSize.height
-        commentTextView.constraints.forEach { (constraint) in
-            /// 48 이하일때는 더 이상 줄어들지 않게하기
-            if estimatedSize.height <= 48 { }
-            else {
-                if constraint.firstAttribute == .height {
-                    constraint.constant = estimatedSize.height
-                }
-            }
-        }
         postComment(categoryId ?? "categoryId error", commentText) { _ in
             print("댓글 작성 성공")
+        }
+    }
+    
+    lazy var hud: JGProgressHUD = {
+        let loader = JGProgressHUD(style: .dark)
+        return loader
+    }()
+    
+    func showLoading() {
+            DispatchQueue.main.async {
+                self.hud.show(in: self.view, animated: true)
+            }
+        }
+
+    func hideLoading() {
+        DispatchQueue.main.async {
+            self.hud.dismiss(animated: true)
         }
     }
     
@@ -200,7 +211,7 @@ final class VoteViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getVoteView(categoryId ?? "")
-        getComment(categoryId ?? "")
+        getComment(categoryId ?? "",page ?? 0,size ?? 0)
     }
     
     override func setupNavigationBar() {
@@ -308,11 +319,11 @@ extension VoteViewController : UITableViewDataSource {
     }
     // cell 지정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let num: Int = commentList.count
-        commentCount.text = "\(num)개"
+        commentCount.text = "\(Num)개"
+        print("indexPath: \(indexPath.row)")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
-        if (commentList[(num-1)-(indexPath.row)].isUserDeleted == true) {
+        if (commentList[indexPath.row].isUserDeleted == true) {
             cell.name.text = nil
             //cell.name.textColor = .red
             cell.badge.text = "탈퇴한 사용자"
@@ -320,11 +331,11 @@ extension VoteViewController : UITableViewDataSource {
             cell.badge.textColor = .darkGray
             
         } else {
-            cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
-            cell.badge.text = commentList[(num-1)-(indexPath.row)].mbti
+            cell.name.text = commentList[indexPath.row].nickname
+            cell.badge.text = commentList[indexPath.row].mbti
         }
         cell.img.image = UIImage(named: "ppussung")
-        cell.comment.text = commentList[(num-1)-(indexPath.row)].content
+        cell.comment.text = commentList[indexPath.row].content
         cell.selectionStyle = .none
         cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
         
@@ -333,10 +344,9 @@ extension VoteViewController : UITableViewDataSource {
     // swipe delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let num: Int = commentList.count
-            let comment = commentList[(num-1)-(indexPath.row)]
+            let comment = commentList[indexPath.row]
             if comment.isOwner {
-                commentList.remove(at: (num-1)-(indexPath.row))
+                commentList.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 let commentId: String = comment.commentID
                 deleteComment(categoryId ?? "categoryId error", commentId)  { _ in
@@ -470,9 +480,7 @@ extension VoteViewController {
     }
     
     //댓글 정보 (get)
-    private func getComment(_ categoryId: String) {
-        let page = 0
-        let size = 20
+    private func getComment(_ categoryId: String, _ page: Int, _ size: Int) {
         NetworkService.shared.comment.getComment(categoryId: categoryId, page: page, size: size) { [weak self] result in
             switch result {
             case .success(let response):
@@ -480,8 +488,9 @@ extension VoteViewController {
                 guard let data = response as? CommentResponse else { return }
                 self?.commentList = data.comments.content
                 self?.tableView.reloadData()
+                self?.Num = data.comments.totalElements
                 
-                print("댓글 가져오기")
+                print("댓글 가져오기 page: \(page), size: \(size)")
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
@@ -495,20 +504,39 @@ extension VoteViewController {
             }
         }
     }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
+
+        // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
+        if maximumOffset < currentOffset {
+            // viewModel.loadNextPage()
+            showLoading() // 데이터 로딩 중 표시
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//                if (self!.page == 0) {
+//                    self!.page += 1
+//                }
+//                self!.page += 1
+                self!.size += 10
+                self!.getComment(self?.categoryId ?? "",self?.page ?? 0,self!.size ?? 20)
+                self?.hideLoading()
+            }
+        }
+    }
     // 댓글 작성 (post)
     func postComment(_ categoryId: String,_ content: String,
                      completion: @escaping (BlankDataResponse) -> Void) {
-        print("Bearer \(UserDefaultHandler.accessToken)")
         NetworkService.shared.comment.postComment(categoryId: categoryId, content: content) { result in
+            print("댓글 작성 \(result)")
             switch result {
             case .success(let response):
-                self.getComment(categoryId)
+                self.getComment(categoryId,self.page,self.size)
                 guard let data = response as? BlankDataResponse else { return }
                 completion(data)
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
-                print("여기다!!")
                 print(data)
             case .serverErr:
                 print("serverErr")
