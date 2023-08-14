@@ -320,7 +320,6 @@ extension VoteViewController : UITableViewDataSource {
     // cell 지정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         commentCount.text = "\(Num)개"
-        print("indexPath: \(indexPath.row)")
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
         if (commentList[indexPath.row].isUserDeleted == true) {
@@ -352,6 +351,8 @@ extension VoteViewController : UITableViewDataSource {
                 deleteComment(categoryId ?? "categoryId error", commentId)  { _ in
                     print("댓글 삭제 성공")
                 }
+                Num -= 1
+                commentCount.text = "\(Num)개"
             } else {
                 // 1. 알람 인스턴스 생성
                 let alert = UIAlertController(title: "댓글 삭제 불가", message: "자신이 작성한 댓글이 아니면 \n 삭제할 수 없습니다.", preferredStyle: .alert)
@@ -551,11 +552,12 @@ extension VoteViewController {
     func deleteComment(_ categoryId: String,_ commentId: String,
                        completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.comment.deleteComment(categoryId: categoryId, commentId: commentId) { result in
-            
             switch result {
             case .success(let response):
                 guard let data = response as? BlankDataResponse else { return }
                 completion(data)
+                self.getComment(categoryId,self.page,self.size)
+                print("Num: \(self.Num)")
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
