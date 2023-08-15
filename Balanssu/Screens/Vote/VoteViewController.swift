@@ -118,14 +118,16 @@ final class VoteViewController: BaseViewController {
         print("댓글 등록\(commentTextView.text)")
         var commentText: String = ""
         commentText = commentTextView.text ?? "error"
-        commentTextView.resignFirstResponder() //텍스트필드 비활성화
-        commentTextView.text = ""
-        let size = CGSize(width: view.frame.width, height: 48)
-        let estimatedSize = commentTextView.sizeThatFits(size)
-        // textViewDidChange(commentTextView)
-        //commentTextView.constraints.constant = estimatedSize.height
         postComment(categoryId ?? "categoryId error", commentText) { _ in
             print("댓글 작성 성공")
+        }
+        
+        commentTextView.resignFirstResponder() //텍스트필드 비활성화
+        commentTextView.text = ""
+        commentTextView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(3)
+            $0.height.equalTo(48)
         }
     }
     
@@ -247,8 +249,7 @@ final class VoteViewController: BaseViewController {
         commentTextView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview()
             $0.top.equalToSuperview().inset(3)
-            $0.height.lessThanOrEqualTo(maxHeight)
-            $0.height.greaterThanOrEqualTo(48)
+            $0.height.equalTo(48)
         }
         commentButton.snp.makeConstraints {
             $0.trailing.equalTo(container.snp.trailing).offset(-10)
@@ -287,8 +288,8 @@ extension VoteViewController: UITextViewDelegate {
         let size = CGSize(width: view.frame.width, height: .infinity)
         let estimatedSize = textView.sizeThatFits(size)
         textView.constraints.forEach { (constraint) in
-            /// 48 이하일때는 더 이상 줄어들지 않게하기
-            if estimatedSize.height <= 48 { }
+            /// 42 이하일때는 더 이상 줄어들지 않게하기
+            if estimatedSize.height <= 42 { }
             else {
                 if constraint.firstAttribute == .height {
                     constraint.constant = estimatedSize.height
@@ -332,6 +333,8 @@ extension VoteViewController : UITableViewDataSource {
         } else {
             cell.name.text = commentList[indexPath.row].nickname
             cell.badge.text = commentList[indexPath.row].mbti
+            cell.badge.backgroundColor = UIColor(red: 0.992, green: 0.969, blue: 0.898, alpha: 1)
+            cell.badge.textColor = UIColor(red: 0.746, green: 0.605, blue: 0.183, alpha: 1)
         }
         cell.img.image = UIImage(named: "ppussung")
         cell.comment.text = commentList[indexPath.row].content
@@ -512,7 +515,6 @@ extension VoteViewController {
 
         // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
         if maximumOffset < currentOffset {
-            // viewModel.loadNextPage()
             showLoading() // 데이터 로딩 중 표시
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
 //                if (self!.page == 0) {
