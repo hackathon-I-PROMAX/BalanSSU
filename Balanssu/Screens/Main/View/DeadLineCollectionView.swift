@@ -35,9 +35,9 @@ class DeadLineCollectionView: UITableViewCell {
     
     weak var cellDelegate: DeadLineCollectionViewCellDelegate?
     
-    let deadLineImageArray: [UIImage] = [ImageLiterals.deadLineCell, ImageLiterals.deadLineCell, ImageLiterals.deadLineCell]
+    let deadLineImageArray: [UIImage] = [ImageLiterals.deadLineCell, ImageLiterals.deadLineCell2, ImageLiterals.deadLineCell3]
     
-    let deadLinetitleArray: [String] = ["채플 한가지?", "더 멋진 건물은?", "치킨은 어디서?"]
+    let deadLinetitleArray: [String] = ["더 멋진 건물은?", "치킨은 어디서?", "무슨 채플 들을래?"]
     
     var collectionView : UICollectionView = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -90,8 +90,12 @@ extension DeadLineCollectionView: UICollectionViewDataSource, UICollectionViewDe
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DeadLineCollectionViewCell.identifier, for: indexPath) as! DeadLineCollectionViewCell
 
         cell.imageView.image = deadLineImageArray[indexPath.row]
-        cell.deadLineTitleLabel.text = data[indexPath.item].title
+        cell.deadLineTitleLabel.text = deadLinetitleArray[indexPath.row]
+        if indexPath.row == 2 {
+            cell.imageView.image = deadLineImageArray[2]
 
+//            cell.deadLineTitleLabel.text = deadLinetitleArray[2]
+        }
         return cell
     }
 

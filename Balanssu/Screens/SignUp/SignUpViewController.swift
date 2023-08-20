@@ -15,6 +15,8 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
     
     var viewModel: SetAuthViewModel
     
+    private var originalViewY: CGFloat = 0.0
+    
     init(viewModel: SetAuthViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -32,6 +34,8 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
         bind()
         bindAction()
         setupNotificationCenter()
+        
+        originalViewY = self.view.frame.origin.y
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,15 +50,24 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
         output.isIdValid
             .asDriver(onErrorJustReturn: false)
             .drive(with: self) { owner, result in
-                owner.idImageView.image = result ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle")
+                owner.checkIdLabel.isHidden = result
             }
             .disposed(by: disposeBag)
         
         output.didIdDuplicateCheck
             .asDriver(onErrorJustReturn: false)
             .drive(with: self) { owner, result in
-            owner.checkIdLabel.isHidden = result
-        }
+                if !result {
+                    owner.errorPresentAlert(type: .idDuplicateError)
+                }
+            }
+            .disposed(by: disposeBag)
+        
+        output.didIdAllValidCheck
+            .asDriver(onErrorJustReturn: false)
+            .drive(with: self) { owner, result in
+                owner.idImageView.image = result ? UIImage(systemName: "checkmark.circle.fill") : UIImage(systemName: "checkmark.circle")
+            }
             .disposed(by: disposeBag)
         
         output.isPasswordValid
@@ -91,25 +104,25 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
     }
     
     func bindAction() {
-        // textFieldShouldReturn (리턴키 선택 시 키보드를 닫기)
+//         textFieldShouldReturn (리턴키 선택 시 키보드를 닫기)
         idTextField.rx.controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] _ in
                 self?.idTextField.resignFirstResponder()
             })
             .disposed(by: disposeBag)
-        
+
         passwordTextField.rx.controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] _ in
                 self?.passwordTextField.resignFirstResponder()
             })
             .disposed(by: disposeBag)
-        
+
         checkPasswordTextField.rx.controlEvent(.editingDidEndOnExit)
             .subscribe(onNext: { [weak self] _ in
                 self?.checkPasswordTextField.resignFirstResponder()
             })
             .disposed(by: disposeBag)
-        
+
         realBackButton.rx.tap
             .bind { self.navigationController?.popViewController(animated: true) }
             .disposed(by: disposeBag)
@@ -143,7 +156,7 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
         $0.layer.cornerRadius = 8
         $0.textColor = .black
         $0.addLeftPadding()
-        $0.keyboardType = .asciiCapable
+//        $0.keyboardType = .asciiCapable
         
         if let placeholder = $0.placeholder {
             let attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [
@@ -186,12 +199,12 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
     }
     
     private lazy var checkIdLabel = UILabel().then {
-        $0.text = "3자 이하 혹은 이미 사용중인 아이디입니다"
+        $0.text = "영/숫자 미포함 혹은 8자리 이하 입니다."
         $0.textColor = .red
         $0.isHidden = true
         $0.font = UIFont(name: "AppleSDGothicNeoM00", size: 12)
     }
-    
+        
     private lazy var checkPasswordcheckLabel = UILabel().then {
         $0.text = "비밀번호가 일치하지 않습니다"
         $0.textColor = UIColor(r: 64, g: 96, b: 160)
@@ -297,7 +310,7 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
             $0.leading.equalToSuperview().inset(20)
             $0.height.equalTo(16)
         }
-
+        
         passwordLabel.snp.makeConstraints {
             $0.top.equalTo(idStackView.snp.bottom).offset(30)
             $0.leading.equalToSuperview().inset(20)
@@ -356,12 +369,10 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
     
     @objc private func keyboardWillShow(notification: NSNotification) {
         let textFieldHeight = checkPasswordTextField.frame.height
-
-        guard checkPasswordTextField.isFirstResponder else { return }
         UIView.animate(
             withDuration: 0.3
             , animations: {
-                self.view.frame.origin.y -= (textFieldHeight)
+                self.view.frame.origin.y = self.originalViewY - textFieldHeight
                 self.view.layoutIfNeeded()
             }
         )
@@ -370,13 +381,12 @@ final class SignUpViewController: BaseViewController, UITextFieldDelegate {
     @objc private func keyboardWillHide(notification:NSNotification) {
         let textFieldHeight = checkPasswordTextField.frame.height
         
-        guard checkPasswordTextField.isFirstResponder else { return }
-        UIView.animate(
-            withDuration: 0.3
-            , animations: {
-                self.view.frame.origin.y += (textFieldHeight)
-                self.view.layoutIfNeeded()
-            }
-        )
+            UIView.animate(
+                withDuration: 0.3
+                , animations: {
+                    self.view.frame.origin.y = self.originalViewY
+                    self.view.layoutIfNeeded()
+                }
+            )
     }
 }

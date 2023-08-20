@@ -22,10 +22,12 @@
 - SPM
 - Moya
 - SnapKit / Then
+- RxSwift
 
 ## 프로젝트 구조
 
 ![밸런슈 (2)](https://user-images.githubusercontent.com/25146374/222999842-bcd8cb38-6e34-4f01-a99f-cbbba73aac63.png)
+- MVVM / MVC 혼용 사용
 
 ## 프로젝트 주요 UI
 

@@ -12,8 +12,12 @@ enum ImageLiterals {
     static var hotCellOne: UIImage { .load(name: "hotCell1") }
     static var hotCellTwo: UIImage { .load(name: "hotCell2") }
     static var hotCellThree: UIImage { .load(name: "hotCell3") }
-    static var topicCell: UIImage { .load(name: "TopicCell") }
+    static var topicCell1: UIImage { .load(name: "TopicCell1") }
+    static var topicCell2: UIImage { .load(name: "TopicCell2") }
+    static var topicCell3: UIImage { .load(name: "TopicCell3") }
     static var deadLineCell: UIImage { .load(name: "DeadLineCell") }
+    static var deadLineCell2: UIImage { .load(name: "DeadLineCell2") }
+    static var deadLineCell3: UIImage { .load(name: "DeadLineCell3") }
 }
 
 extension UIImage {

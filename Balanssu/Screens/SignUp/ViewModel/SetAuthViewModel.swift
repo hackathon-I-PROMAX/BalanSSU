@@ -34,6 +34,7 @@ class SetAuthViewModel:ViewModelType {
         let isIdValid = PublishRelay<Bool>()
         let id = BehaviorRelay<String>(value: "")
         let didIdDuplicateCheck = PublishRelay<Bool>()
+        let didIdAllValidCheck = BehaviorRelay<Bool>(value: false)
         let isPasswordValid = PublishRelay<Bool>()
         let isPasswordCheckValid = PublishRelay<Bool>()
         let isAllInputValid = PublishRelay<Bool>()
@@ -46,6 +47,8 @@ class SetAuthViewModel:ViewModelType {
         let output = Output()
 
         let isAllInputValid = Observable.combineLatest(output.isIdValid, output.isPasswordValid, output.isPasswordCheckValid, output.didIdDuplicateCheck, resultSelector: { $0 && $1 && $2 && $3 })
+        
+        let isIdValidCheck = Observable.combineLatest(output.isIdValid, output.didIdDuplicateCheck,  resultSelector: { $0 && $1 })
         
         input.didIdTextFieldChange
             .distinctUntilChanged()
@@ -70,6 +73,12 @@ class SetAuthViewModel:ViewModelType {
                 owner.checkIdValid(userName: output.id.value)
             }
             .bind(to: output.didIdDuplicateCheck)
+            .disposed(by: disposeBag)
+        
+        isIdValidCheck
+            .subscribe(onNext: { match in
+                output.didIdAllValidCheck.accept(match)
+            })
             .disposed(by: disposeBag)
     
         input.didPasswordTextFieldChange

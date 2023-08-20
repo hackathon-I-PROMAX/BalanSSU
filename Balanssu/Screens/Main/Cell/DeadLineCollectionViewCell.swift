@@ -18,7 +18,7 @@ class DeadLineCollectionViewCell: UICollectionViewCell {
     static let identifier = "DeadLineCollectionViewCell"
     
     let imageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFill
     }
     
     let deadLineTitleLabel = UILabel().then {
