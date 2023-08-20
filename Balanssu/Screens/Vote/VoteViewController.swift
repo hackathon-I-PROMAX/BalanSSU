@@ -9,15 +9,22 @@ import UIKit
 
 import SnapKit
 import Then
+import YDS
+import JGProgressHUD
 
 final class VoteViewController: BaseViewController {
     
     var categoryId: String?
     var voteChoice: [choicesData] = []
+
     var entireVote: Int = 0
     var voteA: Double = 0
     var voteB: Double = 0
+
     var commentList: [Content] = []
+    var Num = 0
+    var page = 0
+    var size = 20
     
     init(categoryId: String?) {
         super.init(nibName: nil, bundle: nil)
@@ -60,14 +67,21 @@ final class VoteViewController: BaseViewController {
     }()
     private lazy var container: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor(red: 0.973, green: 0.973, blue: 0.973, alpha: 1)
-        view.layer.cornerRadius = 8
+        view.backgroundColor = .white
         return view
     }()
-    private let commentField : UITextField = {
-        let field = UITextField()
-        field.placeholder = " 댓글을 입력하세요."
-        return field
+    let maxHeight: CGFloat = 120
+    private lazy var commentTextView: YDSTextView = {
+        let textView = YDSTextView(maxHeight: maxHeight)
+        textView.backgroundColor = YDSColor.inputFieldElevated
+        textView.isEditable = true
+        textView.isScrollEnabled = false
+        textView.textContainerInset = .init(top: 12, left: 16, bottom: 12, right: 34)
+        textView.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
+        textView.setContentHuggingPriority(.defaultLow - 1, for: .vertical)
+        textView.layer.cornerRadius = 8
+        textView.placeholder = "댓글을 입력해주세요."
+        return textView
     }()
     private let commentButton : UIButton = {
         let button = UIButton()
@@ -87,6 +101,7 @@ final class VoteViewController: BaseViewController {
     @objc func backBarButtonTapped() {
         self.navigationController?.popViewController(animated: true)
     }
+    
     @objc func reportButtonTapped(sender: UIButton) {
         print("신고하기")
         let alert = UIAlertController(title: "댓글 신고", message: "댓글 신고 이유를 작성해주세요.", preferredStyle: .alert)
@@ -105,13 +120,36 @@ final class VoteViewController: BaseViewController {
         present(alert, animated: true)
     }
     @objc func commentEroll() {
-        print("댓글 등록")
+        print("댓글 등록\(commentTextView.text)")
         var commentText: String = ""
-        commentText = commentField.text ?? "error"
-        commentField.resignFirstResponder() //텍스트필드 비활성화
-        commentField.text = ""
+        commentText = commentTextView.text ?? "error"
         postComment(categoryId ?? "categoryId error", commentText) { _ in
             print("댓글 작성 성공")
+        }
+        
+        commentTextView.resignFirstResponder() //텍스트필드 비활성화
+        commentTextView.text = ""
+        commentTextView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(3)
+            $0.height.equalTo(48)
+        }
+    }
+    
+    lazy var hud: JGProgressHUD = {
+        let loader = JGProgressHUD(style: .dark)
+        return loader
+    }()
+    
+    func showLoading() {
+            DispatchQueue.main.async {
+                self.hud.show(in: self.view, animated: true)
+            }
+        }
+
+    func hideLoading() {
+        DispatchQueue.main.async {
+            self.hud.dismiss(animated: true)
         }
     }
     
@@ -172,13 +210,18 @@ final class VoteViewController: BaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
+        commentTextView.delegate = self
+        
         setAddTaget()
+        
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         getVoteView(categoryId ?? "")
-        getComment(categoryId ?? "")
+        getComment(categoryId ?? "",page ?? 0,size ?? 0)
     }
     
     override func setupNavigationBar() {
@@ -211,13 +254,19 @@ final class VoteViewController: BaseViewController {
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.height.equalTo(50)
         }
-        commentField.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(10)
-            $0.top.bottom.equalToSuperview().inset(3)
+        commentTextView.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview()
+            $0.top.equalToSuperview().inset(3)
+            $0.height.equalTo(48)
+        }
+        commentButton.snp.makeConstraints {
+            $0.trailing.equalTo(container.snp.trailing).offset(-10)
+            $0.top.equalTo(commentTextView.snp.top).offset(8)
+            $0.size.equalTo(30)
         }
         
         tableView.snp.makeConstraints {
-            $0.top.equalTo(container.snp.bottom).offset(3)
+            $0.top.equalTo(commentTextView.snp.bottom).offset(3)
             $0.bottom.leading.trailing.equalTo(view.safeAreaLayoutGuide)
         }
     }
@@ -229,9 +278,8 @@ final class VoteViewController: BaseViewController {
         self.view.addSubview(commentLabel)
         self.view.addSubview(commentCount)
         self.view.addSubview(container)
-        container.addSubview(commentField)
-        self.commentField.rightView = commentButton
-        self.commentField.rightViewMode = UITextField.ViewMode.whileEditing
+        container.addSubview(commentTextView)
+        commentTextView.addSubview(commentButton)
         self.view.addSubview(tableView)
     }
     
@@ -240,9 +288,31 @@ final class VoteViewController: BaseViewController {
         tableView.delegate = self
         tableView.separatorInset.left = 20
         tableView.separatorInset.right = 20
-        commentField.delegate = self
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector:#selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+}
+
+extension VoteViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        let size = CGSize(width: view.frame.width, height: .infinity)
+        let estimatedSize = textView.sizeThatFits(size)
+        textView.constraints.forEach { (constraint) in
+            /// 42 이하일때는 더 이상 줄어들지 않게하기
+            if estimatedSize.height <= 42 { }
+            else {
+                if constraint.firstAttribute == .height {
+                    constraint.constant = estimatedSize.height
+                }
+            }
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        //이전 글자 - 선택된 글자 + 새로운 글자(대체될 글자)
+        let newLength = textView.text.count - range.length + text.count
+            if newLength > 100 {
+              return false
+            }
+        return true
     }
 }
 
@@ -258,11 +328,11 @@ extension VoteViewController : UITableViewDataSource {
     }
     // cell 지정
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let num: Int = commentList.count
-        commentCount.text = "\(num)개"
+        commentCount.text = "\(Num)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
-        if (commentList[(num-1)-(indexPath.row)].isUserDeleted == true) {
+
+        if (commentList[indexPath.row].isUserDeleted == true) {
             cell.name.text = nil
             //cell.name.textColor = .red
             cell.badge.text = "탈퇴한 사용자"
@@ -270,11 +340,13 @@ extension VoteViewController : UITableViewDataSource {
             cell.badge.textColor = .darkGray
             
         } else {
-            cell.name.text = commentList[(num-1)-(indexPath.row)].nickname
-            cell.badge.text = commentList[(num-1)-(indexPath.row)].mbti
+            cell.name.text = commentList[indexPath.row].nickname
+            cell.badge.text = commentList[indexPath.row].mbti
+            cell.badge.backgroundColor = UIColor(red: 0.992, green: 0.969, blue: 0.898, alpha: 1)
+            cell.badge.textColor = UIColor(red: 0.746, green: 0.605, blue: 0.183, alpha: 1)
         }
         cell.img.image = UIImage(named: "ppussung")
-        cell.comment.text = commentList[(num-1)-(indexPath.row)].content
+        cell.comment.text = commentList[indexPath.row].content
         cell.selectionStyle = .none
         cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
         
@@ -283,15 +355,16 @@ extension VoteViewController : UITableViewDataSource {
     // swipe delete
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let num: Int = commentList.count
-            let comment = commentList[(num-1)-(indexPath.row)]
+            let comment = commentList[indexPath.row]
             if comment.isOwner {
-                commentList.remove(at: (num-1)-(indexPath.row))
+                commentList.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
                 let commentId: String = comment.commentID
                 deleteComment(categoryId ?? "categoryId error", commentId)  { _ in
                     print("댓글 삭제 성공")
                 }
+                Num -= 1
+                commentCount.text = "\(Num)개"
             } else {
                 // 1. 알람 인스턴스 생성
                 let alert = UIAlertController(title: "댓글 삭제 불가", message: "자신이 작성한 댓글이 아니면 \n 삭제할 수 없습니다.", preferredStyle: .alert)
@@ -338,10 +411,6 @@ extension UITableView {
     }
 }
 
-extension VoteViewController : UITextFieldDelegate {
-    
-}
-
 extension VoteViewController {
     private func getVoteView(_ categoryId: String) {
         NetworkService.shared.voteView.getVoteView(categoryId: categoryId) { [weak self] result in
@@ -352,8 +421,8 @@ extension VoteViewController {
                 
                 if data.category.dday < 0 {
                     self?.voteView.makeVoteViewTypeView(status: .closed)
-                    self?.commentField.isEnabled = false
-                    self?.commentField.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
+                    //self?.commentField.isEnabled = false
+                    //self?.commentField.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
                     if data.choices[0].count > data.choices[1].count {
                         self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
                         self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
@@ -427,9 +496,7 @@ extension VoteViewController {
     }
     
     //댓글 정보 (get)
-    private func getComment(_ categoryId: String) {
-        let page = 0
-        let size = 20
+    private func getComment(_ categoryId: String, _ page: Int, _ size: Int) {
         NetworkService.shared.comment.getComment(categoryId: categoryId, page: page, size: size) { [weak self] result in
             switch result {
             case .success(let response):
@@ -437,8 +504,9 @@ extension VoteViewController {
                 guard let data = response as? CommentResponse else { return }
                 self?.commentList = data.comments.content
                 self?.tableView.reloadData()
+                self?.Num = data.comments.totalElements
                 
-                print("댓글 가져오기")
+                print("댓글 가져오기 page: \(page), size: \(size)")
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
@@ -452,13 +520,33 @@ extension VoteViewController {
             }
         }
     }
+    
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y // frame영역의 origin에 비교했을때의 content view의 현재 origin 위치
+        let maximumOffset = scrollView.contentSize.height - scrollView.frame.size.height // 화면에는 frame만큼 가득 찰 수 있기때문에 frame의 height를 빼준 것
+
+        // 스크롤 할 수 있는 영역보다 더 스크롤된 경우 (하단에서 스크롤이 더 된 경우)
+        if maximumOffset < currentOffset {
+            showLoading() // 데이터 로딩 중 표시
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+//                if (self!.page == 0) {
+//                    self!.page += 1
+//                }
+//                self!.page += 1
+                self!.size += 10
+                self!.getComment(self?.categoryId ?? "",self?.page ?? 0,self!.size ?? 20)
+                self?.hideLoading()
+            }
+        }
+    }
     // 댓글 작성 (post)
     func postComment(_ categoryId: String,_ content: String,
                      completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.comment.postComment(categoryId: categoryId, content: content) { result in
+            print("댓글 작성 \(result)")
             switch result {
             case .success(let response):
-                self.getComment(categoryId)
+                self.getComment(categoryId,self.page,self.size)
                 guard let data = response as? BlankDataResponse else { return }
                 completion(data)
             case .requestErr(let errorResponse):
@@ -476,13 +564,14 @@ extension VoteViewController {
     }
     // 댓글 삭제 (delete)
     func deleteComment(_ categoryId: String,_ commentId: String,
-                     completion: @escaping (BlankDataResponse) -> Void) {
+                       completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.comment.deleteComment(categoryId: categoryId, commentId: commentId) { result in
-            
             switch result {
             case .success(let response):
                 guard let data = response as? BlankDataResponse else { return }
                 completion(data)
+                self.getComment(categoryId,self.page,self.size)
+                print("Num: \(self.Num)")
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
@@ -497,4 +586,3 @@ extension VoteViewController {
         }
     }
 }
-
