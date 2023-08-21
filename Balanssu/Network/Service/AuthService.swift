@@ -46,6 +46,8 @@ final class AuthService {
                 completion(networkResult)
                 
             case .failure(let error):
+                let networkResult = self.judgeStatus(by: error.response?.statusCode ?? 500, error.response?.data ?? Data(), responseData: .postSignIn)
+                completion(networkResult)
                 print(error)
             }
         }
