@@ -39,7 +39,7 @@ class CommentListTableViewCell: UITableViewCell {
         button.setImage(UIImage(named: "report"), for: .normal)
         return button
     }()
-    let comment : UILabel = {
+    let commentLabel : UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoR00", size: 15.0)
         label.numberOfLines = 0
@@ -53,13 +53,18 @@ class CommentListTableViewCell: UITableViewCell {
         addContentView()
         autoLayout()
     }
-    
+
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        reportButton.isHidden = false
+    }
+
     private func addContentView() {
         contentView.addSubview(img)
         contentView.addSubview(name)
         contentView.addSubview(badge)
         contentView.addSubview(reportButton)
-        contentView.addSubview(comment)
+        contentView.addSubview(commentLabel)
     }
         
     private func autoLayout() {
@@ -87,7 +92,7 @@ class CommentListTableViewCell: UITableViewCell {
             $0.trailing.equalToSuperview().inset(25)
         }
         
-        comment.snp.makeConstraints {
+        commentLabel.snp.makeConstraints {
             $0.top.equalTo(img.snp.bottom).offset(8)
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(12)
