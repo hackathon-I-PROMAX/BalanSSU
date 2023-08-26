@@ -18,6 +18,12 @@ enum ImageLiterals {
     static var deadLineCell: UIImage { .load(name: "DeadLineCell") }
     static var deadLineCell2: UIImage { .load(name: "DeadLineCell2") }
     static var deadLineCell3: UIImage { .load(name: "DeadLineCell3") }
+    static var reportDefault: UIImage { .load(name: "report_default") }
+    static var reportCheck: UIImage { .load(name: "report_check") }
+    static var reportLabel: UIImage { .load(name: "reportLabel") }
+    static var reportButtonCheck: UIImage { .load(name: "reportCheckButton_check") }
+    static var reportButtonDefault: UIImage { .load(name: "reportCheckButton_default") }
+
 }
 
 extension UIImage {
