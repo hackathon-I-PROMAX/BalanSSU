@@ -103,22 +103,11 @@ final class VoteViewController: BaseViewController {
     }
     
     @objc func reportButtonTapped(sender: UIButton) {
-        print("신고하기")
-        let alert = UIAlertController(title: "댓글 신고", message: "댓글 신고 이유를 작성해주세요.", preferredStyle: .alert)
-        alert.addTextField(){ (text) in
-            text.placeholder = "예시) 부적절한 어휘 사용"
-        }
-        let okAction = UIAlertAction(title: "신고하기", style: .destructive) { _ in
-            if let txt = alert.textFields?[0].text {
-                print("\(txt)")
-            }
-            return
-        }
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
-        alert.addAction(okAction)
-        alert.addAction(cancelAction)
-        present(alert, animated: true)
+        let reportViewController = ReportViewController()
+        reportViewController.modalPresentationStyle = .overFullScreen
+        present(reportViewController, animated: false)
     }
+
     @objc func commentEroll() {
         print("댓글 등록\(commentTextView.text)")
         var commentText: String = ""
@@ -331,6 +320,8 @@ extension VoteViewController : UITableViewDataSource {
         commentCount.text = "\(Num)개"
         
         let cell = tableView.dequeueReusableCell(withIdentifier: CommentListTableViewCell.identifier, for: indexPath) as! CommentListTableViewCell
+        let comment = commentList[indexPath.row]
+        cell.prepareForReuse()
 
         if (commentList[indexPath.row].isUserDeleted == true) {
             cell.name.text = nil
@@ -346,10 +337,12 @@ extension VoteViewController : UITableViewDataSource {
             cell.badge.textColor = UIColor(red: 0.746, green: 0.605, blue: 0.183, alpha: 1)
         }
         cell.img.image = UIImage(named: "ppussung")
-        cell.comment.text = commentList[indexPath.row].content
+        cell.commentLabel.text = commentList[indexPath.row].content
         cell.selectionStyle = .none
         cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
-        
+        if comment.isOwner == true {
+            cell.reportButton.isHidden = true
+        }
         return cell
     }
     // swipe delete
