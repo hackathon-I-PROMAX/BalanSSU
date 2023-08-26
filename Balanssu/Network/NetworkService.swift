@@ -20,4 +20,5 @@ final class NetworkService {
     let choices = ChoicesService()
     let myPage = MyPageService()
     let comment = CommentService()
+    let report = ReportService()
 }
