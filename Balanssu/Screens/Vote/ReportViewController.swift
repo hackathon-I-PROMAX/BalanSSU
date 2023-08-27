@@ -17,6 +17,16 @@ class ReportViewController: BaseViewController, UITextFieldDelegate {
     var selectedButton: UIButton?
     var emailFilled = false
     
+    init(categoryId: String?, commentId: String?) {
+        super.init(nibName: nil, bundle: nil)
+        self.categoryId = categoryId
+        self.commentId = commentId
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     private let alertView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 8
@@ -116,7 +126,6 @@ class ReportViewController: BaseViewController, UITextFieldDelegate {
     }
     
     @objc func cancelButtonTapped(_ cancelButton: UIButton) {
-        print("eeeeee")
         self.dismiss(animated: false)
     }
     
@@ -306,7 +315,7 @@ extension ReportViewController: UITableViewDelegate, UITableViewDataSource {
         cell.checkButton.isSelected.toggle()
         cell.checkButton.setImage(ImageLiterals.reportCheck, for: .selected)
         cell.checkButton.setImage(ImageLiterals.reportDefault, for: .normal)
-        
+
         if let previousButton = selectedButton {
             previousButton.isSelected = false
         }
@@ -318,9 +327,7 @@ extension ReportViewController: UITableViewDelegate, UITableViewDataSource {
             selectedButton?.isSelected = true
         }
         
-        if indexPath.row == 4 {
-            type = "회원 비방"
-        }
+        self.type = cell.contentLabel.text
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

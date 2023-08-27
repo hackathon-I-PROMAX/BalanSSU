@@ -29,7 +29,6 @@ enum URLConst {
     // MARK: - VoteView
     static let voteView = "/categories"
     static let comment = "/comments"
-    static let report = "/categories"
 
     // MARK: - Choices
     static let choices = "/choices"

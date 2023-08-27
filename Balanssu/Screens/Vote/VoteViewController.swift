@@ -15,6 +15,7 @@ import JGProgressHUD
 final class VoteViewController: BaseViewController {
     
     var categoryId: String?
+    var commentId: String?
     var voteChoice: [choicesData] = []
 
     var entireVote: Int = 0
@@ -103,7 +104,7 @@ final class VoteViewController: BaseViewController {
     }
     
     @objc func reportButtonTapped(sender: UIButton) {
-        let reportViewController = ReportViewController()
+        let reportViewController = ReportViewController(categoryId: self.categoryId, commentId: self.commentId)
         reportViewController.modalPresentationStyle = .overFullScreen
         present(reportViewController, animated: false)
     }
@@ -339,6 +340,8 @@ extension VoteViewController : UITableViewDataSource {
         cell.img.image = UIImage(named: "ppussung")
         cell.commentLabel.text = commentList[indexPath.row].content
         cell.selectionStyle = .none
+        cell.reportButton.tag = indexPath.row
+        self.commentId = commentList[cell.reportButton.tag].commentID
         cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
         if comment.isOwner == true {
             cell.reportButton.isHidden = true
