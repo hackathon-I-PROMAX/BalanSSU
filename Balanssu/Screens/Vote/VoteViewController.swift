@@ -417,8 +417,8 @@ extension VoteViewController {
                 
                 if data.category.dday < 0 {
                     self?.voteView.makeVoteViewTypeView(status: .closed)
-                    //self?.commentField.isEnabled = false
-                    //self?.commentField.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
+                    self?.commentTextView.isEditable = false
+                    self?.commentTextView.placeholder = " 투표가 마감되어 댓글을 작성할 수 없습니다."
                     if data.choices[0].count > data.choices[1].count {
                         self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .voteActive)
                         self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .nonVoteActive)
