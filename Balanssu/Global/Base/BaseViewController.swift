@@ -13,6 +13,8 @@ class BaseViewController: UIViewController {
     
     public var disposeBag: DisposeBag = .init()
 
+    
+    var swipeRecognizer: UISwipeGestureRecognizer!
     let realBackButton = UIButton().then {
         $0.setImage(ImageLiterals.navigationBarBackButton, for: .normal)
         $0.imageView?.contentMode = .scaleAspectFit
@@ -24,6 +26,10 @@ class BaseViewController: UIViewController {
         setConstraints()
         configUI()
         setupNavigationBar()
+
+        swipeRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeAction(_:)))
+        swipeRecognizer.direction = .right
+        self.view.addGestureRecognizer(swipeRecognizer)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -38,7 +44,13 @@ class BaseViewController: UIViewController {
     func setConstraints() {
         
     }
-    
+
+    @objc func swipeAction(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .right {
+            self.navigationController?.popViewController(animated: true)
+        }
+    }
+
     func makeBarButtonItem<T: UIView>(with view: T) -> UIBarButtonItem {
         return UIBarButtonItem(customView: view)
     }
