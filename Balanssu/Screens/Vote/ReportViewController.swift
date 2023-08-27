@@ -132,18 +132,12 @@ class ReportViewController: BaseViewController, UITextFieldDelegate {
     @objc func reportButtonTapped(_ reportButton: UIButton) {
         if reportAgreeButton.isSelected == true && emailFilled == true && selectedButton != nil {
             postReport(categoryId ?? "categoryId error", commentId ?? "commentId error", reportTextView.text ?? "content error", reportEmailTextField.text ?? "email error", type ?? "type error") { _ in
-                print("댓글 신고 성공")
             }
-            print(categoryId)
-            print(commentId)
-            print(reportTextView.text)
-            print(reportEmailTextField.text)
-            print(type)
             self.dismiss(animated: false)
         }
     }
     
-    func postReport(_ categoryId: String, _ commentId: String, _ content: String, _ email: String, _ type: String,
+    private func postReport(_ categoryId: String, _ commentId: String, _ content: String, _ email: String, _ type: String,
                     completion: @escaping (BlankDataResponse) -> Void) {
         NetworkService.shared.report.postReport(categoryId: categoryId, commentId: commentId, content: content, email: email, type: type) { result in
             print("댓글 신고 \(result)")
