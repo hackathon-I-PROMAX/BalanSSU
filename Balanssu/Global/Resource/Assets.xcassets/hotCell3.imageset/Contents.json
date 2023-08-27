@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "hotCell3.png",
+      "filename" : "top3.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "hotCell3 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "hotCell3 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
