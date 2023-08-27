@@ -15,8 +15,8 @@ enum ReportAPI {
 extension ReportAPI: BaseTargetType {
     var path: String {
         switch self {
-        case .postReport:
-            return URLConst.report
+        case let .postReport(categoryId, commentId, _, _, _):
+            return "/categories/\(categoryId)/comments/\(commentId)/reports"
         }
     }
     
@@ -29,10 +29,8 @@ extension ReportAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .postReport(let categoryId, let commentId, let content, let email, let type):
+        case .postReport(_, _, let content, let email, let type):
             return .requestParameters(parameters: [
-                "categoryId": categoryId,
-                "commentId": commentId,
                 "content": content,
                 "email": email,
                 "type": type
