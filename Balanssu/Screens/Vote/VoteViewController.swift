@@ -17,6 +17,7 @@ final class VoteViewController: BaseViewController {
     var categoryId: String?
     var commentId: String?
     var voteChoice: [choicesData] = []
+    var reportAvailable: Bool?
 
     var entireVote: Int = 0
     var voteA: Double = 0
@@ -104,9 +105,19 @@ final class VoteViewController: BaseViewController {
     }
     
     @objc func reportButtonTapped(sender: UIButton) {
-        let reportViewController = ReportViewController(categoryId: self.categoryId, commentId: self.commentId)
-        reportViewController.modalPresentationStyle = .overFullScreen
-        present(reportViewController, animated: false)
+        getReport(self.categoryId ?? " ", self.commentId ?? " ")
+        if self.reportAvailable == true {
+            let reportViewController = ReportViewController(categoryId: self.categoryId, commentId: self.commentId)
+            reportViewController.modalPresentationStyle = .overFullScreen
+            present(reportViewController, animated: false)
+        } else {
+            let alert = UIAlertController(title: "이미 신고한 댓글입니다.", message: nil, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                return
+            }
+            alert.addAction(okAction)
+            present(alert, animated: true)
+        }
     }
 
     @objc func commentEroll() {
@@ -200,6 +211,7 @@ final class VoteViewController: BaseViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .white
         self.navigationItem.leftBarButtonItem = backBarButton
+        self.tableView.reloadData()
         commentTextView.delegate = self
         
         setAddTaget()
@@ -383,9 +395,6 @@ extension VoteViewController : UITableViewDataSource {
 }
 
 extension VoteViewController : UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("select \(indexPath.row)")
-    }
 }
 
 extension UITableView {
@@ -578,6 +587,26 @@ extension VoteViewController {
                 print("networkFail")
             case .pathErr:
                 print("pathErr")
+            }
+        }
+    }
+
+    private func getReport(_ categoryId: String, _ commentId: String) {
+        NetworkService.shared.report.getReport(categoryId: categoryId, commentId: commentId) { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let data = response as? ReportAvailableResponse else { return }
+                self?.reportAvailable = data.isAvailable
+            case .requestErr(let errorResponse):
+                dump(errorResponse)
+                guard let data = errorResponse as? ErrorResponse else { return }
+                print(data.message)
+            case .pathErr:
+                print("pathErrrrrr")
+            case .serverErr:
+                print("serverErr")
+            case .networkFail:
+                print("networkFail")
             }
         }
     }
