@@ -17,3 +17,7 @@ struct Reports: Codable {
     let email: String
     let type: String
 }
+
+struct ReportAvailableResponse: Codable {
+    let isAvailable: Bool
+}
