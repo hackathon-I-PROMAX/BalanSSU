@@ -15,6 +15,7 @@ enum ImageLiterals {
     static var topicCell1: UIImage { .load(name: "TopicCell1") }
     static var topicCell2: UIImage { .load(name: "TopicCell2") }
     static var topicCell3: UIImage { .load(name: "TopicCell3") }
+    static var topicCell4: UIImage { .load(name: "TopicCell4") }
     static var deadLineCell: UIImage { .load(name: "DeadLineCell") }
     static var reportDefault: UIImage { .load(name: "report_default") }
     static var reportCheck: UIImage { .load(name: "report_check") }
