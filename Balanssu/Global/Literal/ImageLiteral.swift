@@ -16,13 +16,21 @@ enum ImageLiterals {
     static var topicCell2: UIImage { .load(name: "TopicCell2") }
     static var topicCell3: UIImage { .load(name: "TopicCell3") }
     static var deadLineCell: UIImage { .load(name: "DeadLineCell") }
-    static var deadLineCell2: UIImage { .load(name: "DeadLineCell2") }
-    static var deadLineCell3: UIImage { .load(name: "DeadLineCell3") }
     static var reportDefault: UIImage { .load(name: "report_default") }
     static var reportCheck: UIImage { .load(name: "report_check") }
     static var reportLabel: UIImage { .load(name: "reportLabel") }
     static var reportButtonCheck: UIImage { .load(name: "reportCheckButton_check") }
     static var reportButtonDefault: UIImage { .load(name: "reportCheckButton_default") }
+    static var teamLabel: UIImage { .load(name: "Team_i_PROMAX") }
+    static var cindy: UIImage { .load(name: "cindy") }
+    static var mike: UIImage { .load(name: "mike") }
+    static var joni: UIImage { .load(name: "joni") }
+    static var javier: UIImage { .load(name: "javier") }
+    static var bibi: UIImage { .load(name: "bibi") }
+    static var joeum: UIImage { .load(name: "joeum") }
+    static var julia: UIImage { .load(name: "julia") }
+    static var nine: UIImage { .load(name: "nine") }
+    static var chloe: UIImage { .load(name: "chloe") }
 
 }
 

@@ -17,9 +17,19 @@ class DeveloperInfoTableViewCell: UITableViewCell {
         return image
     }()
     
-    let nameLabel: UILabel = {
+    let partLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont(name: "AppleSDGothicNeoB00", size: 15.0)
+//        label.text = "Bibi\niOS"
+        label.textColor = .black
+        label.numberOfLines = 0
+
+        return label
+    }()
+
+    let nameLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont(name: "AppleSDGothicNeoM00", size: 15.0)
 //        label.text = "Bibi\niOS"
         label.textColor = .black
         label.numberOfLines = 0
@@ -36,6 +46,7 @@ class DeveloperInfoTableViewCell: UITableViewCell {
     
     private func addContentView() {
         contentView.addSubview(profileImage)
+        contentView.addSubview(partLabel)
         contentView.addSubview(nameLabel)
     }
         
@@ -43,12 +54,17 @@ class DeveloperInfoTableViewCell: UITableViewCell {
         profileImage.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview()
-            $0.width.equalTo(53)
+            $0.width.equalTo(60)
             $0.height.equalTo(60)
         }
-        
+
+        partLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(12)
+            $0.leading.equalTo(profileImage.snp.trailing).offset(20)
+        }
+
         nameLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.top.equalTo(partLabel.snp.bottom).offset(4)
             $0.leading.equalTo(profileImage.snp.trailing).offset(20)
         }
     }
