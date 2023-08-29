@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "TopicCell1.png",
+      "filename" : "TopicCell1.svg",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "TopicCell1 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "TopicCell1 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
