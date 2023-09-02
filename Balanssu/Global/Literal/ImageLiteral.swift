@@ -32,7 +32,7 @@ enum ImageLiterals {
     static var julia: UIImage { .load(name: "icon_julia") }
     static var nine: UIImage { .load(name: "icon_nine") }
     static var chloe: UIImage { .load(name: "icon_chloe") }
-    static var splash: UIImage { .load(name: "icon_splash") }
+    static var splash: UIImage { .load(name: "splash") }
 
 }
 
