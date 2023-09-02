@@ -126,11 +126,14 @@ final class MypageViewController: BaseViewController {
                     } else if row == 1 {
                         self?.navigationController?.pushViewController(DeveloperInfoViewController(), animated: true)
                     } else if row == 2 {
-//                        self?.navigationController?.pushViewController(VC, animated: true)
+                        guard let url = URL(string: URLConst.useTermsURL), UIApplication.shared.canOpenURL(url) else { return }
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else if row == 3 {
-//                        self?.navigationController?.pushViewController(VC, animated: true)
+                        guard let url = URL(string: URLConst.openSourceURL), UIApplication.shared.canOpenURL(url) else { return }
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     } else {
-//                        self?.navigationController?.pushViewController(VC, animated: true)
+                        guard let url = URL(string: URLConst.TermsURL), UIApplication.shared.canOpenURL(url) else { return }
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     }
                 case .account:
                     if row == 0 {

@@ -14,7 +14,7 @@ enum MyPageType: CaseIterable, CustomStringConvertible {
     var contents: [String] {
         switch self {
         case .appInfo:
-            return ["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "개인정보 처리방침"]
+            return ["밸런슈가 궁금해요", "만든 사람들", "서비스 이용약관", "오픈소스 사용정보", "서비스 이용규칙"]
         case .account:
             return ["비밀번호 변경", "계정 관리"]
         }
