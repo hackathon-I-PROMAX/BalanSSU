@@ -80,7 +80,7 @@ extension SplashViewController {
             let updateAlert = UIAlertController(title: "업데이트 알림", message: "필수 업데이트가 있습니다. 업데이트를 하시겠습니까?", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "업데이트", style: .default) { _ in
                 // 밸런슈 AppStore 주소
-                guard let url = URL(string: "https://seohyeon03.notion.site/BalanSSU-9a09bd156e994145a3ca41498b1dccc2?pvs=4") else { return }
+                guard let url = URL(string: "https://www.notion.so/balanssu/BalanSSU-9a09bd156e994145a3ca41498b1dccc2") else { return }
                 if UIApplication.shared.canOpenURL(url) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
