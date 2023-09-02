@@ -16,9 +16,8 @@ final class VoteStackView: UIStackView {
     
     let optionButton = OptionChoiceButton(buttonType: .nonActive)
     let optionLabel = UILabel().then {
-        $0.text = "23%"
         $0.textColor = UIColor(r: 209, g: 209, b: 209)
-        $0.font = UIFont(name: "AppleSDGothicNeoB00", size: 24)
+        $0.font = UIFont(name: "AppleSDGothicNeoB00", size: 23)
         $0.textAlignment = .right
         $0.isHidden = true
     }
