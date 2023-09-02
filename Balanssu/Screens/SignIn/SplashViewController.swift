@@ -44,11 +44,10 @@ final class SplashViewController: UIViewController {
 extension SplashViewController {
     public func needUpdate() -> Bool {
         print("=== needUpdate")
-        /// com.yourssu.YDS-Storybook
         /// net.joeun.Balanssu
         guard
             let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
-            let url = URL(string: "https://itunes.apple.com/lookup?bundleId=com.yourssu.YDS-Storybook"),
+            let url = URL(string: "https://itunes.apple.com/lookup?bundleId=net.joeun.Balanssu"),
             let data = try? Data(contentsOf: url),
             let json = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: Any],
             let results = json["results"] as? [[String: Any]],
@@ -89,7 +88,7 @@ extension SplashViewController {
             updateAlert.addAction(okAction)
             self.present(updateAlert, animated: true)
         } else {
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 2) {
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 3) {
                 let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
                 if UserDefaultHandler.loginStatus == true {
                     sceneDelegate?.changeRootView()
