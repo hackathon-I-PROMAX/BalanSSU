@@ -23,16 +23,16 @@ enum ImageLiterals {
     static var reportButtonCheck: UIImage { .load(name: "reportCheckButton_check") }
     static var reportButtonDefault: UIImage { .load(name: "reportCheckButton_default") }
     static var teamLabel: UIImage { .load(name: "Team_i_PROMAX") }
-    static var cindy: UIImage { .load(name: "cindy") }
-    static var mike: UIImage { .load(name: "mike") }
-    static var joni: UIImage { .load(name: "joni") }
-    static var javier: UIImage { .load(name: "javier") }
-    static var bibi: UIImage { .load(name: "bibi") }
-    static var joeum: UIImage { .load(name: "joeum") }
-    static var julia: UIImage { .load(name: "julia") }
-    static var nine: UIImage { .load(name: "nine") }
-    static var chloe: UIImage { .load(name: "chloe") }
-    static var splash: UIImage { .load(name: "splash") }
+    static var cindy: UIImage { .load(name: "icon_cindy") }
+    static var mike: UIImage { .load(name: "icon_mike") }
+    static var joni: UIImage { .load(name: "icon_joni") }
+    static var javier: UIImage { .load(name: "icon_javier") }
+    static var bibi: UIImage { .load(name: "icon_bibi") }
+    static var joeum: UIImage { .load(name: "icon_joeum") }
+    static var julia: UIImage { .load(name: "icon_julia") }
+    static var nine: UIImage { .load(name: "icon_nine") }
+    static var chloe: UIImage { .load(name: "icon_chloe") }
+    static var splash: UIImage { .load(name: "icon_splash") }
 
 }
 

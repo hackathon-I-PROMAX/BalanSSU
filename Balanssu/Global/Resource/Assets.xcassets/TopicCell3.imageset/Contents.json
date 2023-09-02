@@ -6,10 +6,12 @@
       "scale" : "1x"
     },
     {
+      "filename" : "TopicCell3@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "TopicCell3@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

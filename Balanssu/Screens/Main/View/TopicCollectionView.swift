@@ -27,7 +27,7 @@ final class TopicCollectionView: UITableViewCell {
         flowLayout.scrollDirection = .horizontal
 
         let collectionview = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionview.backgroundColor = .systemCyan
+        collectionview.backgroundColor = .clear
         collectionview.isPagingEnabled = true
         collectionview.showsHorizontalScrollIndicator = false
         return collectionview
