@@ -36,11 +36,11 @@ final class StartViewController: BaseViewController {
         $0.layer.cornerRadius = 8
     }
 
-//    private lazy var findPasswordButton = YDSLabel(style: .body1).then {
-//        $0.text = "비밀번호 찾기"
-//        $0.textColor = UIColor(r: 125, g: 125, b: 125)
-//    }
-        
+    //    private lazy var findPasswordButton = YDSLabel(style: .body1).then {
+    //        $0.text = "비밀번호 찾기"
+    //        $0.textColor = UIColor(r: 125, g: 125, b: 125)
+    //    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         bindAction()
@@ -65,14 +65,14 @@ final class StartViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
     }
-        
+
     override func setViewHierarchy() {
         view.addSubview(logoImageView)
         view.addSubview(signInButton)
         view.addSubview(signUpButton)
-//        view.addSubview(findPasswordButton)
+        //        view.addSubview(findPasswordButton)
     }
-        
+
     override func setConstraints() {
         logoImageView.snp.makeConstraints {
             $0.top.equalTo(view).offset(190)
@@ -92,11 +92,11 @@ final class StartViewController: BaseViewController {
             $0.height.equalTo(48)
         }
         
-//        findPasswordButton.snp.makeConstraints {
-//            $0.bottom.equalToSuperview().offset(-54)
-//            $0.centerX.equalToSuperview()
-//            $0.height.equalTo(17)
-//        }
+        //        findPasswordButton.snp.makeConstraints {
+        //            $0.bottom.equalToSuperview().offset(-54)
+        //            $0.centerX.equalToSuperview()
+        //            $0.height.equalTo(17)
+        //        }
     }
 }
 
