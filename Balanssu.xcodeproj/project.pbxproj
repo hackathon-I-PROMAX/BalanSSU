@@ -30,6 +30,7 @@
 		0283DC3E29A0AF1C00DBC2B5 /* VoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */; };
 		0283DC4629A0B4AE00DBC2B5 /* CommentListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */; };
 		0283DC5029A1F74900DBC2B5 /* BasePaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0283DC4F29A1F74900DBC2B5 /* BasePaddingLabel.swift */; };
+		0286A8EB2AA1E6C200D0BAD6 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0286A8EA2AA1E6C200D0BAD6 /* SplashViewController.swift */; };
 		02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A19D2A1F4AB900E520F6 /* MyPageResponse.swift */; };
 		02D5A1A02A1F4E9000E520F6 /* MyPageAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5A19F2A1F4E9000E520F6 /* MyPageAPI.swift */; };
 		02F893FE29A9A37100681A4D /* VoteListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F893FD29A9A37100681A4D /* VoteListResponse.swift */; };
@@ -134,6 +135,7 @@
 		0283DC3D29A0AF1C00DBC2B5 /* VoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteViewController.swift; sourceTree = "<group>"; };
 		0283DC4529A0B4AE00DBC2B5 /* CommentListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListTableViewCell.swift; sourceTree = "<group>"; };
 		0283DC4F29A1F74900DBC2B5 /* BasePaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasePaddingLabel.swift; sourceTree = "<group>"; };
+		0286A8EA2AA1E6C200D0BAD6 /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		02D5A19D2A1F4AB900E520F6 /* MyPageResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageResponse.swift; sourceTree = "<group>"; };
 		02D5A19F2A1F4E9000E520F6 /* MyPageAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageAPI.swift; sourceTree = "<group>"; };
 		02F893FD29A9A37100681A4D /* VoteListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteListResponse.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			children = (
 				3E691FC229A0A225005CC39F /* StartViewController.swift */,
 				3E691FC429A0A22D005CC39F /* LoginViewController.swift */,
+				0286A8EA2AA1E6C200D0BAD6 /* SplashViewController.swift */,
 			);
 			path = SignIn;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				02D5A19E2A1F4AB900E520F6 /* MyPageResponse.swift in Sources */,
 				0283DC2A29A0A0EF00DBC2B5 /* VoteListTableViewCell.swift in Sources */,
 				020352832A2042C800412493 /* MyPageService.swift in Sources */,
+				0286A8EB2AA1E6C200D0BAD6 /* SplashViewController.swift in Sources */,
 				95B14EE12A593EC8007B5128 /* AppInfoCollectionViewHeaderCell.swift in Sources */,
 				5A73AD742A152C1200F395F0 /* TokenResponse.swift in Sources */,
 				5A99A27B29A1CEAA006FE9B2 /* DeadLineCollectionView.swift in Sources */,
