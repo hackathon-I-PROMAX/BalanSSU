@@ -10,7 +10,13 @@ enum URLConst {
     static let base = "https://balanssu-api.yourssu.com"
     
     static let createQuestion = "https://docs.google.com/forms/d/e/1FAIpQLScUWg9XFi7fnVLgcJux0kTPLB1yzBjzIUU_BdR19XzGjyccMQ/viewform"
-
+    
+    static let useTermsURL = "https://balanssu.notion.site/e097e709922e4fae9c5b363c2bb6e3c4?pvs=4"
+    
+    static let TermsURL = "https://balanssu.notion.site/204fde7ba05945feb42625bcdb0de93f?pvs=4"
+    
+    static let openSourceURL = "https://balanssu.notion.site/72f64bb1cff047a394ffb2e9975642a9"
+    
     // MARK: - signIn
     static let signIn = "/auth/sign-in"
     
