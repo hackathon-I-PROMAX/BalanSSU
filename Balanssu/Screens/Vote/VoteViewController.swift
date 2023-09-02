@@ -16,6 +16,7 @@ final class VoteViewController: BaseViewController {
     
     var categoryId: String?
     var commentId: String?
+    var reportCommentID: String?
     var voteChoice: [choicesData] = []
     var reportAvailable: Bool?
 
@@ -105,19 +106,12 @@ final class VoteViewController: BaseViewController {
     }
     
     @objc func reportButtonTapped(sender: UIButton) {
-        getReport(self.categoryId ?? " ", self.commentId ?? " ")
-        if self.reportAvailable == true {
-            let reportViewController = ReportViewController(categoryId: self.categoryId, commentId: self.commentId)
-            reportViewController.modalPresentationStyle = .overFullScreen
-            present(reportViewController, animated: false)
-        } else {
-            let alert = UIAlertController(title: "이미 신고한 댓글입니다.", message: nil, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "확인", style: .default) { _ in
-                return
-            }
-            alert.addAction(okAction)
-            present(alert, animated: true)
-        }
+        self.reportCommentID = commentList[sender.tag].commentID
+        getReport(self.categoryId ?? " ", reportCommentID ?? " ")
+        print("==== \(sender.tag)")
+        print(self.categoryId)
+        print(self.commentId)
+        print(self.reportAvailable)
     }
 
     @objc func commentEroll() {
@@ -353,7 +347,9 @@ extension VoteViewController : UITableViewDataSource {
         cell.commentLabel.text = commentList[indexPath.row].content
         cell.selectionStyle = .none
         cell.reportButton.tag = indexPath.row
-        self.commentId = commentList[cell.reportButton.tag].commentID
+        print("== index: \(indexPath.row)")
+//        self.commentId = commentList[cell.reportButton.tag].commentID
+//        print("== commentID: \(commentId)")
         cell.reportButton.addTarget(self, action: #selector(reportButtonTapped(sender : )), for: .touchUpInside)
         if comment.isOwner == true {
             cell.reportButton.isHidden = true
@@ -597,6 +593,18 @@ extension VoteViewController {
             case .success(let response):
                 guard let data = response as? ReportAvailableResponse else { return }
                 self?.reportAvailable = data.isAvailable
+                if self?.reportAvailable == true {
+                    let reportViewController = ReportViewController(categoryId: self?.categoryId, commentId: self?.reportCommentID)
+                    reportViewController.modalPresentationStyle = .overFullScreen
+                    self?.present(reportViewController, animated: false)
+                } else {
+                    let alert = UIAlertController(title: "이미 신고한 댓글입니다.", message: nil, preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "확인", style: .default) { _ in
+                        return
+                    }
+                    alert.addAction(okAction)
+                    self?.present(alert, animated: true)
+                }
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
