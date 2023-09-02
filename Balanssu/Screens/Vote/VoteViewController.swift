@@ -183,11 +183,17 @@ final class VoteViewController: BaseViewController {
                     self?.voteView.optionB.optionButton.makeActiveTypeButton(status: .voteActive)
                     self?.voteView.optionA.optionButton.makeActiveTypeButton(status: .nonVoteActive)
                 }
-                self?.entireVote = result.choices[0].count + result.choices[1].count
-                self?.voteA = (Double(result.choices[0].count) / Double(self!.entireVote)) * 100
-                self?.voteB = (Double(result.choices[1].count) / Double(self!.entireVote)) * 100
-                self?.voteView.optionA.optionLabel.text = "\(Int((self!.voteA)))%"
-                self?.voteView.optionB.optionLabel.text = "\(Int((self!.voteB)))%"
+
+                if result.choices[0].count == 0 && result.choices[1].count == 0 {
+                    self?.voteView.optionA.optionLabel.text = "0%"
+                    self?.voteView.optionB.optionLabel.text = "0%"
+                } else {
+                    self?.entireVote = result.choices[0].count + result.choices[1].count
+                    self?.voteA = (Double(result.choices[0].count) / Double(self!.entireVote)) * 100
+                    self?.voteB = (Double(result.choices[1].count) / Double(self!.entireVote)) * 100
+                    self?.voteView.optionA.optionLabel.text = "\(Int((self!.voteA)))%"
+                    self?.voteView.optionB.optionLabel.text = "\(Int((self!.voteB)))%"
+                }
             }
         }
     }
@@ -455,12 +461,17 @@ extension VoteViewController {
                 }
                 self?.voteView.optionA.optionButton.optionTitleLabel.text = data.choices[0].name
                 self?.voteView.optionB.optionButton.optionTitleLabel.text = data.choices[1].name
-                
-                self?.entireVote = data.choices[0].count + data.choices[1].count
-                self?.voteA = (Double(data.choices[0].count) / Double(self!.entireVote)) * 100
-                self?.voteB = (Double(data.choices[1].count) / Double(self!.entireVote)) * 100
-                self?.voteView.optionA.optionLabel.text = "\(Int((self!.voteA)))%"
-                self?.voteView.optionB.optionLabel.text = "\(Int((self!.voteB)))%"
+
+                if data.choices[0].count == 0 && data.choices[1].count == 0 {
+                    self?.voteView.optionA.optionLabel.text = "0%"
+                    self?.voteView.optionB.optionLabel.text = "0"
+                } else {
+                    self?.entireVote = data.choices[0].count + data.choices[1].count
+                    self?.voteA = (Double(data.choices[0].count) / Double(self!.entireVote)) * 100
+                    self?.voteB = (Double(data.choices[1].count) / Double(self!.entireVote)) * 100
+                    self?.voteView.optionA.optionLabel.text = "\(Int((self!.voteA)))%"
+                    self?.voteView.optionB.optionLabel.text = "\(Int((self!.voteB)))%"
+                }
             case .requestErr(let errorResponse):
                 dump(errorResponse)
                 guard let data = errorResponse as? ErrorResponse else { return }
