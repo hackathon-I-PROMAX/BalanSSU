@@ -35,3 +35,7 @@
 > 
 
 ![밸런슈 (3)](https://user-images.githubusercontent.com/25146374/222999862-7fd82113-691b-4812-9ce4-a296bcdc322a.png)
+
+## Contact BalanSSU
+
+balanssu.official@gmail.com
