@@ -38,4 +38,4 @@
 
 ## Contact BalanSSU
 
-balanssu.official@gmail.com
+balanssu.contact@gmail.com
