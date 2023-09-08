@@ -1,3 +1,7 @@
+## Contact BalanSSU
+
+balanssu.contact@gmail.com
+
 # BalanSSU
 
 ![밸런슈](https://user-images.githubusercontent.com/25146374/222999715-1983980f-c8e4-49cb-a92b-d2c7189da071.png)
@@ -36,6 +40,3 @@
 
 ![밸런슈 (3)](https://user-images.githubusercontent.com/25146374/222999862-7fd82113-691b-4812-9ce4-a296bcdc322a.png)
 
-## Contact BalanSSU
-
-balanssu.contact@gmail.com
