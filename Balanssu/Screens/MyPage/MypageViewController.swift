@@ -83,7 +83,7 @@ final class MypageViewController: BaseViewController {
         tableView.register(MypageTableViewCell.classForCoder(), forCellReuseIdentifier: MypageTableViewCell.identifier)
         tableView.backgroundColor = .clear
         tableView.separatorStyle = .none
-        tableView.isScrollEnabled = false
+        tableView.isScrollEnabled = true
         tableView.rowHeight = 50
         return tableView
     }()
