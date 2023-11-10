@@ -2,6 +2,8 @@
 
 ![밸런슈](https://user-images.githubusercontent.com/25146374/222999715-1983980f-c8e4-49cb-a92b-d2c7189da071.png)
 
+### [📱 앱 설치하러 가기](https://apps.apple.com/kr/app/balanssu/id6455787963)
+
 > ***너의 선택을 보여줘! 👀, BalanSSU***
 > 
 > **숭실대학생을 위한 밸런스 게임 커뮤니티**
