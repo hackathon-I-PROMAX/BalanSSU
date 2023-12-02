@@ -12,12 +12,12 @@
 
 # ✨ 프로젝트 주요 화면
 
-![밸런슈 (3)](https://user-images.githubusercontent.com/25146374/222999862-7fd82113-691b-4812-9ce4-a296bcdc322a.png)
+![레포 사진 만들기 복사본qw 001](https://github.com/hackathon-I-PROMAX/BalanSSU/assets/25146374/2979cb70-c6f1-4c99-aaa4-35ccb34dd86d)
 
 ### 주요기능
-- 숭실대 관련 및 여러 질문에 대해 밸런스 게임을 하고, 의견 공유 및 자신의 취향을 알아 볼 수 있습니다!
-- 밸런슈 자체 회원가입을 통해 로그인이 가능
-- 질문 별 투표와 댓글, 신고 기능 제공
+- 밸런슈 자체 로그인/회원가입 기능
+- 숭실대 관련 질문 별 투표와 댓글, 신고 기능
+- 질문 리스트 조회 및 유저 질문 생성 기능
 
 # **⚙️ 개발환경 및 기술스택**
 
@@ -29,10 +29,10 @@
 - `RxMoya` `Moya` `Alamofire RequestInterceptor`
 - `Kingfisher`
 
-# 프로젝트 구조
+# 🫡 TroubleShooting
 
-![밸런슈 (2)](https://user-images.githubusercontent.com/25146374/222999842-bcd8cb38-6e34-4f01-a99f-cbbba73aac63.png)
-- MVVM / MVC 혼용 사용
+- [RxSwift + MVVM으로 회원가입 리펙토링](https://gravel-drink-4ae.notion.site/RxSwift-1ed8afc381424694aa71e568bda6175f?pvs=4)
+- [TableView 안에 CollectionView가 있을 때 Cell의 reuse에 대한 오류 해결](https://github.com/kimkyuchul/SIL/issues/23)
 
 ## Contact BalanSSU
 
