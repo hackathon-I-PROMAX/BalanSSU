@@ -31,7 +31,6 @@
 
 # 🫡 TroubleShooting
 
-- [RxSwift + MVVM으로 회원가입 리펙토링](https://gravel-drink-4ae.notion.site/RxSwift-1ed8afc381424694aa71e568bda6175f?pvs=4)
 - [TableView 안에 CollectionView가 있을 때 Cell의 reuse에 대한 오류 해결](https://github.com/kimkyuchul/SIL/issues/23)
 
 ## Contact BalanSSU
