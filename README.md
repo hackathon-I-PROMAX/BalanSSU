@@ -25,7 +25,7 @@
 - Dependence Manager : SPM
 - Swift Version: 5.8.1
 - `UIKit` `MVC` `MVVM` `RxSwift` `RxCocoa`
-- `Codebase UI` `SnapKit` `Then` `[YDS](https://github.com/yourssu/YDS-iOS)`
+- `Codebase UI` `SnapKit` `Then` `YDS`
 - `RxMoya` `Moya` `Alamofire RequestInterceptor`
 - `Kingfisher`
 
